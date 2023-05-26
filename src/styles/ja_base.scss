@@ -1,0 +1,53 @@
+body { /* IOS禁止微信调整字体大小 */
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
+    -moz-text-size-adjust: 100% !important;
+}
+page {
+    /* 定义一些主题色及基础样式 */
+    font-family: PingFang SC, Arial, Hiragino Sans GB, Microsoft YaHei, sans-serif;
+    font-size: 28rpx;
+	font-weight: Medium;
+    color: $uni-text-color;
+    background-color: $uni-bg-color-grey;
+}
+
+@font-face {
+  font-family: 'D-Dinexp';
+  src: url('./D-DINExp/D-DINExp.otf') format('opentype');
+
+}
+
+.d-font {
+	font-family: D-Dinexp;
+}
+.margin-auto-tb {
+	margin: auto 0;
+}
+.margin-auto-lr {
+	margin: 0 auto;
+}
+.theme-color {
+	color: #FFA24A;
+}
+.theme-bg-color {
+	background-color: #FFA24A;
+}
+.text-c-msg {
+	color: #86909C;
+}
+.text-c-title {
+	color: #1D2129;
+}
+.text-56 {
+	font-size: 56rpx;
+}
+.right-icon {
+	width: 24rpx;
+	height: 24rpx;
+	background-image: url('../static/home/icon_12pt_right@2x.png');
+}
+
+
+
+

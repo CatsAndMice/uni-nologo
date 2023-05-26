@@ -45,7 +45,7 @@
   "uni-app": {
     "scripts": {
       "dev:mp-dingtalk": {
-        "title": "钉钉小程序",
+        "title": "钉钉小程序-dev",
         "env": {
           "UNI_PLATFORM": "mp-alipay",
           "UNI_NODE_ENV": "dev"
@@ -55,7 +55,7 @@
         }
       },
       "test:mp-dingtalk": {
-        "title": "钉钉小程序",
+        "title": "钉钉小程序-test",
         "env": {
           "UNI_PLATFORM": "mp-alipay",
           "UNI_NODE_ENV": "test"

@@ -5,6 +5,17 @@ export const BaseDataKey = {
 	BACK_URL: 'BACK_URL',
 	CONFIG: 'CONFIG'
 }
+//状态缓存字段
+export const BaseCacheKey = {
+	HAS_ENTER:'HAS_ENTER'
+}
+/**
+ * 记录展示类型
+ */
+export const RecordType = {
+  INTEGRAL:'INTEGRAL',
+  JINGDIAN:'JINGDIAN'
+}
 //分页状态
 export const loadingType = {
   LOADING: 'loading',
