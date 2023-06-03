@@ -15,11 +15,18 @@ page {
 @font-face {
   font-family: 'D-Dinexp';
   src: url('./D-DINExp/D-DINExp.otf') format('opentype');
-
+}
+@font-face {
+  font-family: 'D-Dinexp-Bold';
+  src: url('./D-DINExp/D-DINExp-Bold.otf') format('opentype');
 }
 
 .d-font {
 	font-family: D-Dinexp;
+}
+.page {
+	width: 100vw;
+	height: 100vh;
 }
 .margin-auto-tb {
 	margin: auto 0;
@@ -36,18 +43,39 @@ page {
 .text-c-msg {
 	color: #86909C;
 }
+.text-c-msg2 {
+	color: #4E5969;
+}
 .text-c-title {
 	color: #1D2129;
 }
 .text-56 {
 	font-size: 56rpx;
 }
+.line-height-22 {
+	line-height: 44rpx;
+}
 .right-icon {
 	width: 24rpx;
 	height: 24rpx;
 	background-image: url('../static/home/icon_12pt_right@2x.png');
 }
+.w-100 {
+	width: 100%;
+}
+/* 超出隐藏 */
+.line1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-
+.line2 {
+    word-break: break-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
 

@@ -2,8 +2,8 @@
 	<view class="bg-white flex justify-between solid-bottom padding-lr-sm">
 		<view class="margin-lr-sm">
 			<view class="flex margin-top-sm ">
-				<view class="text-c-title ">内部推荐内部推荐内部推荐</view>
-				<view class="margin-left-sm padding-tb-sm cu-tag bg-blue light sm round ">部门级表彰</view>
+				<view class="text-c-title ">花钱啦</view>
+				<!-- <view class="margin-left-sm padding-tb-sm cu-tag bg-blue light sm round ">部门级表彰</view> -->
 			</view>
 			<view class="text-c-msg text-sm margin-tb-sm">
 				 5月18日 12:00
@@ -16,14 +16,28 @@
 </template>
 
 <script>
-	export default {
-		name: "record-cell",
-		data() {
+	import {
+		defineComponent,
+		toRefs,
+		ref,
+		reactive,
+		toRef
+	} from 'vue'
+	export default defineComponent({
+		name: 'record-cell',
+		props: {
+			item:{
+				type:Object,
+				default:null
+			}
+		},
+		setup(props) {
+			const {item} = toRef(props)
 			return {
 
-			};
+			}
 		}
-	}
+	})
 </script>
 
 <style>

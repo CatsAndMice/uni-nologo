@@ -4,13 +4,13 @@
 			<view class="bg-img rank-bg-img-1  " v-if="rankIndex==0"></view>
 			<view class="bg-img rank-bg-img-2  " v-else-if="rankIndex==1"></view>
 			<view class="bg-img rank-bg-img-3" v-else-if="rankIndex==2"></view>
-			<view class="rank-msg" v-else>{{rankIndex}}</view>
+			<view class="rank-msg" v-else>{{rankIndex+1}}</view>
 			<view class="flex ">
-				<view class="cu-avatar radius" :style="'background-image:url('+ iconUrl+')'">
+				<view class="cu-avatar radius" :style="'background-image:url('+ item.avatar+')'">
 				</view>
 				<view class="flex flex-direction margin-left-xs">
-					<view class="rank-user">李云迪</view>
-					<view class="rank-df">数字信息部</view>
+					<view class="rank-user">{{item.name}}</view>
+					<view class="rank-df">{{item.deptName}}</view>
 				</view>
 				
 			</view>
@@ -18,31 +18,30 @@
 		<view class="  ">
 			<view class="flex">
 			<view class="rank-df margin-auto-tb">积分</view>
-			<view class="d-font margin-left-sm rank-score">26000080</view>
+			<view class="d-font margin-left-sm rank-score">{{item.value}}</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-
-			}
-		},
+	import {
+		defineComponent,
+		toRefs,
+		ref,
+		reactive
+	} from 'vue'
+	export default defineComponent({
+		name: 'rank-cell',
 		props: {
 			listType: {
 				type: Number, //0积分榜
 				default: 0
 			},
-			iconUrl: {
-				type: String,
-				default: 'http://file.517070.cn/music/mPhoto/8f0395646e2641618121808a512f8a7b.png'
-			},
-			userName: {
-				type: String,
-				default: '走韵用户'
+
+			item:{
+				type:Object,
+				default:{}
 			},
 			rankIndex: {
 				type: [Number, String],
@@ -50,23 +49,13 @@
 			},
 
 		},
-		computed: {
-			// 控制显示的内容
-			showUserName() {
-				// return this.userName;
-				if (!this.userName) {
-					return '';
-				} else if (this.userName.length > 7) {
-					return this.userName.substr(0, 7) + '...';
-				} else {
-					return this.userName;
-				}
-			}
-		},
-		methods: {
+		setup(props) {
+			return {
 
+			}
 		}
-	}
+	})
+
 </script>
 
 <style lang="scss">

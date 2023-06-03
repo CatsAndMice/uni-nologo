@@ -5,6 +5,7 @@ const Cache = {
 			expire: expire ? (this.time() + expire) : "",
 			value
 		}
+		console.log(data.expire)
 		if (typeof data === 'object')
 			data = JSON.stringify(data);
 		try {

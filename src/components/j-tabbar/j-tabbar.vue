@@ -1,29 +1,29 @@
 <template>
-	<view class="m-tabbar-box m-tabbar fixed" :style="tabbarBoxStyle" v-if="isShowTabBar">
-		<view class="m-tabbar__fill m-tabbar__safe m-tabbar-height" v-if="fill" >
+	<view class="j-tabbar-box j-tabbar fixed" :style="tabbarBoxStyle" v-if="isShowTabBar">
+		<view class="j-tabbar__fill j-tabbar__safe j-tabbar-height" v-if="fill" >
 		</view>
-		<view id="m-tabbar" class="m-tabbar m-tabbar__safe m-tabbar-height" :class="{'fixed': fixed }"
+		<view id="j-tabbar" class="j-tabbar j-tabbar__safe j-tabbar-height" :class="{'fixed': fixed }"
 			:style="tabbarStyle">
-			<view class="m-tabbar__border" v-if="borderStyle === 'black' "></view>
-			<view class="m-tabbar__flex">
-				<view @click="tabChange(index)" v-for="(item, index) in tabbarList" :key="index" class="m-tabbar__item"
+			<view class="j-tabbar__border" v-if="borderStyle === 'black' "></view>
+			<view class="j-tabbar__flex">
+				<view @click="tabChange(index)" v-for="(item, index) in tabbarList" :key="index" class="j-tabbar__item"
 					:class="{
-						'm-tabbar__item__active': index === currentIndex,
+						'j-tabbar__item__active': index === currentIndex,
 					}">
 					<slot :name="`tabbar_index_${index}`">
 						<view v-if="item.iconPath==''">
-							<view class="m-tabbar__label" :style="{'color': index === currentIndex ? tabbarConfig.selectedColor : tabbarConfig.color }">
+							<view class="j-tabbar__label" :style="{'color': index === currentIndex ? tabbarConfig.selectedColor : tabbarConfig.color }">
 								{{ item.text }}
 							</view>
-							<view class="m-tabbar__line" :style="{'background-color': index === currentIndex ? tabbarConfig.selectLineColor : '#ffffff' }"></view>
+							<view class="j-tabbar__line" :style="{'background-color': index === currentIndex ? tabbarConfig.selectLineColor : '#ffffff' }"></view>
 						</view>
 						<view v-else>
-							<view class="m-tabbar__icon">
-								<view class="m-tabbar__badge" v-if="item.dot">{{item.dot}}</view>
+							<view class="j-tabbar__icon">
+								<view class="j-tabbar__badge" v-if="item.dot">{{item.dot}}</view>
 								<image :src="currentIndex === index ? item.selectedIconPath : item.iconPath"
-									class="m-tabbar__icon_img" />
+									class="j-tabbar__icon_img" />
 							</view>
-							<view class="m-tabbar__label"
+							<view class="j-tabbar__label"
 								:style="{'color': index === currentIndex ? tabbarConfig.selectedColor : tabbarConfig.color }">
 								{{ item.text }}
 							</view>
@@ -92,7 +92,7 @@
 			},
 			zIndex: {
 				type: [Number, String],
-				default: 9999
+				default: 1000
 			},
 			beforeChange: {
 				type: Function,
@@ -317,12 +317,12 @@
 </script>
 
 <style lang="scss" scoped>
-	.m-tabbar-box {
+	.j-tabbar-box {
 		position: relative;
-		z-index: 9999;
+		z-index: 1000;
 	}
 
-	.m-tabbar {
+	.j-tabbar {
 		position: relative;
 
 		&.fixed {
@@ -336,27 +336,27 @@
 			padding-bottom: env(safe-area-inset-bottom);
 		}
 	}
-	.m-tabbar-height {
+	.j-tabbar-height {
 		height: calc(98rpx + env(safe-area-inset-bottom));
 	}
-	.m-tabbar__fill {
+	.j-tabbar__fill {
 		pointer-events: none;
 		opacity: 0;
 	}
 
-	.m-tabbar__flex {
+	.j-tabbar__flex {
 		display: flex;
 		flex-direction: row;
 	}
 
-	.m-tabbar__border {
+	.j-tabbar__border {
 		background-color: rgba(0, 0, 0, 0.33);
 		width: 100%;
 		height: 1rpx;
 		transform: scaleY(0.5);
 	}
 
-	.m-tabbar__item {
+	.j-tabbar__item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -364,7 +364,7 @@
 		padding: 4px 0 2px;
 	}
 
-	.m-tabbar__icon {
+	.j-tabbar__icon {
 		width: 88rpx;
 		height: 64rpx;
 		margin-bottom: 6rpx;
@@ -376,7 +376,7 @@
 			height: 100%;
 		}
 
-		.m-tabbar__badge {
+		.j-tabbar__badge {
 			color: #fff;
 			background-color: #f00;
 			border-radius: 20rpx;
@@ -391,12 +391,12 @@
 		}
 	}
 
-	.m-tabbar__label {
+	.j-tabbar__label {
 		margin-top: 10rpx;
 		font-size: 28rpx;
 		font-weight: Medium;
 	}
-	.m-tabbar__line {
+	.j-tabbar__line {
 		// width: 60rpx;
 		height: 4rpx;
 		border-radius: 2rpx;

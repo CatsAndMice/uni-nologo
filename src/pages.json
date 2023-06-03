@@ -3,34 +3,34 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "",//启动登录页
+				"navigationBarTitleText": "", //启动登录页
 				"transparentTitle": "always",
 				"mp-alipay": {
 					"allowsBounceVertical": "NO"
 				}
 			}
-		},{
-		    "path" : "pages/introducePage/introducePage",
-		    "style": {
-		    	"navigationBarTitleText": "",//介绍页
-		    	"transparentTitle": "always",
-		    	"mp-alipay": {
-		    		"allowsBounceVertical": "NO"
-		    	}
-		    }  
-		},{
+		}, {
+			"path": "pages/introducePage/introducePage",
+			"style": {
+				"navigationBarTitleText": "", //介绍页
+				"transparentTitle": "always",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				}
+			}
+		}, {
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "",//首页
+				"navigationBarTitleText": "", //首页
 				"transparentTitle": "always",
 				"mp-alipay": {
 					"allowsBounceVertical": "NO"
 				}
 			}
-		},  {
+		}, {
 			"path": "pages/squarePage/squarePage",
 			"style": {
-				"navigationBarTitleText": "",//广场
+				"navigationBarTitleText": "", //广场
 				"transparentTitle": "always",
 				"mp-alipay": {
 					"allowsBounceVertical": "NO"
@@ -45,43 +45,71 @@
 			}
 
 		}
-	    
-        ,{
-            "path" : "pages/noAuthorityPage/noAuthorityPage",
+
+		, {
+			"path": "pages/noAuthorityPage/noAuthorityPage",
+			"style": {
+				"navigationBarTitleText": "", //无权限页
+				"transparentTitle": "always",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				}
+			}
+
+		}, {
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/commendList/commendList",
+			"style": {
+				"navigationBarTitleText": "表彰明细",
+				"enablePullDownRefresh": true,
+				"mp-alipay": {
+				  "allowsBounceVertical": "NO"
+				}
+			}
+
+		}, {
+			"path": "pages/recordList/recordList",
+			"style": {
+				"navigationBarTitleText": "明细",
+				"enablePullDownRefresh": false,
+				"mp-alipay": {
+				  "allowsBounceVertical": "NO"
+				}
+			}
+
+		},{
+				"path": "pages/myApplyList/myApplyList",
+				"style": {
+					"navigationBarTitleText": "我的申请",
+					"enablePullDownRefresh": true,
+					"mp-alipay": {
+					  "allowsBounceVertical": "NO"
+					}
+				}
+
+			}
+	    ,{
+            "path" : "pages/applyCommendDetail/applyCommendDetail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",//无权限页
-                "transparentTitle": "always",
-                "mp-alipay": {
-                	"allowsBounceVertical": "NO"
-                }
+                "navigationBarTitleText": "申请详情",
+                "enablePullDownRefresh": false,
+				"transparentTitle": "auto"
             }
             
         }
         ,{
-            "path" : "pages/webview/webview",
+            "path" : "pages/applyCommendForm/applyCommendForm",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "个人申请",
                 "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/commendList/commendList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "表彰明细",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-        ,{
-            "path" : "pages/recordList/recordList",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "明细",
-                "enablePullDownRefresh": true
             }
             
         }
@@ -90,8 +118,8 @@
 		"root": "bundle",
 		"pages": [
 			
-		]}
-	],
+		]
+	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "晶点",

@@ -9,6 +9,12 @@ import Cache from '../utils/cache.js'
 import {
 	BaseDataKey
 } from '../utils/type.js'
+import {
+	dingLogin
+} from '../api/authLogin.js'
+import {
+	userData
+} from '../stores/userData.js'
 
 function checkParams(params) {
 	if (typeof params != 'object') return params
@@ -23,25 +29,22 @@ function checkParams(params) {
 // 创建请求实例
 const instance = ajax.create({
 	// 默认配置 
-	baseURL: `${baseURL}/todo/apis/`,
+	baseURL: `${baseURL}/dian/apis/`,
 	timeout: 30000,
 	header: {
 		'content-type': 'application/json'
 	},
 })
-Cache.set(BaseDataKey.TOKEN, '336666')
+
 // 添加请求拦截器
 instance.interceptors.request.use(
 	config => {
 		config.data = checkParams(config.data)
 		config.params = checkParams(config.params)
-
-		config.header.token = Cache.get(BaseDataKey.TOKEN)
+		config.header.Authorization = userData().token
 		return config
 	},
 	error => {
-		// Do something with request error
-		console.log(error) // for debug
 		Promise.reject(error)
 	}
 )
@@ -49,14 +52,30 @@ instance.interceptors.request.use(
 // 添加响应拦截器
 instance.interceptors.response.use(
 	response => {
-		// 对响应数据做些什么
-		console.log('响应成功后', response)
-		return response
+		if (response.data) {
+			const {
+				code,
+				msg
+			} = response.data;
+			if (code == 0 && msg) {
+				uni.showToast({
+					title: msg,
+					icon: "none"
+				})
+			} else if (code == 401) {
+				//重新授权
+				dingLogin();
+			}
+		}
+
+		return Promise.resolve(response.data)
 	},
 	error => {
 		// 对响应错误做些什么
 		console.log('响应错误后', error)
-		return Promise.reject(error)
+		const repData = { code: 666, message: "请求出错" ,data:null}
+		return Promise.resolve(repData)
+		// return Promise.reject(error)
 	}
 )
 

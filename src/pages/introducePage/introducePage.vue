@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<swiper class="screen-swiper  " :current="current" indicator-active-color="#FFA24A"
-			:indicator-dots="true" @change="swiperChange">
+		<swiper class="screen-swiper  " :current="current" indicator-active-color="#FFA24A" :indicator-dots="true"
+			@change="swiperChange">
 			<swiper-item v-for="(item,index) in swiperList" :key="index">
 				<view class="page-swiper">
-					<image class="image-warp" :src="item.url" mode="aspectFit" v-if="item.type=='image'"></image>
+					<image class="image-wrap" :src="item.url" mode="aspectFit" v-if="item.type=='image'"></image>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -27,8 +27,7 @@
 	} from '@/utils/type.js'
 	export default defineComponent({
 		setup() {
-			onLoad(() => {
-			})
+			onLoad(() => {})
 			const current = ref(0);
 			const swiperList = reactive(
 				[{
@@ -44,17 +43,17 @@
 					type: 'image',
 					url: '/static/launch/pic_Bootpage3@2x.png'
 				}])
-				
-				 const swiperChange = (e) => {
-					current.value = e.detail.current
-					console.log(current.value)
-				}
-				const enterMainPage = ()=>{
-					Cache.set(BaseCacheKey.HAS_ENTER,true);
-					uni.reLaunch({
-						url:'/pages/index/index'
-					})
-				}
+
+			const swiperChange = (e) => {
+				current.value = e.detail.current
+				console.log(current.value)
+			}
+			const enterMainPage = () => {
+				Cache.set(BaseCacheKey.HAS_ENTER, true);
+				uni.reLaunch({
+					url: '/pages/index/index'
+				})
+			}
 			return {
 				current,
 				swiperList,
@@ -71,6 +70,7 @@
 		width: 100vw;
 		height: calc(100vh - 300rpx);
 	}
+
 	.enter-btn {
 		width: 440rpx;
 		height: 80rpx;

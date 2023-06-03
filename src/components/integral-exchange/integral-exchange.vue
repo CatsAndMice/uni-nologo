@@ -13,7 +13,7 @@
 					<view class="bg-img exchange-img margin-auto-lr" @tap="clickShowExchange"></view>
 				</view>
 				<view class="flex flex-direction flex-twice">
-					<view class="d-font text-xxl text-bold theme-color text-center margin-bottom-sm">{{jindian}}</view>
+					<view class="d-font text-xxl text-bold theme-color text-center margin-bottom-sm">{{jingdian}}</view>
 					<view class="flex text-center margin-auto-lr" @tap="clickToRecord(RecordType.JINGDIAN)">
 						<view class="text-c-msg text-sm margin-auto-tb">晶点</view>
 						<view class="bg-img right-icon margin-auto-tb"></view>
@@ -22,7 +22,7 @@
 			</view>
 			<view class="flex justify-between margin-bottom margin-lr">
 				<view class="flex-twice">
-					<view class="btn-bg-warp margin-auto-lr " @tap="clickToApplyCommend">
+					<view class="btn-bg-wrap margin-auto-lr " @tap="clickToApplyCommend">
 						<view class="flex margin-lr-sm" style="height: 64rpx;">
 							<image class="margin-auto-tb" src="../../static/home/icon_24pt_jifen@2x.png"
 								style="width: 48rpx;height: 48rpx;"></image>
@@ -32,7 +32,7 @@
 				</view>
 				<view class="flex-sub"></view>
 				<view class="flex-twice">
-					<view class="btn-bg-warp margin-auto-lr " @tap="clickToShop">
+					<view class="btn-bg-wrap margin-auto-lr " @tap="clickToShop">
 						<view class="flex margin-lr-sm" style="height: 64rpx;">
 							<image class="margin-auto-tb" src="../../static/home/icon_24pt_shangcheng@2x.png"
 								style="width: 48rpx;height: 48rpx;"></image>
@@ -51,23 +51,28 @@
 		toRefs,
 		ref
 	} from 'vue'
-	import {RecordType} from '../../utils/type.js'
+	import {
+		RecordType
+	} from '../../utils/type.js'
 	export default defineComponent({
 		name: 'integral-exchange',
+		emits: ['clickShowEModal'],
 		props: {
 			score: {
-				type: String,
-				default: '1230'
+				type: Number,
+				default: 0.0
 			},
-			jindian: {
-				type: String,
-				default: '220.0'
+			jingdian: {
+				type: Number,
+				default: 0.0
 			}
 		},
-		setup(props) {
+		setup(props, {
+			emit
+		}) {
 			const {
 				score,
-				jindian
+				jingdian
 			} = toRefs(props)
 
 			const isClose = ref(false)
@@ -78,8 +83,8 @@
 			}
 			const clickToShop = () => {
 				uni.showToast({
-					title:'功能尚未上线，敬请期待~',
-					icon:'none'
+					title: '功能尚未上线，敬请期待~',
+					icon: 'none'
 				})
 			}
 			const clickToRecord = (type) => {
@@ -88,16 +93,17 @@
 					url: `/pages/recordList/recordList?type=${type}`
 				})
 			}
-			const clickToApplyCommend = ()=>{
+			const clickToApplyCommend = () => {
 				uni.navigateTo({
-					url:'/pages/commendPage/commendPage'
+					url: '/pages/commendPage/commendPage'
 				})
 			}
-			const clickShowExchange = ()=>{
-				uni.showToast({
-					title:'暂无可兑换晶点',
-					icon:'none'
-				})
+			const clickShowExchange = () => {
+				emit('clickShowEModal');
+				// uni.showToast({
+				// 	title:'暂无可兑换晶点',
+				// 	icon:'none'
+				// })
 			}
 			return {
 				clickToRecord,
@@ -117,7 +123,7 @@
 		background-image: url('../../static/home/home_card_duihuan_nor@2x.png');
 	}
 
-	.btn-bg-warp {
+	.btn-bg-wrap {
 		width: 192rpx;
 		height: 64rpx;
 		background-color: #FFF6ED;

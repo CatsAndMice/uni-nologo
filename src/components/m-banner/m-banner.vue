@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="m-banner margin" v-if="!isClose">
+		<view class="m-banner margin" v-if="show">
 			<image class="m-banner-img" :src="img" mode="widthFix" @tap="gotoDetail"></image>
 			<view class="bg-img close-img" @tap="clickClose"></view>
 		</view>
@@ -8,7 +8,8 @@
 </template>
 
 <script>
-	import {
+	import { emit } from 'process'
+import {
 		defineComponent,
 		toRefs,
 		ref,
@@ -16,6 +17,7 @@
 	} from 'vue'
 	export default defineComponent({
 		name: 'm-banner',
+		emits: ['close'],
 		props: {
 			img: {
 				type: String,
@@ -24,26 +26,29 @@
 			link: {
 				type: String,
 				default: 'https://www.baidu.com'
+			},
+			show:{
+				type:Boolean,
+				default:true
 			}
 		},
-		setup(props) {
+		setup(props,{emit}) {
 			const {
 				img,
-				link
+				link,
+				show
 			} = toRefs(props)
 			console.log(img.value)
 			console.log(link.value)
-			const isClose = ref(false)
 			const gotoDetail = () => {
 				uni.navigateTo({
 					url: `/pages/webview/webview?url=${link.value}`
 				})
 			}
 			const clickClose = () => {
-				isClose.value = true;
+				emit('close')
 			}
 			return {
-				isClose,
 				gotoDetail,
 				clickClose
 			}
@@ -54,8 +59,8 @@
 <style lang="scss">
 	.m-banner {
 		position: relative;
+				
 	}
-
 	.m-banner-img {
 		width: 100%;
 		border-radius: 15rpx;
@@ -69,4 +74,5 @@
 		height: 32rpx;
 		background-image: url('../../static/home/home_banner_close@2x.png');
 	}
+
 </style>
