@@ -6,7 +6,7 @@
 			<view class="bg-img rank-bg-img-3" v-else-if="rankIndex==2"></view>
 			<view class="rank-msg" v-else>{{rankIndex+1}}</view>
 			<view class="flex ">
-				<view class="cu-avatar radius" :style="'background-image:url('+ item.avatar+')'">
+				<view class="cu-avatar round" :style="'background-image:url('+ noAvatarDefault(item.avatar)+')'">
 				</view>
 				<view class="flex flex-direction margin-left-xs">
 					<view class="rank-user">{{item.name}}</view>
@@ -17,7 +17,7 @@
 		</view>
 		<view class="  ">
 			<view class="flex">
-			<view class="rank-df margin-auto-tb">积分</view>
+			<view class="rank-df margin-auto-tb">晶点</view>
 			<view class="d-font margin-left-sm rank-score">{{item.value}}</view>
 			</view>
 		</view>
@@ -31,6 +31,9 @@
 		ref,
 		reactive
 	} from 'vue'
+	import {
+		noAvatarDefault
+	} from '../../tools/tool.js'
 	export default defineComponent({
 		name: 'rank-cell',
 		props: {
@@ -51,7 +54,7 @@
 		},
 		setup(props) {
 			return {
-
+				noAvatarDefault
 			}
 		}
 	})

@@ -25,7 +25,8 @@
 		toRefs,
 		unref,
 		ref,
-		reactive
+		reactive,
+		computed
 	} from 'vue'
 	import {
 		getCommendApplyRecord
@@ -105,16 +106,15 @@
 				} = await getCommendApplyRecord(query)
 				if (code == 200) {
 					console.log(data)
-					paging.value.complete([{}]);
+					paging.value.complete(data.data);
 				} else {
 					paging.value.complete(false);
 				}
 			}
 
 			const clickToApplyDetail=(item)=> {
-				console.log('aaaa')
 				uni.navigateTo({
-					url: `/pages/applyCommendDetail/applyCommendDetail?id=${3}`
+					url: `/pages/applyCommendDetail/applyCommendDetail?id=${item.applyRecordId}`
 				})
 			}
 

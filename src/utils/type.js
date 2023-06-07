@@ -23,10 +23,29 @@ export const LoginType = {
  * 记录展示类型
  */
 export const RecordType = {
-  INTEGRAL:'SCORE',
-  JINGDIAN:'JING_MONEY',
+  INTEGRAL:'NONE',
+  JINGDIAN:'SCORE',
   EXPERIENCE:'EXPERIENCE'
 }
+/**
+ * 审核状态
+ */
+export const ApplyStatus = {
+  APPROVED:'APPROVED',
+  REJECT:'REJECT',
+  WAIT:'WAIT'
+}
+/**
+ * 表彰类型
+ */
+export const CommendationType = {
+  COMMEND_DEPT:'部门级表彰',
+  COMMEND_COMPANY:'公司级表彰',
+  COMMEND_PERSONAL:'个人级表彰',
+  COMMEND_UNION:'工会级表彰'
+}
+
+
 //分页状态
 export const loadingType = {
   MORE: 'more',

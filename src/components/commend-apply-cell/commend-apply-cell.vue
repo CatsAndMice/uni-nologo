@@ -5,13 +5,14 @@
 				<view class="flex w-100">
 					<view class="">
 						<view class="margin-auto-lr" style="width: 96rpx;">
-							<view class="cu-avatar lg round "
-								:style="'background-image:url('+ data.commendationIcon +')'"></view>
+							<view class="cu-avatar lg radius "
+								:style="'background-image:url('+ noImageDefault(data.commendationIcon) +')'"></view>
 						</view>
 					</view>
 					<view class="margin-auto-tb ">
 						<view class="margin-left-sm margin-bottom-xs text-c-title text-bold text-lg">
-							{{data.commendationName}}</view>
+							{{data.commendationName}}
+						</view>
 						<view class="margin-left-sm text-c-msg line1" style="max-width: 500rpx;">
 							{{data.commendationDescription}}
 						</view>
@@ -31,6 +32,9 @@
 		reactive,
 		computed
 	} from 'vue'
+	import {
+		noImageDefault
+	} from '../../tools/tool.js'
 	export default defineComponent({
 		name: 'commend-apply-cell',
 		emits: ['clickApply'],
@@ -47,16 +51,16 @@
 				data
 			} = toRefs(props);
 			const clickJump = () => {
-				if(data.isApplying === 'FALSE'){
+				if (data.isApplying === 'FALSE') {
 					uni.showToast({
-						icon:'none',
-						title:'正在申请中'
+						icon: 'none',
+						title: '正在申请中'
 					})
 					return
-				} else if(data.isExceeded === 'TRUE'){
+				} else if (data.isExceeded === 'TRUE') {
 					uni.showToast({
-						icon:'none',
-						title:'超出申请限制'
+						icon: 'none',
+						title: '超出申请限制'
 					})
 					return
 				}
@@ -65,12 +69,13 @@
 			const canApply = computed(() => {
 				if (data.isApplying === 'FALSE' || data.isExceeded === 'TRUE') {
 					return false
-				} 
+				}
 				return true
 			})
 			return {
 				clickJump,
-				canApply
+				canApply,
+				noImageDefault
 			}
 		}
 	})

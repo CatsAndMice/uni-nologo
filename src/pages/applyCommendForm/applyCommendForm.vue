@@ -1,7 +1,11 @@
 <template>
 	<view>
 		<view style="height: 20rpx;"></view>
-		<!-- <commend-info-wrap :item='applyCommend'></commend-info-wrap> -->
+		<commend-info-wrap :icon="applyCommend.commendationIcon?applyCommend.commendationIcon:''"
+			:name="applyCommend.commendationName?applyCommend.commendationName:''"
+			:description="applyCommend.commendationDescription?applyCommend.commendationDescription:''"
+			:experience="applyCommend.experience?applyCommend.experience:''"
+			:score="applyCommend.score?applyCommend.score:''"></commend-info-wrap>
 
 		<view class="margin radius bg-white line-height-22">
 			<view class="margin-sm">
@@ -62,11 +66,17 @@
 	export default defineComponent({
 		props: {},
 		setup(props) {
-			let applyCommend = null
+			const applyCommend = ref({
+				commendationIcon: '',
+				commendationName: '',
+				commendationDescription: '',
+				experience: '',
+				score: ''
+			})
 			onLoad(() => {
-				applyCommend = Cache.get(BaseCacheKey.APPLY_COMMEND)
+				applyCommend.value = Cache.get(BaseCacheKey.APPLY_COMMEND)
 				console.log(applyCommend)
-				if (isUndefined(applyCommend) || isNull(applyCommend)) {
+				if (isUndefined(applyCommend.value) || isNull(applyCommend.value)) {
 					uni.showToast({
 						icon: 'none',
 						title: '未获取到表彰信息'
@@ -77,20 +87,20 @@
 			const reason = ref('')
 			const imgArray = ref([])
 			const clickReqApply = async () => {
-				
+				uni.showLoading()
 				let upImgs = []
 				for (let i = 0; i < unref(imgArray).length; i++) {
 					let item = unref(unref(imgArray)[i])
 					let subitem = {
-						attachmentName:item.name,
-						attachmentUrl:item.url
+						attachmentName: item.name,
+						attachmentUrl: item.url
 					}
 					upImgs.push(subitem)
 				}
 				const reqData = {
 					applyReason: unref(reason),
 					attachments: upImgs,
-					commendationId: applyCommend.commendationId
+					commendationId: unref(applyCommend).commendationId
 				}
 				console.log(reqData)
 				// return
@@ -98,19 +108,20 @@
 					code,
 					data
 				} = await reqCommendApply(reqData)
+				uni.hideLoading()
 				console.log(data)
-				if(code==200){
+				if (code == 200) {
 					uni.showToast({
-						icon:'none',
-						title:'申请提交成功'
+						icon: 'none',
+						title: '申请提交成功'
 					})
-					setTimeout(()=>{
+					setTimeout(() => {
 						uni.navigateBack()
-					},1500)
+					}, 1500)
 				} else {
 					uni.showToast({
-						icon:'none',
-						title:'申请提交失败，请重试'
+						icon: 'none',
+						title: '申请提交失败，请重试'
 					})
 				}
 				//reqCommendApply
@@ -120,11 +131,13 @@
 				console.log(imgArray)
 				uploadImages(e, (upBack) => {
 					console.log(upBack)
-					imgArray.value = [...unref(imgArray), ...[{
-						"name": "aaa.png",
-						"extname": "png",
-						"url": "http://file.517070.cn/music/mPhoto/8f0395646e2641618121808a512f8a7b.png"
-					}]]
+					if(upBack.status){
+						imgArray.value = [...unref(imgArray), ...[{
+							"name": upBack.name,
+							"extname": "png",
+							"url": upBack.url
+						}]]
+					}
 				})
 			}
 			return {

@@ -98,7 +98,7 @@
             "path" : "pages/applyCommendDetail/applyCommendDetail",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "申请详情",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
 				"transparentTitle": "auto"
             }

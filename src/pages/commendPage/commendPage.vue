@@ -51,7 +51,7 @@
 				userInfo
 			} = storeToRefs(userPData)
 			onLoad(() => {
-				reqCommendPersonal()
+				// reqCommendPersonal()
 			})
 			onShow(() => {
 				reqCommendPersonal()

@@ -2,15 +2,19 @@
 	<view class="bg-white flex justify-between solid-bottom padding-lr-sm">
 		<view class="margin-lr-sm">
 			<view class="flex margin-top-sm ">
-				<view class="text-c-title ">花钱啦</view>
-				<!-- <view class="margin-left-sm padding-tb-sm cu-tag bg-blue light sm round ">部门级表彰</view> -->
+				<view class="text-c-title ">{{item.statementDescription}}</view>
+				<template v-if="!(item.commendationType==null)">
+				<view  class="margin-left-sm padding-tb-sm cu-tag  light sm round "
+					:class="tagColor">{{item.commendationType}}</view>
+				</template>
 			</view>
 			<view class="text-c-msg text-sm margin-tb-sm">
-				 5月18日 12:00
+				{{formatDateTimeMDS(item.createTime)}}
 			</view>
 		</view>
 		<view class="flex">
-			<view class="d-font text-bold text-lg text-c-title margin-auto-tb">+1200</view>
+			<view class="d-font text-bold text-lg text-c-title margin-auto-tb">
+				{{item.operatorType=='ADD'?'+':'-'}}{{item.statementValue}}</view>
 		</view>
 	</view>
 </template>
@@ -21,20 +25,41 @@
 		toRefs,
 		ref,
 		reactive,
-		toRef
+		toRef,
+		unref,
+		computed
 	} from 'vue'
+	import{formatDateTimeMDS} from '../../tools/tool.js'
+	import {CommendationType} from '../../utils/type.js'
 	export default defineComponent({
 		name: 'record-cell',
 		props: {
-			item:{
-				type:Object,
-				default:null
+			item: {
+				type: Object,
+				default: null
 			}
 		},
 		setup(props) {
-			const {item} = toRef(props)
-			return {
+			const {
+				item
+			} = toRefs(props)
 
+			const tagColor = computed(() => {
+				if (unref(item).commendationType ==CommendationType.COMMEND_DEPT) {
+					return "bg-blue"
+				} else if (unref(item).commendationType == CommendationType.COMMEND_COMPANY) {
+					return "bg-orange"
+				} else if (unref(item).commendationType == CommendationType.COMMEND_UNION) {
+					return "bg-green"
+				} else if (unref(item).commendationType == CommendationType.COMMEND_PERSONAL) {
+					return "bg-gray"
+				} else {
+					return ""
+				}
+			})
+			return {
+				tagColor,
+				formatDateTimeMDS
 			}
 		}
 	})

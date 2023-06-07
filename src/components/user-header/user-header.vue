@@ -1,19 +1,18 @@
 <template>
 	<view class="margin-lr flex">
 		<view>
-			<view class="cu-avatar round user"
-				:style="'background-image:url('+ 'http://file.517070.cn/music/mPhoto/8f0395646e2641618121808a512f8a7b.png'+')'">
+			<view class="cu-avatar round user" :style="'background-image:url('+ noAvatarDefault(avatar) +')'">
 			</view>
 		</view>
 		<view class="flex flex-direction margin-left-sm">
 			<view class="flex">
-				<view class="text-xl text-bold margin-right-xs">Hi,某某某</view>
-				<view class=" margin-auto-tb text-lv ">Lv2</view>
+				<view class="text-xl text-bold margin-right-xs">Hi,{{name}}</view>
+				<view class=" margin-auto-tb text-lv ">{{level}}</view>
 			</view>
 			<view class="margin-top-xs flex flex-direction">
-				<view class="text-c-msg text-xs">经验值 <span class="margin-left-xs text-sm">98/100</span></view>
-				<view class="cu-progress round " style="width: 240rpx;height: 4rpx;">
-					<view class="theme-bg-color" :style="[{ width:true?'61.8%':''}]"></view>
+				<view class="text-c-msg text-xs ">距下一级还需 {{currentLevelTotalExperience - experience}} 点经验 </view>
+				<view class="cu-progress round margin-top-xs" style="width: 240rpx;height: 4rpx;">
+					<view class="theme-bg-color" :style="[{ width:true?percet:''}]"></view>
 				</view>
 			</view>
 		</view>
@@ -25,16 +24,54 @@
 		defineComponent,
 		toRefs,
 		ref,
-		reactive
+		reactive,
+		computed,
+		unref
 	} from 'vue'
+	import {
+		noAvatarDefault
+	} from '../../tools/tool.js'
 	export default defineComponent({
 		name: 'user-header',
 		props: {
+			name: {
+				type: String,
+				default: '晶点用户'
+			},
+			avatar: {
+				type: String,
+				default: ''
+			},
+			level: {
+				type: String,
+				default: 'Lv0'
+			},
+			experience: {
+				type: Number,
+				default: 0
+			},
+			currentLevelTotalExperience: {
+				type: Number,
+				default: 0
+			}
+
 		},
 		setup(props) {
-	
+			const {
+				experience,
+				currentLevelTotalExperience
+			} = toRefs(props)
+			const percet = computed(() => {
+				if (unref(currentLevelTotalExperience) == 0 || unref(currentLevelTotalExperience) == '') {
+					return '0%'
+				}
+				let data = ((unref(experience) / unref(currentLevelTotalExperience)).toFixed(3)) * 100 +
+					"%"
+				return data
+			})
 			return {
-
+				percet,
+				noAvatarDefault
 			}
 		}
 	})

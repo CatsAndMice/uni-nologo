@@ -15,13 +15,13 @@
 		reactive,
 		computed
 	} from 'vue'
-
+	import {ApplyStatus} from '../../utils/type.js'
 	export default defineComponent({
 		name: 'status-tag',
 		props: {
 			status: {
-				type: Number,
-				default: 0
+				type: String,
+				default: ''
 			}
 		},
 		setup(props) {
@@ -29,18 +29,18 @@
 				status
 			} = toRefs(props)
 			const statusMsg = computed(() => {
-				if (status.value == 0) {
+				if (status.value == ApplyStatus.APPROVED) {
 					return "已通过"
-				} else if (status.value == 1) {
+				} else if (status.value == ApplyStatus.REJECT) {
 					return "已驳回"
 				} else {
 					return "审核中"
 				}
 			})
 			const statusImg = computed(() => {
-				if (status.value == 0) {
+				if (status.value == ApplyStatus.APPROVED) {
 					return "/static/detail/icon_24pt_pass@2x.png"
-				} else if (status.value == 1) {
+				} else if (status.value == ApplyStatus.REJECT) {
 					return "/static/detail/icon_24pt_reject@2x.png"
 				} else {
 					return "/static/detail/icon_24pt_wait@2x.png"

@@ -22,7 +22,8 @@ export const checkStr = (str, type) => {
 		case 'IP': //IP
 			return /((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))/.test(str);
 		case 'date': //日期时间
-			return /^(\d{4})\-(\d{2})\-(\d{2}) (\d{2})(?:\:\d{2}|:(\d{2}):(\d{2}))$/.test(str) || /^(\d{4})\-(\d{2})\-(\d{2})$/
+			return /^(\d{4})\-(\d{2})\-(\d{2}) (\d{2})(?:\:\d{2}|:(\d{2}):(\d{2}))$/.test(str) ||
+				/^(\d{4})\-(\d{2})\-(\d{2})$/
 				.test(str)
 		case 'number': //数字
 			return /^[0-9]$/.test(str);
@@ -164,12 +165,12 @@ export function isObject(value) {
 }
 
 // 字符串超出多少字显示省略号
-export function strOut(str, len=0,type) {
-	type=type||'star';
+export function strOut(str, len = 0, type) {
+	type = type || 'star';
 	var restr = '';
 	if (str) {
 		if (str.length >= len) {
-			restr = str.substring(0, len) + (type=='star'?'***':'...');
+			restr = str.substring(0, len) + (type == 'star' ? '***' : '...');
 		} else {
 			restr = str;
 		}
@@ -274,7 +275,8 @@ export const isCardID = (sId) => {
 	}
 
 	// 出生日期验证
-	var sBirthday = (sId.substr(6, 4) + "-" + Number(sId.substr(10, 2)) + "-" + Number(sId.substr(12, 2))).replace(/-/g,
+	var sBirthday = (sId.substr(6, 4) + "-" + Number(sId.substr(10, 2)) + "-" + Number(sId.substr(12, 2))).replace(
+			/-/g,
 			"/"),
 		d = new Date(sBirthday)
 	if (sBirthday != (d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate())) {
@@ -634,4 +636,58 @@ export const colorToRGB = (val, opa) => {
 	rgbStr = rgbArr.join();
 	rgbStr = 'rgb' + (isOpa ? 'a' : '') + '(' + rgbStr + (isOpa ? ',' + opa : '') + ')';
 	return rgbStr;
+}
+//导出逗号隔开
+export const thousands = (number) => {
+	return number.toLocaleString()
+}
+//时间格式
+export const formatDateTimeMDS = (value) => {
+	if ((value + "").length < 11) {
+		value = value * 1000;
+	}
+	if (!value > 0) {
+		return '';
+	}
+	let currentDate = new Date();
+	let date = new Date();
+	date.setTime(value);
+	let month = date.getMonth() + 1;
+	let hours = date.getHours();
+	if (hours < 10)
+		hours = "0" + hours;
+	let minutes = date.getMinutes();
+	if (minutes < 10)
+		minutes = "0" + minutes;
+	let seconds = date.getSeconds();
+	if (seconds < 10)
+		seconds = "0" + seconds;
+
+	let time = ''
+	if (date.getFullYear() == currentDate.getFullYear()) {
+		time = month + "月" + date.getDate() +
+			"日  " + hours + ":" + minutes;
+	} else {
+		time = date.getFullYear() + "年" + month + "月" + date.getDate() +
+			"日  " + hours + ":" + minutes;
+	}
+	return time;
+}
+//noEmpty
+export const noEmpty = (o) => {
+	return isUndefined(o) ? '' : o
+}
+//默认表彰图片
+export const noImageDefault = (o) => {
+	if(isUndefined(o)||isNull(o)||o==''){
+		return "/static/detail/img_default.png"
+	}
+	return  o
+}
+//默认晶点头像
+export const noAvatarDefault = (o) => {
+	if(isUndefined(o)||isNull(o)||o==''){
+		return "/static/main/avatar_y.png"
+	}
+	return  o
 }

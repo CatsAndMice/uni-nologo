@@ -1,21 +1,28 @@
 <template>
 	<view class="cu-card article">
 		<view class="cu-item shadow min-margin-tb">
-			<view class="flex margin-sm">
-				<view class="text-lg text-bold">{{ item.title }}</view>
-				<view class="margin-left-sm padding-tb-sm cu-tag light sm round " :class="tagColor">{{ tagName }}</view>
-			</view>
-			<view class="flex">
-				<view class="flex-sub">
+			
+			<view class="flex padding-top-sm">
+				<view class="flex-sub margin-tp-xs">
 					<view class="margin-auto-lr" style="width: 96rpx;">
-						<view class="cu-avatar lg round " :style="'background-image:url(' + item.icon + ')'"></view>
+						<view class="cu-avatar lg radius " :style="'background-image:url(' + noImageDefault(item.commendationIcon) + ')'"></view>
 					</view>
 				</view>
-				<view class="flex-treble commend-msg">
-					{{ item.message }}</view>
+			<!-- 	<view class="flex-treble commend-msg">
+					{{ item.message }}</view> -->
+					<view class="flex-treble margin-xs">
+						<view class="flex  ">
+							<view class="text-lg text-bold">{{ item.commendationName }}</view>
+							<view class="margin-left-sm padding-top-sm cu-tag light sm round " :class="tagColor">{{ item.commendationType }}</view>
+							
+						</view>
+						<view class="flex-treble commend-msg line2">{{item.distributeReason}}</view> 
+					</view>
+				
 			</view>
-			<view class="flex justify-end margin-lr-sm">
-				<view class="text-c-msg text-sm">{{ item.time }}</view>
+		
+			<view class="flex justify-end margin-lr-sm margin-top">
+				<view class="text-c-msg text-sm">{{ formatDateTimeMDS(item.distributeTime) }}</view>
 			</view>
 		</view>
 	</view>
@@ -27,50 +34,37 @@ import {
 	toRefs,
 	ref,
 	reactive,
-	computed
+	computed,
+	unref
 } from 'vue'
-
+import {CommendationType} from '../../utils/type.js'
+import{formatDateTimeMDS,noImageDefault} from '../../tools/tool.js'
 export default defineComponent({
 	name: 'get-commend-cell',
 	props: {
 		item: {
 			type: Object,
-			default: {
-				title: '内部推荐',
-				icon: 'http://file.517070.cn/music/mPhoto/8f0395646e2641618121808a512f8a7b.png',
-				type: 2,
-				message: '红红火火恍恍惚惚',
-				time: '2020年5月11日 14:00'
-			}
+			default: null
 		}
 	},
 	setup(props) {
 		const { item } = toRefs(props);
-		const tagName =computed(() => {
-			if (item.type == 0) {
-				return "部门级表彰"
-			} else if (item.type == 1) {
-				return "公司级表彰"
-			} else if (item.type == 2) {
-				return "工会级表彰"
-			} else  {
-				return "员工级表彰"
-			}
-		})
+
 		const tagColor = computed(() => {
-			if (item.type == 0) {
+			if (unref(item).commendationType == CommendationType.COMMEND_DEPT) {
 				return "bg-blue"
-			} else if (item.type == 1) {
+			} else if (unref(item).commendationType == CommendationType.COMMEND_COMPANY) {
 				return "bg-orange"
-			} else if (item.type == 2) {
+			} else if (unref(item).commendationType == CommendationType.COMMEND_UNION) {
 				return "bg-green"
 			} else  {
 				return "bg-gray"
 			}
 		})
 		return {
-			tagName,
-			tagColor
+			tagColor,
+			formatDateTimeMDS,
+			noImageDefault
 		}
 	}
 })
