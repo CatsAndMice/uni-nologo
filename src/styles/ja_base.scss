@@ -40,6 +40,9 @@ page {
 .theme-bg-color {
 	background-color: #FFA24A;
 }
+.bg-theme {
+	background-color: #FFA24A;
+}
 .text-c-msg {
 	color: #86909C;
 }
@@ -60,9 +63,25 @@ page {
 	height: 24rpx;
 	background-image: url('../static/home/icon_12pt_right@2x.png');
 }
+.right-icon-sec {
+	width: 32rpx;
+	height: 32rpx;
+	background-image: url('../static/detail/icon_right_sec.png');
+}
 .w-100 {
 	width: 100%;
 }
+	.margin-lr-12 {
+		margin-left: 24rpx;
+		margin-right: 24rpx;
+	}
+	.margin-tb-16 {
+		margin-top: 32rpx;
+		margin-bottom: 32rpx;
+	}
+	.margin-bottom-16 {
+		margin-bottom: 32rpx;
+	}
 /* 超出隐藏 */
 .line1 {
     overflow: hidden;
@@ -77,5 +96,66 @@ page {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+.padding-24 {
+	padding: 48rpx;
+}
+.margin-top-8 {
+	margin-top: 16rpx;
+}
+.df-warp {
+	width: 80rpx;
+	height: 80rpx;
+}
+.lg-warp {
+	width: 112rpx;
+	height: 112rpx;
+}
+.xl-warp {
+	width: 176rpx;
+	height: 176rpx;
+}
+.radius-lg {
+	border-radius: 16rpx;
+}
+.solidm,
+.solidm-top,
+.solidm-right,
+.solidm-bottom,
+.solidm-left {
+	position: relative;
+}
 
+.solidm::after,
+.solidm-top::after,
+.solidm-right::after,
+.solidm-bottom::after,
+.solidm-left::after {
+	content: " ";
+	width: 200%;
+	height: 200%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-radius: inherit;
+	transform: scale(0.5);
+	transform-origin: 0 0;
+	pointer-events: none;
+	box-sizing: border-box;
+}
 
+.solidm::after {
+	border: 2upx solid rgba(0, 0, 0, 0.1);
+}
+
+.solidm-top::after {
+	border-top: 2upx solid rgba(0, 0, 0, 0.1);
+}
+.solidm-bottom::after {
+	border-bottom: 2upx solid rgba(0, 0, 0, 0.1);
+}
+.solidm-left::after {
+	border-left: 2upx solid rgba(0, 0, 0, 0.1);
+}
+.solidm-right::after {
+	border-right: 2upx solid rgba(0, 0, 0, 0.1);
+}

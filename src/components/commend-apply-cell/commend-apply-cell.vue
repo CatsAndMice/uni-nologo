@@ -1,11 +1,11 @@
 <template>
-	<view class="cu-list menu card-menu " :class="canApply?'un-item':''" @tap="clickJump">
+	<view class="cu-list menu card-menu radius-lg" :class="canApply?'':'un-item'" @tap="clickJump">
 		<view class="cu-item ">
 			<view class="flex justify-between margin-tb w-100">
 				<view class="flex w-100">
 					<view class="">
-						<view class="margin-auto-lr" style="width: 96rpx;">
-							<view class="cu-avatar lg radius "
+						<view class="margin-auto-lr" style="width: 112rpx;">
+							<view class="cu-avatar lg-warp radius bg-white "
 								:style="'background-image:url('+ noImageDefault(data.commendationIcon) +')'"></view>
 						</view>
 					</view>
@@ -13,12 +13,12 @@
 						<view class="margin-left-sm margin-bottom-xs text-c-title text-bold text-lg">
 							{{data.commendationName}}
 						</view>
-						<view class="margin-left-sm text-c-msg line1" style="max-width: 500rpx;">
+						<view class="margin-left-sm margin-top-8 text-c-msg line1" style="max-width: 460rpx;">
 							{{data.commendationDescription}}
 						</view>
 					</view>
 				</view>
-				<view class="bg-img right-icon margin-auto-tb"></view>
+				<view class="bg-img right-icon-sec margin-auto-tb"></view>
 			</view>
 		</view>
 	</view>
@@ -30,7 +30,8 @@
 		toRefs,
 		ref,
 		reactive,
-		computed
+		computed,
+		unref
 	} from 'vue'
 	import {
 		noImageDefault
@@ -51,26 +52,26 @@
 				data
 			} = toRefs(props);
 			const clickJump = () => {
-				if (data.isApplying === 'FALSE') {
+				if (unref(data).isApplying === 'TRUE') {
 					uni.showToast({
 						icon: 'none',
-						title: '正在申请中'
+						title: '申请中，请等待'
 					})
 					return
-				} else if (data.isExceeded === 'TRUE') {
+				} else if (unref(data).isExceeded === 'TRUE') {
 					uni.showToast({
 						icon: 'none',
-						title: '超出申请限制'
+						title: '不可重复申请'
 					})
 					return
 				}
 				emit('clickApply')
 			}
 			const canApply = computed(() => {
-				if (data.isApplying === 'FALSE' || data.isExceeded === 'TRUE') {
-					return false
+				if (unref(data).isApplying === 'FALSE' && unref(data).isExceeded === 'FALSE') {
+					return true
 				}
-				return true
+				return false
 			})
 			return {
 				clickJump,
@@ -97,4 +98,5 @@
 		/* Chrome, Safari, Opera */
 		filter: grayscale(100%);
 	}
+	
 </style>

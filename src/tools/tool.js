@@ -682,7 +682,7 @@ export const noImageDefault = (o) => {
 	if(isUndefined(o)||isNull(o)||o==''){
 		return "/static/detail/img_default.png"
 	}
-	return  o
+	return  encodeURI(o)
 }
 //默认晶点头像
 export const noAvatarDefault = (o) => {

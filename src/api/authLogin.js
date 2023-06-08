@@ -7,7 +7,8 @@ import {
 } from "await-to-js"
 import {
 	isUndefined,
-	isFunction
+	isFunction,
+	isNull
 } from '@/tools/tool.js'
 import {
 	userData
@@ -54,9 +55,12 @@ const getAppId = async (callback) => {
 //钉钉自动登录 
 export const dingLogin = (callback) => {
 	getAppId((appIdRes) => {
-		if (isUndefined(appIdRes)) {
+		console.log(appIdRes)
+		if (isUndefined(appIdRes)||isNull(appIdRes)) {
 			isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+			return
 		}
+		
 		dd.getAuthCode({
 			success: async (res) => {
 				const [err, data] = await to(instance.post(

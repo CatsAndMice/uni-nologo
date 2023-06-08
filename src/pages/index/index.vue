@@ -3,8 +3,8 @@
 		<view style="position: relative;">
 			<view class="bg-img top-bg"></view>
 			<view class="main-wrap">
-				<user-header :avatar='noEmpty(userInfo.avatar)' :name='noEmpty(userInfo.name)' :level='noEmpty(accountInfo.currentLevel)'
-					:experience='noEmpty(accountInfo.experience)'
+				<user-header :avatar='noEmpty(userInfo.avatar)' :name='noEmpty(userInfo.name)'
+					:level='noEmpty(accountInfo.currentLevel)' :experience='noEmpty(accountInfo.experience)'
 					:currentLevelTotalExperience='noEmpty(accountInfo.currentLevelTotalExperience)'></user-header>
 				<view class="margin">
 					<!-- 	<integral-exchange :score='userScore' :jingdian='userJingdian'
@@ -12,7 +12,7 @@
 					<jingdian-wrap :jingdian='noEmpty(accountInfo.totalScore)'></jingdian-wrap>
 				</view>
 
-				<m-banner img="../../static/home/m_banner.png" link="https://www.baidu.com" :show="!hiddenBanner"
+				<m-banner img="../../static/home/m_banner.png" :link="dianWord" :show="!hiddenBanner"
 					@close='closeBanner'></m-banner>
 				<view class="">
 					<view class="flex justify-between margin-lr">
@@ -47,7 +47,8 @@
 		defineComponent,
 		ref,
 		reactive,
-		computed
+		computed,
+		unref
 	} from 'vue'
 	import {
 		userData
@@ -62,11 +63,18 @@
 		getAccountDetail
 	} from '../../api/account'
 	import {
+		getUserInfo
+	} from '../../api/user.js'
+	import {
 		getCommendDistribute
 	} from '../../api/commend'
 	import {
-		noEmpty
+		noEmpty,
+		isUndefined
 	} from '../../tools/tool.js'
+	import {
+		dianWord
+	} from '../../config/app'
 	export default defineComponent({
 		setup() {
 			const tabbar = reactive(TabbarConfig)
@@ -84,18 +92,55 @@
 			const showModal = ref(false)
 			const myCommendsList = ref([])
 			onLoad(() => {
+				//先检查用户信息
+				if (isUndefined(unref(userInfo).userId)) {
+					//先去获取用户信息
+					reqUserInfo()
+					return
+				}
 				reqAccountData()
 				reqMyCommendList()
 			})
+			//获取用户信息
+			const reqUserInfo = async () => {
+				const {
+					code,
+					data
+				} = await getUserInfo({})
+				if (code == 200 && !isUndefined(data.userId)) {
+					userPData.setUserInfo(data)
+					reqAccountData()
+					reqMyCommendList()
+				} else {
+					uni.showModal({
+						title: '提示',
+						content: '获取用户信息失败',
+						confirmText: '重试',
+						cancelText: '取消',
+						success: function(res) {
+							if (res.confirm) {
+								reqUserInfo()
+							} else if (res.cancel) {
+
+							}
+						}
+					});
+				}
+			}
 			//获取用户信息
 			const reqAccountData = async () => {
 				const {
 					code,
 					data
-				} = await getAccountDetail(userInfo.value.userId)
+				} = await getAccountDetail(unref(userInfo).userId)
 				if (code == 200) {
 					console.log(data)
 					userPData.setAccountInfo(data)
+				} else {
+					uni.showToast({
+						icon: 'none',
+						title: '未获取到用户数据，请退出重试'
+					})
 				}
 			}
 			//获取我的表彰列表
@@ -151,7 +196,8 @@
 				myCommendsList,
 				accountInfo,
 				userInfo,
-				noEmpty
+				noEmpty,
+				dianWord
 			}
 		}
 	})

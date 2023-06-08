@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-white flex justify-between solid-bottom padding-lr-sm">
+	<view class="bg-white flex justify-between solidm-bottom padding-lr-sm">
 		<view class="margin-lr-sm">
 			<view class="flex margin-top-sm ">
 				<view class="text-c-title ">{{item.statementDescription}}</view>
@@ -65,6 +65,6 @@
 	})
 </script>
 
-<style>
+<style lang="scss">
 
 </style>

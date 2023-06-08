@@ -1,7 +1,7 @@
 <template>
 	<view class="">
 		<view style="height: 20rpx;"></view>
-		<view class="padding-sm margin-lr bg-white radius" style="height: 108rpx;" @tap="clickToMyApply">
+		<view class="padding-sm margin-lr bg-white radius-lg" style="height: 108rpx;" @tap="clickToMyApply">
 			<view class="flex">
 				<view class="bg-img apply-img margin-right"></view>
 				<view class="text-bold text-lg text-c-title margin-auto-tb">查看我的申请</view>
@@ -97,5 +97,8 @@
 	.apply-wrap {
 		margin-top: 20rpx;
 		margin-bottom: env(safe-area-inset-bottom);
+	}
+	.cu-list+.cu-list {
+		margin-top: 16rpx;
 	}
 </style>

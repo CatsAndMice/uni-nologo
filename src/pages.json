@@ -5,8 +5,10 @@
 			"style": {
 				"navigationBarTitleText": "", //启动登录页
 				"transparentTitle": "always",
+				"navigationBarBackgroundColor":"#FFA24A",
 				"mp-alipay": {
-					"allowsBounceVertical": "NO"
+					"allowsBounceVertical": "NO",
+					"transparentTitle":"always"
 				}
 			}
 		}, {
@@ -30,8 +32,8 @@
 		}, {
 			"path": "pages/squarePage/squarePage",
 			"style": {
-				"navigationBarTitleText": "", //广场
-				"transparentTitle": "always",
+				"navigationBarTitleText": "广场", //广场
+				"transparentTitle": "auto",
 				"mp-alipay": {
 					"allowsBounceVertical": "NO"
 				}

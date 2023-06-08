@@ -7,10 +7,10 @@
 			:experience="applyCommend.experience?applyCommend.experience:''"
 			:score="applyCommend.score?applyCommend.score:''"></commend-info-wrap>
 
-		<view class="margin radius bg-white line-height-22">
+		<view class="margin-lr-12 radius-lg bg-white line-height-22">
 			<view class="margin-sm">
 				<view class="text-c-title text-bold text-lg padding-tb-sm">申请理由</view>
-				<view class="solid radius padding-xs">
+				<view class="solidm radius-lg padding-12">
 					<textarea v-model="reason" class="text-c-msg2" style="height: 224rpx;font-size: 28rpx;"
 						placeholder="请填写申请理由，至少10个字" maxlength="100"></textarea>
 				</view>
@@ -18,15 +18,20 @@
 			<view class="margin-sm padding-bottom">
 				<view class="text-c-title text-bold text-lg padding-tb-sm">申请资料</view>
 				<view>
-					<uni-file-picker ref="files" fileMediatype="image" v-model="imgArray" :auto-upload="false"
-						@select="selectImage"></uni-file-picker>
+					<uni-file-picker ref="files" fileMediatype="image" :image-styles="imageStyle" :sizeType="sizeType" limit='5'
+						 v-model="imgArray" :auto-upload="false"
+						@select="selectImage">
+						<slot name='default'>
+							<image src="/static/home/icon_40pt_plus@2x.png" style="width: 80rpx;height: 80rpx;" mode="widthFix"></image>
+						</slot>
+						</uni-file-picker>
 				</view>
 			</view>
 		</view>
 
-		<view>
+		<view class="margin-tb-16">
 			<view class="bg-img margin-auto-lr" @tap="clickReqApply"
-				style="width: 192rpx;height: 80rpx; background-image: url('../../static/detail/green_button_tijiao@2x.png');">
+				style="width: 194rpx;height: 80rpx; background-image: url('../../static/detail/green_button_tijiao@2x.png');">
 			</view>
 			<view style="height: 98rpx;"></view>
 		</view>
@@ -40,7 +45,8 @@
 		toRefs,
 		ref,
 		reactive,
-		unref
+		unref,
+		computed
 	} from 'vue'
 	import {
 		onLoad,
@@ -66,6 +72,9 @@
 	export default defineComponent({
 		props: {},
 		setup(props) {
+			const {
+				osName
+			} = userData()
 			const applyCommend = ref({
 				commendationIcon: '',
 				commendationName: '',
@@ -84,10 +93,36 @@
 					return
 				}
 			})
+			const sizeType = computed(() => {
+				if (osName == 'ios') {
+					return ['original', 'compressed']
+				} else {
+					return 'compressed'
+				}
+			})
+			const imageStyle = computed(() => {
+				return {
+					"height": 80, // 边框高度
+					"width": 80, // 边框宽度
+					"border": { // 如果为 Boolean 值，可以控制边框显示与否
+						"color": "#eee", // 边框颜色
+						"width": "1px", // 边框宽度
+						"style": "solid", // 边框样式
+						"radius": "10rpx" // 边框圆角，支持百分比
+					}
+				}
+			})
 			const reason = ref('')
 			const imgArray = ref([])
 			const clickReqApply = async () => {
-				uni.showLoading()
+				//检查数据
+				if (unref(reason) == '') {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写申请理由'
+					})
+					return
+				}
 				let upImgs = []
 				for (let i = 0; i < unref(imgArray).length; i++) {
 					let item = unref(unref(imgArray)[i])
@@ -97,6 +132,14 @@
 					}
 					upImgs.push(subitem)
 				}
+				if (upImgs.length == 0) {
+					uni.showToast({
+						icon: 'none',
+						title: '请上传至少一张图片'
+					})
+					return
+				}
+				uni.showLoading()
 				const reqData = {
 					applyReason: unref(reason),
 					attachments: upImgs,
@@ -106,7 +149,8 @@
 				// return
 				const {
 					code,
-					data
+					data,
+					msg
 				} = await reqCommendApply(reqData)
 				uni.hideLoading()
 				console.log(data)
@@ -121,7 +165,7 @@
 				} else {
 					uni.showToast({
 						icon: 'none',
-						title: '申请提交失败，请重试'
+						title: msg ? msg : '申请提交失败，请重试'
 					})
 				}
 				//reqCommendApply
@@ -131,7 +175,7 @@
 				console.log(imgArray)
 				uploadImages(e, (upBack) => {
 					console.log(upBack)
-					if(upBack.status){
+					if (upBack.status) {
 						imgArray.value = [...unref(imgArray), ...[{
 							"name": upBack.name,
 							"extname": "png",
@@ -145,7 +189,9 @@
 				reason,
 				applyCommend,
 				clickReqApply,
-				selectImage
+				selectImage,
+				sizeType,
+				imageStyle
 			}
 		}
 	})
@@ -156,11 +202,17 @@
 		color: #F53F3F;
 	}
 
+	.padding-12 {
+		padding: 24rpx;
+	}
+
 	.icon-del-box {
 		margin: 0 -10rpx 0 0;
-
+		width: 30rpx;
+		height: 30rpx;
 		.icon-del {
 			background-color: #ffffff;
+			width: 20rpx;
 		}
 	}
 </style>

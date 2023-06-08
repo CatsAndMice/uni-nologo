@@ -72,7 +72,8 @@ import {
 		right: 0;
 		width: 32rpx;
 		height: 32rpx;
-		background-image: url('../../static/home/home_banner_close@2x.png');
+		background-image: url('../../static/home/home_banner_close.png');
+		
 	}
 
 </style>

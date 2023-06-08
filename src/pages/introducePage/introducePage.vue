@@ -1,14 +1,18 @@
 <template>
 	<view>
-		<swiper class="screen-swiper  " :current="current" indicator-active-color="#FFA24A" :indicator-dots="true"
-			@change="swiperChange">
-			<swiper-item v-for="(item,index) in swiperList" :key="index">
-				<view class="page-swiper">
-					<image class="image-wrap" :src="item.url" mode="aspectFit" v-if="item.type=='image'"></image>
-				</view>
-			</swiper-item>
-		</swiper>
-		<button v-if="current==2" class="enter-btn" @click="enterMainPage">立即体验</button>
+		<uni-swiper-dot :info="swiperList" :current="current"  mode="dot" :dots-styles="dotsStyles">
+			<swiper class="screen-swiper" @change="swiperChange">
+				<swiper-item v-for="(item,index) in swiperList" :key="index">
+					<view class="page">
+						<view class="page-swiper">
+							<image class="image-wrap" :src="item.url" mode="aspectFit" v-if="item.type=='image'">
+							</image>
+						</view>
+						<button v-if="index==2" class="enter-btn" @click="enterMainPage">立即体验</button>
+					</view>
+				</swiper-item>
+			</swiper>
+		</uni-swiper-dot>
 	</view>
 </template>
 
@@ -29,7 +33,7 @@
 		setup() {
 			onLoad(() => {})
 			const current = ref(0);
-			const swiperList = reactive(
+			const swiperList = ref(
 				[{
 					id: 0,
 					type: 'image',
@@ -43,7 +47,13 @@
 					type: 'image',
 					url: '/static/launch/pic_Bootpage3@2x.png'
 				}])
-
+			const dotsStyles = {
+				bottom:'150',
+				backgroundColor:'rgba(229, 230, 235, 1)',
+				selectedBackgroundColor:'rgba(255, 162, 74, 1)',
+				selectedBorder:'0',
+				border:'0'
+			}
 			const swiperChange = (e) => {
 				current.value = e.detail.current
 				console.log(current.value)
@@ -58,7 +68,8 @@
 				current,
 				swiperList,
 				swiperChange,
-				enterMainPage
+				enterMainPage,
+				dotsStyles
 
 			}
 		}

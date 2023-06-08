@@ -10,6 +10,7 @@ import {
 export const userData = defineStore('userData', {
 	state: () => {
 		return {
+			osName:'',
 			userInfo:Cache.get(BaseDataKey.USER_INFO)?Cache.get(BaseDataKey.USER_INFO):{},
 			accountInfo:Cache.get(BaseDataKey.ACCOUNT_INFO)?Cache.get(BaseDataKey.ACCOUNT_INFO):{},
 			hiddenBanner:Cache.get(BaseCacheKey.HIDDEN_BANNER)?true:false,
@@ -17,6 +18,9 @@ export const userData = defineStore('userData', {
 		}
 	},
 	actions: {
+		setOsName(osName) {
+			this.osName = osName
+		},
 		setUserInfo(userInfo) {
 			this.userInfo = userInfo
 			Cache.set(BaseDataKey.USER_INFO,userInfo);

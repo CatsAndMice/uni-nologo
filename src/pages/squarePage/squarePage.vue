@@ -2,40 +2,27 @@
 	<view class="">
 		<view style="position: relative;">
 			<view class="bg-img top-bg"></view>
-			<z-paging ref="paging" v-model="showList" @query="queryList" :loading-more-enabled="false"
-				default-page-size='15'>
+			<z-paging ref="paging" v-model="showList" @query="queryList" :refresher-enabled="false" :loading-more-enabled="false">
 				<template #top>
-					<view class="content">
-						<view class="nav-msg">广场</view>
-						<view class="title-wrap flex">
-							<view class="bg-img title-image"></view>
-							<view class="title-msg">总晶点榜</view>
-						</view>
-						<view class="margin-lr bg-white " style="height: 80rpx;"></view>
-					</view>
+					<view style="height: 98rpx;"></view>
 				</template>
-				<view class="margin-lr radius">
+				<view class=" margin-lr ">
+				<view class="title-wrap flex">
+					<view class="bg-img title-image"></view>
+					<view class="title-msg">总晶点榜</view>
+				</view>
+
+				<!-- </template> -->
+				<view class="bg-white radius-lg padding-tb">
+					<view class="bg-white" style="height: 80rpx;"></view>
 					<uni-list :border="false">
 						<rank-cell v-for="(item, index) in showList" :key="index" :item="item"
 							:rank-index="index"></rank-cell>
 					</uni-list>
 				</view>
 				<view class="bottom-warp"></view>
-			</z-paging>
-			<!-- 			<view class="content">
-				<view class="nav-msg">广场</view>
-				<view class="list-wrap">
-					<view class="title-wrap flex">
-						<view class="bg-img title-image"></view>
-						<view class="title-msg">总晶点榜</view>
-					</view>
-					<view>
-						<uni-list :border="false">
-							<rank-cell v-for="(item, index) in showList.value" :item="item" :rank-index="index"></rank-cell>
-						</uni-list>
-					</view>
 				</view>
-			</view> -->
+			</z-paging>
 		</view>
 		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
 	</view>
@@ -119,11 +106,6 @@
 		border-top-right-radius: 10rpx;
 	}
 
-	.content {
-		position: relative;
-		width: 100%;
-		padding-top: 68rpx;
-	}
 
 	.nav-msg {
 		font-size: 32rpx;

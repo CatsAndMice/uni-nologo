@@ -320,6 +320,7 @@
 	.j-tabbar-box {
 		position: relative;
 		z-index: 1000;
+		border-top: 2rpx solid #F2F3F5;
 	}
 
 	.j-tabbar {
@@ -365,9 +366,9 @@
 	}
 
 	.j-tabbar__icon {
-		width: 88rpx;
-		height: 64rpx;
-		margin-bottom: 6rpx;
+		width: 112rpx;
+		height: 96rpx;
+		// margin-bottom: 6rpx;
 		position: relative;
 
 		&_img {
@@ -392,7 +393,7 @@
 	}
 
 	.j-tabbar__label {
-		margin-top: 10rpx;
+		margin-top: 26rpx;
 		font-size: 28rpx;
 		font-weight: Medium;
 	}

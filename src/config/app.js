@@ -1,15 +1,13 @@
 const baseURLMap = {
-	test: 'http://172.30.64.30:2010',
+	test: 'http://172.30.64.13:2010',
 	dev: 'http://172.30.64.30:2010',
-	prod: 'http://172.30.64.30:2010'
+	prod: 'http://gateway.ywjasolar.com'
 }
 
 const baseURL = baseURLMap[process.env.UNI_NODE_ENV]
 
-// 阿里云OSS链接
-const ossBase = 'https://goldshop.oss-cn-hangzhou.aliyuncs.com/zhuanpan'
-
+const dianWord = 'https://ky7a0olsjz.feishu.cn/docx/X6fudaSDeo1KSsxFl3TchJRmnwJ'
 export {
 	baseURL,
-	ossBase
+	dianWord
 }

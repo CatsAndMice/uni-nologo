@@ -15,7 +15,7 @@
 					<view class="flex w-100">
 						<view class="">
 							<view class="margin-auto-lr" style="width: 96rpx;">
-								<view class="cu-avatar lg radius "
+								<view class="cu-avatar lg radius bg-white"
 									:style="'background-image:url('+ noImageDefault(data.commendationIcon) +')'">
 								</view>
 							</view>
