@@ -16,9 +16,12 @@ export const uploadImages = async (images,callback) => {
 	} 
 	const config = data
 	for (let i = 0; i < images.tempFilePaths.length; i++) {
+	
 		const path = images.tempFilePaths[i]
 		const splitValues = path.split('/')
-		const name = splitValues[splitValues.length - 1]
+		const nameValues =splitValues[splitValues.length - 1]
+		const nameValue = nameValues.split('.')
+		const name = `${nameValue[0]}.png`
 		const key = `${config.prefixFormat}${name}`
 		uni.uploadFile({
 			url: config.host,

@@ -10,7 +10,7 @@
 				<view class=" margin-auto-tb text-lv ">{{level}}</view>
 			</view>
 			<view class="margin-top-xs flex flex-direction">
-				<view v-if="(currentLevelTotalExperience - experience)>0" class="text-c-msg text-xs ">距下一级还需 {{currentLevelTotalExperience - experience}} 点经验 </view>
+				<view v-if="(currentLevelTotalExperience - experience)>=0" class="text-c-msg text-xs ">距下一级还需 {{currentLevelTotalExperience - experience}} 点经验 </view>
 				<view v-else class="text-c-msg text-xs">恭喜，你已达到最高等级</view>
 				<view class="cu-progress round margin-top-xs" style="width: 240rpx;height: 4rpx;">
 					<view class="theme-bg-color" :style="[{ width:true?percet:''}]"></view>

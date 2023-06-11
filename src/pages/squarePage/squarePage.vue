@@ -17,7 +17,7 @@
 					<view class="bg-white" style="height: 80rpx;"></view>
 					<uni-list :border="false">
 						<rank-cell v-for="(item, index) in showList" :key="index" :item="item"
-							:rank-index="index"></rank-cell>
+						 :showSolid="index==showList.length-1?false:true"	:rank-index="index"></rank-cell>
 					</uni-list>
 				</view>
 				<view class="bottom-warp"></view>

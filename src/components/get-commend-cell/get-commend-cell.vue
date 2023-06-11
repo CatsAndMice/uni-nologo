@@ -1,7 +1,7 @@
 <template>
 	<view class="cu-card article">
-		<view class="cu-item shadow min-margin-tb">
-			<view class="flex justify-between margin-lr-12 margin-top-8">
+		<view class="cu-item shadow min-mp-tb">
+			<view class="flex justify-between margin-lr-12 margin-top-12">
 				<view><text class="text-sm text-c-msg2">获得</text>
 					<view class="margin-left-sm padding-top-sm cu-tag light sm round " :class="tagColor">
 						{{ item.commendationType }}
@@ -31,8 +31,6 @@
 			</view>
 
 			<view class="flex  margin-lr-12 margin-top-8">
-				<!-- <view class="text-c-msg text-sm">{{ formatDateTimeMDS(item.distributeTime) }}</view>
-				 -->
 				<view class=" commend-msg line2">{{item.distributeReason}}</view>
 			</view>
 		</view>
@@ -89,13 +87,15 @@
 </script>
 
 <style lang="scss">
-	.min-margin-tb {
-		margin-top: 10rpx !important;
-		margin-bottom: 5rpx !important;
+	.min-mp-tb {
+		margin-top: 0 !important;
+		padding-bottom: 24rpx !important;
+		margin-bottom: 24rpx !important;
 	}
 
 	.commend-msg {
 		line-height: 44rpx;
 		color: #4E5969;
 	}
+
 </style>

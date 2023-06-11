@@ -12,7 +12,7 @@
 					<jingdian-wrap :jingdian='noEmpty(accountInfo.totalScore)'></jingdian-wrap>
 				</view>
 
-				<m-banner img="../../static/home/m_banner.png" :link="dianWord" :show="!hiddenBanner"
+				<m-banner img="../../static/home/m_banner.png" :link="dianWord" :showClose="false" :show="true"
 					@close='closeBanner'></m-banner>
 				<view class="">
 					<view class="flex justify-between margin-lr">
@@ -26,12 +26,12 @@
 						<view class="commend-wrap">
 							<get-commend-cell v-for="item, index in myCommendsList" :item="item"
 								:key="index"></get-commend-cell>
-							<view v-if="myCommendsList.length == 3" @tap="toCommonedList"
-								class="text-c-msg text-sm text-center margin-tb-sm">查看更多表彰内容<text
+							<view  @tap="toCommonedList" v-if="myCommendsList.length == 3"
+								class="text-c-msg text-sm text-center margin-tb-16">查看更多表彰内容<text
 									class="cuIcon-right text-sm"></text></view>
 						</view>
 					</template>
-					<no-data-wrap v-else :top='150'></no-data-wrap>
+					<no-data-wrap v-else :top='100'></no-data-wrap>
 				</view>
 			</view>
 		</view>
@@ -222,7 +222,7 @@
 	}
 
 	.commend-wrap {
-		margin-top: 10rpx;
+		margin-top: 24rpx;
 		padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
 	}
 </style>

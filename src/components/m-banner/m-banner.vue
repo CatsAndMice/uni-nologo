@@ -2,7 +2,7 @@
 	<view>
 		<view class="m-banner margin" v-if="show">
 			<image class="m-banner-img" :src="img" mode="widthFix" @tap="gotoDetail"></image>
-			<view class="bg-img close-img" @tap="clickClose"></view>
+			<view v-if="showClose" class="bg-img close-img" @tap="clickClose"></view>
 		</view>
 	</view>
 </template>
@@ -28,6 +28,10 @@ import {
 				default: 'https://www.baidu.com'
 			},
 			show:{
+				type:Boolean,
+				default:true
+			},
+			showClose:{
 				type:Boolean,
 				default:true
 			}

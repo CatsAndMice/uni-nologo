@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-white flex justify-between solidm-bottom padding-lr-sm">
+	<view class="bg-white flex justify-between margin-lr-12" :class="showSolid?'solidm-bottom':''">
 		<view class="margin-lr-sm">
 			<view class="flex margin-top-sm ">
 				<view class="text-c-title ">{{item.statementDescription}}</view>
@@ -37,6 +37,10 @@
 			item: {
 				type: Object,
 				default: null
+			},
+			showSolid:{
+				type:Boolean,
+				default:true
 			}
 		},
 		setup(props) {

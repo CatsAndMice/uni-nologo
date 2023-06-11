@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<z-paging ref="paging" v-model="myApplyList" @query="queryList">
+		<z-paging ref="paging" v-model="myApplyList" @query="queryList" empty-view-text="无申请记录">
 			<template #top>
 				<scroll-view scroll-x class=" nav">
 					<view class="flex text-center text-c-msg">
-						<view class="cu-item flex-sub" :class="index==currentIndex?'theme-color':''"
+						<view class="cu-item flex-sub" :class="index==currentIndex?'theme-color font-weight-act':'font-weight-rg'"
 							v-for="(item,index) in tabList" :key="index" @tap="tabSelect(index)" :data-id="index">
 							{{item.name}}
 						</view>
@@ -135,5 +135,13 @@
 	.my-apply-wrap {
 		margin-top: 20rpx;
 		margin-bottom: env(safe-area-inset-bottom);
+	}
+	.font-weight-rg {
+		font-weight: 400;
+		font-size: 28rpx;
+	}
+	.font-weight-act {
+		font-weight: 500;
+		font-size: 32rpx;
 	}
 </style>

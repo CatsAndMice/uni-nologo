@@ -7,16 +7,20 @@
 					<view class="text-center margin">当前积分</view>
 					<view class="d-font text-center text-56  text-bold">{{showCount}}</view>
 				</view>
-				<view class="top-wrap margin-lr  bg-gradual-jingdian flex flex-direction" v-else>
+				<view class="top-wrap margin-lr-12 bg-gradual-score  flex flex-direction" v-else>
 					<view class="text-center margin">当前晶点</view>
 					<view class="d-font text-center text-56  text-bold">{{showCount}}</view>
 				</view>
 			</template>
-			<view class="cu-list radius margin">
-				<view class="cu-item" v-for="item,index in recordList" :key="index">
-					<record-cell :item="item"></record-cell>
+			<template v-if="recordList.length>0">
+				<view class="radius-lg margin-lr-12 margin-top-12 padding-tb-sm  bg-white">
+					<view class="cu-list ">
+						<view class="cu-item" v-for="(item,index) in recordList" :key="index">
+							<record-cell :item="item" :showSolid="index==(recordList.length-1)?false:true"></record-cell>
+						</view>
+					</view>
 				</view>
-			</view>
+			</template>
 		</z-paging>
 
 	</view>

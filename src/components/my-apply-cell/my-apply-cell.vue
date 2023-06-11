@@ -1,11 +1,11 @@
 <template>
-	<view class="cu-list menu card-menu " @tap="clickJump">
+	<view class="cu-list menu card-menu margin-top-8" @tap="clickJump">
 		<view class="cu-item ">
 			<view class="flex flex-direction w-100">
 				<view class="flex justify-between">
 					<view class="flex margin-tb-sm">
 						<view class="text-lg text-bold">{{data.commendationName}}</view>
-						<view class="margin-left-sm padding-tb-sm cu-tag light sm round " :class="tagColor">
+						<view class="margin-left-sm padding-tb-sm cu-tag light sm round text-center " :class="tagColor">
 							{{data.commendationType}}
 						</view>
 					</view>
@@ -99,5 +99,7 @@
 </script>
 
 <style lang="scss">
-
+	.cu-list+.cu-list {
+		margin-top: 16rpx;
+	}
 </style>

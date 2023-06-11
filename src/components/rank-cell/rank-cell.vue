@@ -11,7 +11,7 @@
 				
 			</view>
 		</view>
-		<view class="flex justify-between w-100 solidm-bottom padding-bottom-xs">
+		<view class="flex justify-between w-100  padding-bottom-xs" :class="showSolid?'solidm-bottom':''">
 		<view class="flex flex-direction margin-left-xs ">
 			<view class="rank-user">{{item.name}}</view>
 			<view class="rank-df">{{item.deptName}}</view>
@@ -19,7 +19,7 @@
 		<view class=" margin-auto-tb ">
 			<!-- <view class="flex"> -->
 			<!-- <view class="rank-df margin-auto-tb">晶点</view> -->
-			<view class="d-font margin-auto-tb rank-score">{{item.value}}</view>
+			<view class="d-font margin-auto-tb rank-score margin-lr-12">{{item.value}}</view>
 			<!-- </view> -->
 		</view>
 		</view>
@@ -46,12 +46,16 @@
 
 			item:{
 				type:Object,
-				default:{}
+				default:null
 			},
 			rankIndex: {
 				type: [Number, String],
 				default: 999
 			},
+			showSolid:{
+				type:Boolean,
+				default:true
+			}
 
 		},
 		setup(props) {

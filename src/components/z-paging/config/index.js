@@ -5,5 +5,6 @@ export default {
 	// 'safe-area-inset-bottom':true,
 	'empty-view-img':'/static/home/pic_nodata.png',
 	'empty-view-center':false,
-	'empty-view-style':{'margin-top':'100rpx'}
+	'empty-view-style':{'margin-top':'100rpx'},
+	'loading-more-no-more-text':'无更多数据'
 }

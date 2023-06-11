@@ -73,7 +73,7 @@ instance.interceptors.response.use(
 	error => {
 		// 对响应错误做些什么
 		console.log('响应错误后', error)
-		const repData = { code: 666, message: "请求出错" ,data:null}
+		const repData = { code: 666, msg: "请求出错" ,data:null}
 		return Promise.resolve(repData)
 		// return Promise.reject(error)
 	}

@@ -6,7 +6,7 @@ const baseURLMap = {
 
 const baseURL = baseURLMap[process.env.UNI_NODE_ENV]
 
-const dianWord = 'https://ky7a0olsjz.feishu.cn/docx/X6fudaSDeo1KSsxFl3TchJRmnwJ'
+const dianWord = 'https://alidocs.dingtalk.com/i/p/KxMEGY5q6e1GoQv5KrwmPvqqYQK4lz79?dontjump=true#'
 export {
 	baseURL,
 	dianWord

@@ -116,10 +116,13 @@
 			const imgArray = ref([])
 			const clickReqApply = async () => {
 				//检查数据
-				if (unref(reason) == '') {
+				let reasonStr = unref(reason)
+				reasonStr = reasonStr.replace(/^\s*|\s*$/g,"")
+				console.log(reasonStr)
+				if(reasonStr.length<10){
 					uni.showToast({
 						icon: 'none',
-						title: '请填写申请理由'
+						title: '申请理由至少10个字'
 					})
 					return
 				}
@@ -135,7 +138,7 @@
 				if (upImgs.length == 0) {
 					uni.showToast({
 						icon: 'none',
-						title: '请上传至少一张图片'
+						title: '至少上传1张图片'
 					})
 					return
 				}
