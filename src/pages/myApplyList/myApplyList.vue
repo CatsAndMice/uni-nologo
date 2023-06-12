@@ -92,6 +92,7 @@
 					return ''
 				}
 			} 
+			
 			const queryList = async (pageNo, pageSize) => {
 				let query = {
 					applyStatus:applyStatus(),

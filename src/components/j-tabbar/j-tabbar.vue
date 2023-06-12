@@ -362,12 +362,13 @@
 		flex-direction: column;
 		align-items: center;
 		flex: 1;
-		padding: 4px 0 2px;
+		// padding: 4px 0 2px;
 	}
 
 	.j-tabbar__icon {
-		width: 112rpx;
-		height: 96rpx;
+		width: 90rpx;
+		height: 64rpx;
+		margin-top: 16rpx;
 		// margin-bottom: 6rpx;
 		position: relative;
 

@@ -6,5 +6,6 @@ export default {
 	'empty-view-img':'/static/home/pic_nodata.png',
 	'empty-view-center':false,
 	'empty-view-style':{'margin-top':'100rpx'},
-	'loading-more-no-more-text':'无更多数据'
+	'loading-more-no-more-text':'无更多数据',
+	'empty-view-title-style':{'margin-top':'40rpx'}
 }

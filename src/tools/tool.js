@@ -691,3 +691,10 @@ export const noAvatarDefault = (o) => {
 	}
 	return  o
 }
+//默认方头像
+export const noAvatarDefaultF = (o) => {
+	if(isUndefined(o)||isNull(o)||o==''){
+		return "/static/main/avatar_y_r.png"
+	}
+	return  o
+}

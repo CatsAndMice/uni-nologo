@@ -90,7 +90,7 @@
 	.min-mp-tb {
 		margin-top: 0 !important;
 		padding-bottom: 24rpx !important;
-		margin-bottom: 24rpx !important;
+		margin-bottom: 16rpx !important;
 	}
 
 	.commend-msg {

@@ -1,17 +1,17 @@
 <template>
-	<view class="flex margin-xs ">
+	<view class=" padding-tb-12 margin-lr-8" :class="showSolid?'solidm-bottom':''">
+		<view class="flex">
 		<view class="flex">
 			<view class="bg-img rank-bg-img-1  " v-if="rankIndex==0"></view>
 			<view class="bg-img rank-bg-img-2  " v-else-if="rankIndex==1"></view>
 			<view class="bg-img rank-bg-img-3" v-else-if="rankIndex==2"></view>
 			<view class="rank-msg" v-else>{{rankIndex+1}}</view>
 			<view class="flex ">
-				<view class="cu-avatar bg-white" :style="'background-image:url('+ noAvatarDefault(item.avatar)+')'">
+				<view class="cu-avatar bg-white margin-auto-tb" :style="'background-image:url('+ noAvatarDefaultF(item.avatar)+')'">
 				</view>
-				
 			</view>
 		</view>
-		<view class="flex justify-between w-100  padding-bottom-xs" :class="showSolid?'solidm-bottom':''">
+		<view class="flex justify-between w-100  margin-auto-tb" >
 		<view class="flex flex-direction margin-left-xs ">
 			<view class="rank-user">{{item.name}}</view>
 			<view class="rank-df">{{item.deptName}}</view>
@@ -23,6 +23,8 @@
 			<!-- </view> -->
 		</view>
 		</view>
+		</view>
+		<!-- <view style="height: 2rpx; margin-left: 200rpx;" class="bg-red" ></view> -->
 	</view>
 </template>
 
@@ -34,7 +36,7 @@
 		reactive
 	} from 'vue'
 	import {
-		noAvatarDefault
+		noAvatarDefaultF
 	} from '../../tools/tool.js'
 	export default defineComponent({
 		name: 'rank-cell',
@@ -60,7 +62,7 @@
 		},
 		setup(props) {
 			return {
-				noAvatarDefault
+				noAvatarDefaultF
 			}
 		}
 	})

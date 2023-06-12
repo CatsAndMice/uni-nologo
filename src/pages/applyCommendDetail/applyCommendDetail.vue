@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="page">
 		<view style="height: 88rpx;"></view>
 		<status-tag :status='applyCommend.applyStatus'></status-tag>
 		<commend-info-wrap :icon="applyCommend.commendationIcon?applyCommend.commendationIcon:''"

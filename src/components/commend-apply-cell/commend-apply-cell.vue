@@ -10,10 +10,10 @@
 						</view>
 					</view>
 					<view class="margin-auto-tb ">
-						<view class="margin-left-sm margin-bottom-xs text-c-title text-bold text-lg">
+						<view class="margin-left-sm line-height-24 text-c-title text-bold text-lg">
 							{{data.commendationName}}
 						</view>
-						<view class="margin-left-sm margin-top-8 text-c-msg line1" style="max-width: 460rpx;">
+						<view class="margin-left-sm margin-top-8 line-height-22 text-c-msg line1" style="max-width: 460rpx;">
 							{{data.commendationDescription}}
 						</view>
 					</view>

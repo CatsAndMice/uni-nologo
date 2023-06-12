@@ -146,7 +146,7 @@
 
 		.title-msg {
 			font-size: 32rpx;
-			font-weight: Medium;
+			font-weight: 500;
 			margin-top: 40rpx;
 			margin-left: 20rpx;
 			line-height: 80rpx;

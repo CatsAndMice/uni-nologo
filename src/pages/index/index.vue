@@ -27,7 +27,7 @@
 							<get-commend-cell v-for="item, index in myCommendsList" :item="item"
 								:key="index"></get-commend-cell>
 							<view  @tap="toCommonedList" v-if="myCommendsList.length == 3"
-								class="text-c-msg text-sm text-center margin-tb-16">查看更多表彰内容<text
+								class="text-c-msg text-sm text-center margin-top-8 margin-bottom-16">查看更多表彰内容<text
 									class="cuIcon-right text-sm"></text></view>
 						</view>
 					</template>
