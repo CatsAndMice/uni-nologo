@@ -13,6 +13,10 @@
  */
 
 /* 颜色变量 */
+/* 晶点基础配置定义 */
+$jd-theme-color: #FFA24A;
+$jd-text-msg-color: #86909C;
+$jd-text-title-color: #1D2129;
 
 /* 行为相关颜色 */
 $uni-color-primary: #007aff;
@@ -29,7 +33,7 @@ $uni-text-color-disable: #c0c0c0;
 
 /* 背景颜色 */
 $uni-bg-color: #fff;
-$uni-bg-color-grey: #f8f8f8;
+$uni-bg-color-grey: #F7F8FA;
 $uni-bg-color-hover: #f1f1f1; // 点击状态颜色
 $uni-bg-color-mask: rgba(0, 0, 0, 0.4); // 遮罩颜色
 

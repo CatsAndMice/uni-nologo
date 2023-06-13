@@ -27,6 +27,8 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-3070920230324001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-3070920230324001",
     "@dcloudio/uni-ui": "^1.4.26",
+    "anymock-jsbridge": "^2.2.1-beta.0",
+    "await-to-js": "^3.0.0",
     "pinia": "^2.0.34",
     "uni-ajax": "^2.5.1",
     "vue": "^3.2.45",
@@ -45,7 +47,7 @@
   "uni-app": {
     "scripts": {
       "dev:mp-dingtalk": {
-        "title": "钉钉小程序",
+        "title": "钉钉小程序-dev",
         "env": {
           "UNI_PLATFORM": "mp-alipay",
           "UNI_NODE_ENV": "dev"
@@ -55,7 +57,7 @@
         }
       },
       "test:mp-dingtalk": {
-        "title": "钉钉小程序",
+        "title": "钉钉小程序-test",
         "env": {
           "UNI_PLATFORM": "mp-alipay",
           "UNI_NODE_ENV": "test"

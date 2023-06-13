@@ -1,12 +1,11 @@
 const Cache = {
 	//设置缓存(expire为缓存时效)
 	set(key, value, expire) {
-		
 		let data = {
 			expire: expire ? (this.time() + expire) : "",
 			value
 		}
-		
+		console.log(data.expire)
 		if (typeof data === 'object')
 			data = JSON.stringify(data);
 		try {
