@@ -111,10 +111,9 @@
 					data
 				} = await getAccountStatement(query)
 				if (code == 200) {
-					console.log(data)
-					paging.value.complete(data.data);
+					paging.value.complete(data.data)
 				} else {
-					paging.value.complete(false);
+					paging.value.complete(false)
 				}
 			}
 

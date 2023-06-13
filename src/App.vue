@@ -2,8 +2,10 @@
 	import {
 		userData
 	} from './stores/userData.js'
+	import { checkUpdateVersion }  from './tools/dd_update.js'
 	export default {
 		onLaunch: function() {
+			checkUpdateVersion()
 			console.log('App Launch')
 			var res = uni.getSystemInfoSync();
 			console.log(res)

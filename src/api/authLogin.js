@@ -55,7 +55,6 @@ const getAppId = async (callback) => {
 //钉钉自动登录 
 export const dingLogin = (callback) => {
 	getAppId((appIdRes) => {
-		console.log(appIdRes)
 		if (isUndefined(appIdRes)||isNull(appIdRes)) {
 			isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 			return

@@ -7,7 +7,7 @@
 			<view class="bg-img rank-bg-img-3" v-else-if="rankIndex==2"></view>
 			<view class="rank-msg" v-else>{{rankIndex+1}}</view>
 			<view class="flex ">
-				<view class="cu-avatar bg-white margin-auto-tb" :style="'background-image:url('+ noAvatarDefaultF(item.avatar)+')'">
+				<view class="cu-avatar bg-white margin-auto-tb radius" :style="'background-image:url('+ noAvatarDefaultF(item.avatar)+')'">
 				</view>
 			</view>
 		</view>

@@ -131,15 +131,15 @@
 			const reqAccountData = async () => {
 				const {
 					code,
+					msg,
 					data
 				} = await getAccountDetail(unref(userInfo).userId)
 				if (code == 200) {
-					console.log(data)
 					userPData.setAccountInfo(data)
 				} else {
 					uni.showToast({
 						icon: 'none',
-						title: '未获取到用户数据，请退出重试'
+						title: msg?msg:'未获取到用户数据'
 					})
 				}
 			}

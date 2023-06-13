@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-white flex justify-between margin-lr-12" :class="showSolid?'solidm-bottom':''">
+	<view class="bg-white flex justify-between margin-lr-12 margin-tb-2" :class="showSolid?'solidm-bottom':''">
 		<view class="margin-lr-sm">
 			<view class="flex margin-top-sm ">
 				<view class="text-c-title ">{{item.statementDescription}}</view>
