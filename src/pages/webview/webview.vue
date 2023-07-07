@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<web-view :src="url"></web-view>
+		<web-view :src="url" :enhanced="true"></web-view>
 	</view>
 </template>
 
