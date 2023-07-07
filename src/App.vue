@@ -2,9 +2,18 @@
 	import {
 		userData
 	} from './stores/userData.js'
-	import { checkUpdateVersion }  from './tools/dd_update.js'
+	import {
+		checkUpdateVersion
+	} from './tools/dd_update.js'
 	export default {
-		onLaunch: function() {
+		onLaunch: function(e) {
+			let param = dd.getLaunchOptionsSync();
+			console.log(JSON.stringify(param));
+			uni.showToast({
+				title: JSON.stringify(param),
+				icon: 'none',
+				duration: 3000
+			})
 			checkUpdateVersion()
 			console.log('App Launch')
 			var res = uni.getSystemInfoSync();

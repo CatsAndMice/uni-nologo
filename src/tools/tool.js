@@ -682,19 +682,19 @@ export const noImageDefault = (o) => {
 	if(isUndefined(o)||isNull(o)||o==''){
 		return "/static/detail/img_default.png"
 	}
-	return  encodeURI(o)
+	return `'${encodeURI(o).replace(/\s/g, encodeURIComponent(' '))}'`
 }
 //默认晶点头像
 export const noAvatarDefault = (o) => {
 	if(isUndefined(o)||isNull(o)||o==''){
 		return "/static/main/avatar_y.png"
 	}
-	return  o
+	return `'${encodeURI(o).replace(/\s/g, encodeURIComponent(' '))}'`
 }
 //默认方头像
 export const noAvatarDefaultF = (o) => {
 	if(isUndefined(o)||isNull(o)||o==''){
 		return "/static/main/avatar_y_r.png"
 	}
-	return  o
+	return `'${encodeURI(o).replace(/\s/g, encodeURIComponent(' '))}'`
 }

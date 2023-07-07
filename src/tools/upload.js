@@ -54,37 +54,4 @@ export const uploadImages = async (images,callback) => {
 			}
 		});
 	}
-	// images.tempFilePaths.forEach((path) => {
-	// 	const splitValues = path.split('/')
-	// 	const name = splitValues[splitValues.length - 1]
-	// 	const key = `${config.prefixFormat}${name}`
-	// 	uni.uploadFile({
-	// 		url: config.host,
-	// 		filePath: path,
-	// 		fileType: 'image',
-	// 		name: 'file',
-	// 		formData: {
-	// 			'policy': config.policy,
-	// 			'OSSAccessKeyId': config.accessId,
-	// 			'signature': config.signature,
-	// 			'success_action_status': 200,
-	// 			key,
-	// 			name
-	// 		},
-	// 		success: (uploadFileRes) => {
-	// 			const code = uploadFileRes.statusCode
-	// 			if (code == 200) {
-	// 				const url = config.host + key;
-	// 				isFunction(callback) && callback({
-	// 					url,
-	// 					name
-	// 				})
-	// 			}
-	// 		},
-	// 		fail(err) {
-	// 			console.log(err);
-	// 			isFunction(callback) && callback({staus:false})
-	// 		}
-	// 	});
-	// })
 }
