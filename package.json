@@ -28,6 +28,7 @@
     "@dcloudio/uni-quickapp-webview": "3.0.0-3070920230324001",
     "@dcloudio/uni-ui": "^1.4.26",
     "await-to-js": "^3.0.0",
+    "medash": "^3.3.0",
     "pinia": "^2.0.34",
     "uni-ajax": "^2.5.1",
     "vue": "^3.2.45",

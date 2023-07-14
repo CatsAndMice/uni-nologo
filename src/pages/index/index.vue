@@ -39,6 +39,10 @@
 		<exchange-modal :show='showModal' :score='12' :jingdian='34' @close="closeModal"
 			@exchangeJingdian='exchangeJingdian'></exchange-modal>
 	</view>
+
+
+
+	
 </template>
 
 <script>
@@ -55,7 +59,7 @@
 	} from '../../stores/userData.js'
 	import {
 		storeToRefs
-	} from 'pinia'
+	} from 'pinia'		
 	import {
 		onLoad
 	} from "@dcloudio/uni-app"
@@ -100,6 +104,7 @@
 				}
 				reqAccountData()
 				reqMyCommendList()
+				
 			})
 			//获取用户信息
 			const reqUserInfo = async () => {
