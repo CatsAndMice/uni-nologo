@@ -1,4 +1,7 @@
 import request from '@/utils/request'
+import { to } from "await-to-js"
+import eq from 'medash/lib/eq'
+import isEmpty from 'medash/lib/isEmpty'
 
 /**
  * 申请表彰
@@ -30,7 +33,7 @@ export const getCommendApplyDetail = (applyRecordId) => {
  * @returns 
  */
 export const getCommendDistribute = (data) => {
-	return request.get(`/commendation/distribute`, data)
+	return request.post(`/commendation/distribute`, data)
 }
 
 /**
@@ -40,4 +43,17 @@ export const getCommendDistribute = (data) => {
  */
 export const getCommendPersonal = (userId) => {
 	return request.get(`/commendation/${userId}/personal`, {})
+}
+
+
+export const getWaitCommend = async () => {
+	const [err, result] = await to(request.get(`/commendation/wait`))
+	if (isEmpty(result)) return []
+	return eq(result.code, 200) ? result.data : []
+}
+
+export const acceptCommend = async (params) => {
+	const [err, result] = await to(request.post('/commendation/receive', params))
+	if (isEmpty(result)) return false
+	return eq(result.code, 200)
 }

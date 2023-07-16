@@ -115,7 +115,7 @@
 			"path": "pages/userInfoPage/userInfoPage",
 			"style": {
 				"navigationBarTitleText": "",
-				"transparentTitle": "always",
+				"transparentTitle": "auto",
 				"mp-alipay": {
 					"allowsBounceVertical": "NO"
 				}

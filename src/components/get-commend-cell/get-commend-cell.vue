@@ -1,7 +1,7 @@
 <template>
 	<view class="cu-card article">
 		<view class="cu-item shadow min-mp-tb" :class="customClass" :style="customStyle">
-			<view class="flex justify-between  margin-top-12">
+			<view class="flex justify-between  margin-top-12" :class="isMargin ? 'margin-lr-12' : null">
 				<view><text class="text-sm text-c-msg2">获得</text>
 					<view class="margin-left-sm padding-top-sm cu-tag light sm round " :class="tagColor">
 						{{ item.commendationType }}
@@ -68,6 +68,10 @@ export default defineComponent({
 			default: () => ({})
 		},
 		isShowTime: {
+			type: Boolean,
+			default: true
+		},
+		isMargin: {
 			type: Boolean,
 			default: true
 		}

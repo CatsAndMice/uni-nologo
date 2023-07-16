@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="content">
-			<view class="title-wrap flex" style="margin-left: 24rpx;">
+			<view id="title1" class="title-wrap flex" :class="isTitle1Top ? 'is-top' : null" style="margin-left: 24rpx;">
 				<view class="title-msg">晶点TOP 5</view>
 			</view>
 			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;">
@@ -12,7 +12,8 @@
 				</uni-list>
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
-			<view class="title-wrap" style="margin-left: 24rpx;padding: 0;">
+			<view id="title2" class="title-wrap" :class="isTitle2Top ? 'is-top' : null"
+				style="margin-left: 24rpx;z-index: 1000;padding-top: 0;">
 				<view class="title-msg">表彰广场</view>
 			</view>
 			<view class="bg-white" v-for="item in listRef" :key="item.sourceId" style="margin-bottom: 16rpx;">
@@ -45,7 +46,7 @@
 
 					<view class="text-c-msg text-sm">{{ formatDateTimeMDS(item.distributeTime) }}</view>
 				</view>
-				<get-commend-cell :item="item" custom-class="card" :is-show-time="false">
+				<get-commend-cell :item="item" custom-class="card" :is-show-time="false" :is-margin="false">
 					<view class="flex align-center justify-between"
 						style="border-radius: 16rpx;background-color: #F7F8FA;height: 104rpx;margin-top: 20rpx;">
 						<view class="flex align-center">
@@ -68,7 +69,6 @@
 			</view>
 			<uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
 		</view>
-
 		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
 	</view>
 	<uni-popup ref="popupRef" type="bottom">
@@ -80,13 +80,14 @@
 					style="background-color: #F2F3F5;position: absolute;width: 32rpx;height: 32rpx;top: 50%;right: 32rpx;transform: translateY(-50%);">
 					<uni-icons type="closeempty" size="12" color="#A9AEB8;"></uni-icons>
 				</view>
-				<view class="grid col-4 padding-lr-xl"  style="padding-top: 20rpx;">
+				<view class="grid col-4 padding-lr-xl" style="padding-top: 20rpx;">
 					<view class="flex justify-center align-center" style="flex-direction: column;" v-for="p in persons"
 						:key="p.userId">
 						<view class="cu-avatar bg-white margin-auto-tb round"
 							:style="'background-image:url(' + noAvatarDefault(p.avatar) + ')'">
 						</view>
-						<view style="font-size: 28rpx;font-weight: 400;line-height: 44rpx;margin-top: 8rpx;">{{ p.name }}</view>
+						<view style="font-size: 28rpx;font-weight: 400;line-height: 44rpx;margin-top: 8rpx;">{{ p.name }}
+						</view>
 					</view>
 				</view>
 			</view>
@@ -96,8 +97,8 @@
 
 <script>
 import TabbarConfig from '@/config/tabbar.js'
-import { defineComponent, reactive } from 'vue'
-import { onLoad, onReachBottom } from "@dcloudio/uni-app"
+import { defineComponent, reactive, onMounted, shallowRef } from 'vue'
+import { onLoad, onReachBottom, onPageScroll } from "@dcloudio/uni-app"
 import { getRankTotal, getCommendation } from '../../api/rank'
 import { RecordType } from '../../utils/type'
 import useList from '@c/useList'
@@ -110,9 +111,14 @@ import eq from 'medash/lib/eq'
 import { toUserInfoPage } from "./js/page"
 import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
+import lt from "medash/lib/lt"
+
 
 export default defineComponent({
 	setup() {
+		let title2 = null
+		const isTitle1Top = shallowRef(false)
+		const isTitle2Top = shallowRef(false)
 		const tabbar = reactive(TabbarConfig)
 		const query = { page: 1, size: 20 }
 		const { loading, listRef, onLoad: onInfiniteScrollLoad } = useInfiniteScroll(query, async (params) => {
@@ -137,6 +143,27 @@ export default defineComponent({
 
 		onReachBottom(onInfiniteScrollLoad)
 
+
+		onPageScroll((options) => {
+			if (options.scrollTop) {
+				isTitle1Top.value = true
+			} else {
+				isTitle1Top.value = false
+			}
+			title2.boundingClientRect(data => {
+				if (lt(data.top, 129)) {
+					isTitle2Top.value = true
+				} else {
+					isTitle2Top.value = false
+				}
+			}).exec();
+		})
+
+		onMounted(() => {
+			const query = uni.createSelectorQuery();
+			title2 = query.select('#title2')
+		})
+
 		onLoad(() => {
 			onLoadList()
 			onInfiniteScrollLoad()
@@ -157,7 +184,9 @@ export default defineComponent({
 			toUserInfoPage,
 			onLookUsers,
 			persons,
-			close
+			close,
+			isTitle1Top,
+			isTitle2Top
 		}
 	}
 })
@@ -199,11 +228,28 @@ export default defineComponent({
 	margin-bottom: calc(140rpx + env(safe-area-inset-bottom));
 }
 
+#title2 {
+	z-index: 1000;
+
+	&.is-top {
+		top: 182rpx;
+	}
+}
+
 .title-wrap {
 	height: 88rpx;
 	line-height: 88rpx;
 	padding-top: 188rpx;
 	box-sizing: content-box;
+	top: 0;
+	z-index: 999;
+	position: sticky;
+
+	&.is-top {
+		padding-left: 24rpx !important;
+		margin-left: 0 !important;
+		background-color: #F7F8FA;
+	}
 
 	.title-msg {
 		font-size: 32rpx;

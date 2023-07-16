@@ -13,7 +13,7 @@
             <view class="title-msg">个人表彰动态</view>
         </view>
         <view style="margin: 0 -24rpx;">
-            <get-commend-cell custom-style="padding-left: 24rpx;padding-right: 24rpx;" v-for="(item, index) in listRef"
+            <get-commend-cell custom-style="padding-left: 24rpx;padding-right: 24rpx;" :is-margin="false" v-for="(item, index) in listRef"
                 :key="index" :item="item">
                 <view class="flex align-center justify-between"
                     style="border-radius: 16rpx;height: 104rpx;margin-top: 20rpx;">
@@ -50,11 +50,12 @@ import { noEmpty } from '../../tools/tool.js'
 import useInfiniteScroll from '@c/useInfiniteScroll'
 import { RecordType } from '../../utils/type'
 import { noImageDefault } from '../../tools/tool.js'
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
 import lte from "medash/lib/lte"
 export default {
     setup() {
-        let userId = ''
+        let userId = '',
+            el = null
         const isTop = ref(false)
         const query = { page: 1, size: 20, accountType: RecordType.JINGDIAN }
         const { loading, listRef, onLoad: onInfiniteScrollLoad } = useInfiniteScroll(query, async (params) => {
@@ -76,15 +77,19 @@ export default {
         onReachBottom(onInfiniteScrollLoad)
 
         onPageScroll(() => {
-            const query = uni.createSelectorQuery();
-            query.select('.title-wrap').boundingClientRect(data => {
-                console.log(data.top);
+            if (isEmpty(el)) return
+            el.boundingClientRect(data => {
                 if (lte(data.top, 35)) {
                     isTop.value = true
                 } else {
                     isTop.value = false
                 }
             }).exec();
+        })
+
+        onMounted(() => {
+            const query = uni.createSelectorQuery();
+            el = query.select('.title-wrap')
         })
 
         onLoad(async (options) => {
