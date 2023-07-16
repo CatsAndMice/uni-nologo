@@ -1,38 +1,33 @@
 <template>
 	<view class="margin-lr flex">
 		<view>
-			<view class="cu-avatar round user" :style="'background-image:url(' + noAvatarDefault(avatar) + ')'">
+			<view class="cu-avatar round user"
+				:style="{ backgroundImage: `url(${noAvatarDefault(avatar)})`, width: avatarSize, height: avatarSize }">
 			</view>
 		</view>
-		<view class="flex flex-direction margin-left-sm">
+		<view class="flex flex-direction margin-left-sm justify-center">
 			<view class="flex">
 				<view class="text-xl text-bold margin-right-xs">{{ name }}</view>
 				<view class=" margin-auto-tb text-lv ">{{ level }}</view>
 			</view>
-			<view class="margin-top-xs flex flex-direction">
-				<view v-if="(currentLevelTotalExperience - experience) >= 0" class="text-c-msg text-xs ">距下一级还需
-					{{ currentLevelTotalExperience - experience + 1 }} 点经验 </view>
-				<view v-else class="text-c-msg text-xs">恭喜，你已达到最高等级</view>
-				<view class="cu-progress round margin-top-xs" style="width: 240rpx;height: 4rpx;">
-					<view class="theme-bg-color" :style="[{ width: true ? percet : '' }]"></view>
+			<slot>
+				<view class="margin-top-xs flex flex-direction">
+					<view v-if="(currentLevelTotalExperience - experience) >= 0" class="text-c-msg text-xs ">距下一级还需
+						{{ currentLevelTotalExperience - experience + 1 }} 点经验 </view>
+					<view v-else class="text-c-msg text-xs">恭喜，你已达到最高等级</view>
+					<view class="cu-progress round margin-top-xs" style="width: 240rpx;height: 4rpx;">
+						<view class="theme-bg-color" :style="[{ width: true ? percet : '' }]"></view>
+					</view>
 				</view>
-			</view>
+			</slot>
 		</view>
 	</view>
 </template>
 
 <script>
-import {
-	defineComponent,
-	toRefs,
-	ref,
-	reactive,
-	computed,
-	unref
-} from 'vue'
-import {
-	noAvatarDefault
-} from '../../tools/tool.js'
+import { defineComponent, toRefs, computed, unref } from 'vue'
+import { noAvatarDefault } from '../../tools/tool.js'
+
 export default defineComponent({
 	name: 'user-header',
 	props: {
@@ -55,14 +50,16 @@ export default defineComponent({
 		currentLevelTotalExperience: {
 			type: Number,
 			default: 0
+		},
+		avatarSize: {
+			type: String,
+			default: '88rpx'
 		}
 
 	},
 	setup(props) {
-		const {
-			experience,
-			currentLevelTotalExperience
-		} = toRefs(props)
+		const { experience, currentLevelTotalExperience } = toRefs(props)
+
 		const percet = computed(() => {
 			if (unref(currentLevelTotalExperience) == 0 || unref(currentLevelTotalExperience) == '') {
 				return '0%'
@@ -84,8 +81,8 @@ export default defineComponent({
 
 <style lang="scss">
 .cu-avatar.user {
-	width: 88upx;
-	height: 88upx;
+	width: 88rpx;
+	height: 88rpx;
 	font-size: 2em;
 }
 

@@ -7,7 +7,8 @@
 			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;">
 				<uni-list :border="false">
 					<rank-cell v-for="(item, index) in list" :key="index" :item="item"
-						:showSolid="index == list.length - 1 ? false : true" :rank-index="index"></rank-cell>
+						:showSolid="index == list.length - 1 ? false : true" :rank-index="index"
+						@click-record="toUserInfoPage(item.userId)" />
 				</uni-list>
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
@@ -16,7 +17,8 @@
 			</view>
 			<view class="bg-white" v-for="item in listRef" :key="item.sourceId" style="margin-bottom: 16rpx;">
 				<view class="flex align-center justify-between padding-lr-12 padding-top-12">
-					<view v-if="isArray(item.userList) && eq(item.userList.length, 1)" class="flex align-center">
+					<view v-if="isArray(item.userList) && eq(item.userList.length, 1)" class="flex align-center"
+						@click="toUserInfoPage(item.userList[0].userId)">
 						<view class="cu-avatar bg-white margin-auto-tb round"
 							:style="'background-image:url(' + noAvatarDefault(item.userList[0].avatar) + ')'">
 						</view>
@@ -28,15 +30,15 @@
 						</view>
 					</view>
 
-					<view v-else class="flex align-center">
-						<view class="cu-avatar-group margin-auto-tb">
+					<view v-else class="flex align-center" @click="onLookUsers(item)">
+						<view class="cu-avatar-group margin-left-12" style="padding: 0;">
 							<view v-for="u in item.userList" :key="u.userId" class="cu-avatar bg-white round"
 								:style="'background-image:url(' + noAvatarDefault(u.avatar) + ')'">
 							</view>
 						</view>
 						<view class="margin-left-12">
 							<view style="font-size: 28rpx;font-weight: 500;color: #1D2129;">
-								等{{ item.userList.length }}位同事
+								等{{ item.userList?.length }}位同事
 							</view>
 						</view>
 					</view>
@@ -69,6 +71,27 @@
 
 		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
 	</view>
+	<uni-popup ref="popupRef" type="bottom">
+		<view class="popup-content bg-white" style="height:1148rpx;border-radius: 16rpx 16rpx 0 0;overflow: hidden;">
+			<view class="text-center"
+				style="height: 88rpx;line-height: 88rpx;color:#1D2129;font-size: 32rpx;font-weight: 500;position: relative;">
+				表彰名单
+				<view @click="close" class="round flex align-center justify-center"
+					style="background-color: #F2F3F5;position: absolute;width: 32rpx;height: 32rpx;top: 50%;right: 32rpx;transform: translateY(-50%);">
+					<uni-icons type="closeempty" size="12" color="#A9AEB8;"></uni-icons>
+				</view>
+				<view class="grid col-4 padding-lr-xl"  style="padding-top: 20rpx;">
+					<view class="flex justify-center align-center" style="flex-direction: column;" v-for="p in persons"
+						:key="p.userId">
+						<view class="cu-avatar bg-white margin-auto-tb round"
+							:style="'background-image:url(' + noAvatarDefault(p.avatar) + ')'">
+						</view>
+						<view style="font-size: 28rpx;font-weight: 400;line-height: 44rpx;margin-top: 8rpx;">{{ p.name }}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</uni-popup>
 </template>
 
 <script>
@@ -84,6 +107,9 @@ import isEmpty from 'medash/lib/isEmpty'
 import { formatDateTimeMDS, noImageDefault, noAvatarDefault } from '../../tools/tool.js'
 import isArray from 'medash/lib/isArray'
 import eq from 'medash/lib/eq'
+import { toUserInfoPage } from "./js/page"
+import usePopup from "@c/usePopup"
+import usePersonList from "./js/usePersonList"
 
 export default defineComponent({
 	setup() {
@@ -101,6 +127,14 @@ export default defineComponent({
 			return []
 		})
 
+		const { open, popupRef, close } = usePopup()
+		const { persons, setPerson } = usePersonList()
+
+		const onLookUsers = (item) => {
+			setPerson(item.userList)
+			open()
+		}
+
 		onReachBottom(onInfiniteScrollLoad)
 
 		onLoad(() => {
@@ -109,6 +143,7 @@ export default defineComponent({
 		})
 
 		return {
+			popupRef,
 			tabbar,
 			list,
 			listRef,
@@ -118,7 +153,11 @@ export default defineComponent({
 			rankLoading,
 			formatDateTimeMDS,
 			isArray,
-			eq
+			eq,
+			toUserInfoPage,
+			onLookUsers,
+			persons,
+			close
 		}
 	}
 })

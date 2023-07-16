@@ -1,5 +1,5 @@
 <template>
-	<view class=" padding-tb-12 margin-lr-8" :class="showSolid ? 'solidm-bottom' : ''">
+	<view class=" padding-tb-12 margin-lr-8" :class="showSolid ? 'solidm-bottom' : ''" @click="onClick">
 		<view class="flex">
 			<view class="flex">
 				<view class="bg-img rank-bg-img-1  " v-if="rankIndex == 0"></view>
@@ -30,15 +30,9 @@
 </template>
 
 <script>
-import {
-	defineComponent,
-	toRefs,
-	ref,
-	reactive
-} from 'vue'
-import {
-	noAvatarDefaultF
-} from '../../tools/tool.js'
+import { defineComponent } from 'vue'
+import { noAvatarDefaultF } from '../../tools/tool.js'
+
 export default defineComponent({
 	name: 'rank-cell',
 	props: {
@@ -61,9 +55,16 @@ export default defineComponent({
 		}
 
 	},
-	setup(props) {
+	emits: ['click-record'],
+	setup(props, { emit }) {
+		const onClick = () => {
+			emit('click-record')
+		}
+
+
 		return {
-			noAvatarDefaultF
+			noAvatarDefaultF,
+			onClick
 		}
 	}
 })
@@ -126,4 +127,5 @@ export default defineComponent({
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}</style>
+}
+</style>
