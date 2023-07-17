@@ -13,8 +13,8 @@
             <view class="title-msg">个人表彰动态</view>
         </view>
         <view style="margin: 0 -24rpx;">
-            <get-commend-cell custom-style="padding-left: 24rpx;padding-right: 24rpx;" :is-margin="false" v-for="(item, index) in listRef"
-                :key="index" :item="item">
+            <get-commend-cell custom-style="padding-left: 24rpx;padding-right: 24rpx;" :is-margin="false"
+                v-for="(item, index) in listRef" :key="index" :item="item">
                 <view class="flex align-center justify-between"
                     style="border-radius: 16rpx;height: 104rpx;margin-top: 20rpx;">
                     <view class="flex align-center">
@@ -33,6 +33,11 @@
                         {{ '+' + item.score }}
                     </view>
                 </view>
+                <template #reason>
+                    <view class="flex  margin-top-8" v-show="item.distributeReason">
+                        <view class="commend-msg line2">{{ item.distributeReason }}</view>
+                    </view>
+                </template>
             </get-commend-cell>
             <uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
         </view>

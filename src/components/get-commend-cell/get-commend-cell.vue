@@ -26,12 +26,11 @@
 					</view>
 				</view>
 			</slot>
-
-
-
-			<view class="flex  margin-lr-12 margin-top-8" v-show="item.distributeReason">
-				<view class=" commend-msg line2">{{ item.distributeReason }}</view>
-			</view>
+			<slot name="reason">
+				<view class="flex  margin-lr-12 margin-top-8" v-show="item.distributeReason">
+					<view class="commend-msg line2">{{ item.distributeReason }}</view>
+				</view>
+			</slot>
 		</view>
 	</view>
 </template>

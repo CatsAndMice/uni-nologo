@@ -65,13 +65,19 @@
 							{{ '+' + item.score }}
 						</view>
 					</view>
+
+					<template #reason>
+						<view class="flex  margin-top-8" v-show="item.distributeReason">
+							<view class="commend-msg line2">{{ item.distributeReason }}</view>
+						</view>
+					</template>
 				</get-commend-cell>
 			</view>
 			<uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
 		</view>
 		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
 	</view>
-	<uni-popup ref="popupRef" type="bottom">
+	<uni-popup ref="popupRef" type="bottom" :z-index="1000">
 		<view class="popup-content bg-white" style="height:1148rpx;border-radius: 16rpx 16rpx 0 0;overflow: hidden;">
 			<view class="text-center"
 				style="height: 88rpx;line-height: 88rpx;color:#1D2129;font-size: 32rpx;font-weight: 500;position: relative;">
@@ -81,12 +87,14 @@
 					<uni-icons type="closeempty" size="12" color="#A9AEB8;"></uni-icons>
 				</view>
 				<view class="grid col-4 padding-lr-xl" style="padding-top: 20rpx;">
-					<view class="flex justify-center align-center" style="flex-direction: column;" v-for="p in persons"
-						:key="p.userId">
+					<view class="flex justify-start align-center" @click="toUserInfoPage(p.userId)"
+						style="flex-direction: column;" v-for="p in persons" :key="p.userId">
 						<view class="cu-avatar bg-white margin-auto-tb round"
 							:style="'background-image:url(' + noAvatarDefault(p.avatar) + ')'">
 						</view>
-						<view style="font-size: 28rpx;font-weight: 400;line-height: 44rpx;margin-top: 8rpx;">{{ p.name }}
+						<view
+							style="font-size: 28rpx;font-weight: 400;line-height: 44rpx;margin-top: 8rpx;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;max-width: 158rpx;">
+							{{ p.name }}
 						</view>
 					</view>
 				</view>
@@ -113,7 +121,6 @@ import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
 import lt from "medash/lib/lt"
 
-
 export default defineComponent({
 	setup() {
 		let title2 = null
@@ -134,6 +141,7 @@ export default defineComponent({
 		})
 
 		const { open, popupRef, close } = usePopup()
+
 		const { persons, setPerson } = usePersonList()
 
 		const onLookUsers = (item) => {
@@ -142,7 +150,6 @@ export default defineComponent({
 		}
 
 		onReachBottom(onInfiniteScrollLoad)
-
 
 		onPageScroll((options) => {
 			if (options.scrollTop) {
