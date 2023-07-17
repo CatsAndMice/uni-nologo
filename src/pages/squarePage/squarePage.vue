@@ -33,7 +33,7 @@
 
 					<view v-else class="flex align-center" @click="onLookUsers(item)">
 						<view class="cu-avatar-group margin-left-12" style="padding: 0;">
-							<view v-for="u in item.userList" :key="u.userId" class="cu-avatar bg-white round"
+							<view v-for="u in getTwoUsers(item.userList)" :key="u.userId" class="cu-avatar bg-white round"
 								:style="'background-image:url(' + noAvatarDefault(u.avatar) + ')'">
 							</view>
 						</view>
@@ -86,9 +86,9 @@
 					style="background-color: #F2F3F5;position: absolute;width: 32rpx;height: 32rpx;top: 50%;right: 32rpx;transform: translateY(-50%);">
 					<uni-icons type="closeempty" size="12" color="#A9AEB8;"></uni-icons>
 				</view>
-				<view class="grid col-4 padding-lr-xl" style="padding-top: 20rpx;">
+				<view class="grid col-4 padding-lr-xl" style="padding-top: 20rpx;max-height: 1060rpx;overflow: scroll;">
 					<view class="flex justify-start align-center" @click="toUserInfoPage(p.userId)"
-						style="flex-direction: column;" v-for="p in persons" :key="p.userId">
+						style="flex-direction: column;margin-bottom: 64rpx;" v-for="p in persons" :key="p.userId">
 						<view class="cu-avatar bg-white margin-auto-tb round"
 							:style="'background-image:url(' + noAvatarDefault(p.avatar) + ')'">
 						</view>
@@ -166,6 +166,10 @@ export default defineComponent({
 			}).exec();
 		})
 
+		const getTwoUsers = (users = []) => {
+			return users.slice(0, 2)
+		}
+
 		onMounted(() => {
 			const query = uni.createSelectorQuery();
 			title2 = query.select('#title2')
@@ -193,7 +197,8 @@ export default defineComponent({
 			persons,
 			close,
 			isTitle1Top,
-			isTitle2Top
+			isTitle2Top,
+			getTwoUsers
 		}
 	}
 })
