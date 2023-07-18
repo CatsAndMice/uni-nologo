@@ -396,13 +396,14 @@
 	.j-tabbar__label {
 		margin-top: 26rpx;
 		font-size: 28rpx;
+		margin-bottom: 16rpx;
 		font-weight: Medium;
 	}
 	.j-tabbar__line {
 		// width: 60rpx;
 		height: 4rpx;
 		border-radius: 2rpx;
-		margin: 4rpx auto;
+		margin: 0 auto;
 		
 	}
 </style>

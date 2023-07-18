@@ -8,7 +8,10 @@
 		<view class="flex flex-direction margin-left-sm justify-center">
 			<view class="flex">
 				<view class="text-xl text-bold margin-right-xs">{{ name }}</view>
-				<view class=" margin-auto-tb text-lv ">{{ level }}</view>
+				<view class=" margin-auto-tb text-lv">
+					<image :src="picLvImage" style="font-size: 0;width: 26rpx;height: 20rpx;" />
+					<text style="height: 20rpx;display: inline-block;line-height: 20rpx;margin-top: 6rpx;">{{ level }}</text>
+				</view>
 			</view>
 			<slot>
 				<view class="margin-top-xs flex flex-direction">
@@ -27,6 +30,7 @@
 <script>
 import { defineComponent, toRefs, computed, unref } from 'vue'
 import { noAvatarDefault } from '../../tools/tool.js'
+import picLvImage from "@/static/home/pic_Lv.png"
 
 export default defineComponent({
 	name: 'user-header',
@@ -73,7 +77,8 @@ export default defineComponent({
 		})
 		return {
 			percet,
-			noAvatarDefault
+			noAvatarDefault,
+			picLvImage
 		}
 	}
 })
@@ -93,8 +98,10 @@ export default defineComponent({
 	background: #888786;
 	font-size: 20rpx;
 	font-style: normal;
-	font-weight: 600;
-	line-height: 32rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 400;
 	color: #FFF;
 	background: #888786;
 }

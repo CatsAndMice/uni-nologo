@@ -3,16 +3,20 @@
 		<view style="position: relative;">
 			<view class="bg-img top-bg"></view>
 			<view class="main-wrap">
-				<user-header :avatar='noEmpty(userInfo.avatar)' :name='noEmpty(userInfo.name)'
-					:level='accountInfo?.currentLevel' :experience='noEmpty(accountInfo?.experience)'
-					:currentLevelTotalExperience='noEmpty(accountInfo?.currentLevelTotalExperience)'></user-header>
+				<view style="padding: 24rpx 0;">
+					<user-header :avatar='noEmpty(userInfo.avatar)' :name='noEmpty(userInfo.name)'
+						:level='accountInfo?.currentLevel' :experience='noEmpty(accountInfo?.experience)'
+						:currentLevelTotalExperience='noEmpty(accountInfo?.currentLevelTotalExperience)'
+						avatar-size="120rpx" />
+				</view>
+
 				<view class="margin">
 					<jingdian-wrap :jingdian='noEmpty(accountInfo?.totalScore)'></jingdian-wrap>
 				</view>
 				<m-banner img="../../static/home/m_banner.png" :link="dianWord" :showClose="false" :show="true"
 					@close='closeBanner'></m-banner>
 				<view>
-					<view class="flex justify-between margin-lr">
+					<view class="flex justify-between align-center margin-lr" style="height: 88rpx;">
 						<view class="text-lg text-bold">近期获得表彰</view>
 						<view class="flex" @tap="toCommonedList">
 							<view class="text-c-msg text-sm margin-auto-tb">更多</view>
@@ -205,7 +209,7 @@ export default defineComponent({
 	top: 0;
 	width: 100vw;
 	height: 496rpx;
-	background-image: url('../../static/home/home_hearder_bg@2x.png');
+	background-image: url('../../static/home/home_hearder_bg.png');
 }
 
 .main-wrap {
@@ -215,7 +219,7 @@ export default defineComponent({
 }
 
 .commend-wrap {
-	margin-top: 24rpx;
+	// margin-top: 24rpx;
 	padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
 }
 

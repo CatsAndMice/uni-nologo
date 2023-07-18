@@ -105,6 +105,7 @@ export default defineComponent({
 	margin-top: 0 !important;
 	padding-bottom: 24rpx !important;
 	margin-bottom: 16rpx !important;
+	border-radius: 16rpx !important;
 }
 
 .commend-msg {

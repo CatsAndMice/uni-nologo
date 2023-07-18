@@ -1,27 +1,30 @@
 <template>
-	<view>
+	<view :class="show ? 'is-hidden' : null">
 		<view class="content">
 			<view id="title1" class="title-wrap flex" :class="isTitle1Top ? 'is-top' : null" style="margin-left: 24rpx;">
 				<view class="title-msg">晶点TOP 5</view>
 			</view>
 			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;">
 				<uni-list :border="false">
-					<rank-cell v-for="(item, index) in list" :key="index" :item="item"
-						:showSolid="index == list.length - 1 ? false : true" :rank-index="index"
-						@click-record="toUserInfoPage(item.userId)" />
+					<rank-cell v-for="(item, index) in list" :key="index" :item="item" :showSolid="false"
+						:rank-index="index" @click-record="toUserInfoPage(item.userId)" />
 				</uni-list>
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
 			<view id="title2" class="title-wrap" :class="isTitle2Top ? 'is-top' : null"
-				style="margin-left: 24rpx;z-index: 1000;padding-top: 0;">
+				style="margin-left: 24rpx;z-index: 1000;padding-top: 32rpx;">
 				<view class="title-msg">表彰广场</view>
 			</view>
 			<view class="bg-white" v-for="item in listRef" :key="item.sourceId" style="margin-bottom: 16rpx;">
 				<view class="flex align-center justify-between padding-lr-12 padding-top-12">
 					<view v-if="isArray(item.userList) && eq(item.userList.length, 1)" class="flex align-center"
 						@click="toUserInfoPage(item.userList[0].userId)">
-						<view class="cu-avatar bg-white margin-auto-tb round"
-							:style="'background-image:url(' + noAvatarDefault(item.userList[0].avatar) + ')'">
+						<view class="cu-avatar bg-white margin-auto-tb round" :style="{
+							backgroundImage: `url(${noAvatarDefault(item.userList[0].avatar)})`,
+							width: '80rpx',
+							height: '80rpx'
+						}
+							">
 						</view>
 						<view class="margin-left-12">
 							<view style="font-size: 28rpx;font-weight: 500;color: #1D2129;">{{ item.userList[0].name }}
@@ -34,7 +37,14 @@
 					<view v-else class="flex align-center" @click="onLookUsers(item)">
 						<view class="cu-avatar-group margin-left-12" style="padding: 0;">
 							<view v-for="u in getTwoUsers(item.userList)" :key="u.userId" class="cu-avatar bg-white round"
-								:style="'background-image:url(' + noAvatarDefault(u.avatar) + ')'">
+								:style="{
+									backgroundImage: `url(${noAvatarDefault(u.avatar)})`,
+									width: '80rpx',
+									height: '80rpx',
+									borderColor: '#fff',
+									marginLeft: '-16rpx'
+								}
+									">
 							</view>
 						</view>
 						<view class="margin-left-12">
@@ -48,11 +58,13 @@
 				</view>
 				<get-commend-cell :item="item" custom-class="card" :is-show-time="false" :is-margin="false">
 					<view class="flex align-center justify-between"
-						style="border-radius: 16rpx;background-color: #F7F8FA;height: 104rpx;margin-top: 20rpx;">
+						style="border-radius: 16rpx;background-color: #F7F8FA;height: 128rpx;margin-top: 20rpx;">
 						<view class="flex align-center">
 							<view class="margin-auto-lr margin-lr-12" style="width: 80rpx;height: 80rpx;">
-								<view class="cu-avatar df-warp radius bg-white"
-									:style="'background-image:url(' + noImageDefault(item.commendationIcon) + ')'"></view>
+								<view class="cu-avatar df-warp radius" :style="{
+									backgroundColor: '#F7F8FA',
+									backgroundImage: `url(${noImageDefault(item.commendationIcon)})`
+								}"></view>
 							</view>
 
 							<view class="margin-auto-tb">
@@ -68,7 +80,7 @@
 
 					<template #reason>
 						<view class="flex  margin-top-8" v-show="item.distributeReason">
-							<view class="commend-msg line2">{{ item.distributeReason }}</view>
+							<view class="commend-msg">{{ item.distributeReason }}</view>
 						</view>
 					</template>
 				</get-commend-cell>
@@ -77,7 +89,7 @@
 		</view>
 		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
 	</view>
-	<uni-popup ref="popupRef" type="bottom" :z-index="1000">
+	<uni-popup ref="popupRef" type="bottom" :z-index="1000" :is-mask-click="false">
 		<view class="popup-content bg-white" style="height:1148rpx;border-radius: 16rpx 16rpx 0 0;overflow: hidden;">
 			<view class="text-center"
 				style="height: 88rpx;line-height: 88rpx;color:#1D2129;font-size: 32rpx;font-weight: 500;position: relative;">
@@ -140,7 +152,7 @@ export default defineComponent({
 			return []
 		})
 
-		const { open, popupRef, close } = usePopup()
+		const { open, popupRef, close, show } = usePopup()
 
 		const { persons, setPerson } = usePersonList()
 
@@ -198,14 +210,15 @@ export default defineComponent({
 			close,
 			isTitle1Top,
 			isTitle2Top,
-			getTwoUsers
+			getTwoUsers,
+			show
 		}
 	}
 })
 </script>
 <style lang="scss">
 .content {
-	background-image: url('../../static/home/home_hearder_bg@2x.png');
+	background-image: url('../../static/home/home_hearder_bg.png');
 	background-size: 100vw 496rpx;
 	background-repeat: no-repeat;
 	padding-bottom: 170rpx;
@@ -279,5 +292,10 @@ export default defineComponent({
 	font-size: 40rpx;
 	font-weight: 500;
 	margin-right: 24rpx;
+}
+
+.is-hidden {
+	overflow: hidden;
+	user-select: none;
 }
 </style>

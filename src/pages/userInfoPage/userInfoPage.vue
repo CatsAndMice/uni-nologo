@@ -35,7 +35,7 @@
                 </view>
                 <template #reason>
                     <view class="flex  margin-top-8" v-show="item.distributeReason">
-                        <view class="commend-msg line2">{{ item.distributeReason }}</view>
+                        <view class="commend-msg">{{ item.distributeReason }}</view>
                     </view>
                 </template>
             </get-commend-cell>
@@ -117,7 +117,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .content {
-    background-image: url('../../static/home/home_hearder_bg@2x.png');
+    background-image: url('../../static/home/home_hearder_bg.png');
     background-size: 100vw 300rpx;
     background-repeat: no-repeat;
     padding-top: 176rpx;
@@ -128,7 +128,7 @@ export default {
     line-height: 88rpx;
     box-sizing: content-box;
     position: sticky;
-    padding-top: 48rpx;
+    padding-top: 32rpx;
     top: 0;
     z-index: 999;
 

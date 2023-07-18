@@ -1,19 +1,23 @@
 <template>
-	<view class=" padding-tb-12 margin-lr-8" :class="showSolid ? 'solidm-bottom' : ''" @click="onClick">
+	<view style="margin-left: 24rpx;padding-top: 16rpx;padding-bottom: 16rpx;" :class="showSolid ? 'solidm-bottom' : ''"
+		@click="onClick">
 		<view class="flex">
 			<view class="flex">
-				<view class="bg-img rank-bg-img-1  " v-if="rankIndex == 0"></view>
-				<view class="bg-img rank-bg-img-2  " v-else-if="rankIndex == 1"></view>
-				<view class="bg-img rank-bg-img-3" v-else-if="rankIndex == 2"></view>
+				<image class="rank-bg-img-1" v-if="rankIndex == 0" :src="no1Image" />
+				<image class="rank-bg-img-2" v-else-if="rankIndex == 1" :src="no2Image" />
+				<image class="rank-bg-img-3" v-else-if="rankIndex == 2" :src="no3Image" />
 				<view class="rank-msg" v-else>{{ rankIndex + 1 }}</view>
-				<view class="flex ">
-					<view class="cu-avatar bg-white margin-auto-tb radius"
-						:style="'background-image:url(' + noAvatarDefaultF(item.avatar) + ')'">
+				<view class="flex margin-left-12">
+					<view class="cu-avatar bg-white margin-auto-tb round" :style="{
+						backgroundImage: `url(${noAvatarDefaultF(item.avatar)})`,
+						width: avatarSize,
+						height: avatarSize
+					}">
 					</view>
 				</view>
 			</view>
 			<view class="flex justify-between w-100  margin-auto-tb">
-				<view class="flex flex-direction margin-left-xs ">
+				<view class="flex flex-direction" style="margin-left: 16rpx;">
 					<view class="rank-user">{{ item.name }}</view>
 					<view class="rank-df">{{ item.deptName }}</view>
 				</view>
@@ -32,6 +36,9 @@
 <script>
 import { defineComponent } from 'vue'
 import { noAvatarDefaultF } from '../../tools/tool.js'
+import no1Image from "@/static/square/gc_toplist_xunzhang_no1@2x.png"
+import no2Image from "@/static/square/gc_toplist_xunzhang_no2@2x.png"
+import no3Image from "@/static/square/gc_toplist_xunzhang_no3@2x.png"
 
 export default defineComponent({
 	name: 'rank-cell',
@@ -52,8 +59,11 @@ export default defineComponent({
 		showSolid: {
 			type: Boolean,
 			default: true
+		},
+		avatarSize: {
+			type: String,
+			default: '80rpx'
 		}
-
 	},
 	emits: ['click-record'],
 	setup(props, { emit }) {
@@ -64,7 +74,10 @@ export default defineComponent({
 
 		return {
 			noAvatarDefaultF,
-			onClick
+			onClick,
+			no1Image,
+			no2Image,
+			no3Image
 		}
 	}
 })
@@ -76,26 +89,23 @@ export default defineComponent({
 	width: 48rpx;
 	height: 48rpx;
 	margin: auto 4rpx;
-	background-image: url('@/static/square/gc_toplist_xunzhang_no1@2x.png');
 }
 
 .rank-bg-img-2 {
 	width: 48rpx;
 	height: 48rpx;
 	margin: auto 4rpx;
-	background-image: url('@/static/square/gc_toplist_xunzhang_no2@2x.png');
 }
 
 .rank-bg-img-3 {
 	width: 48rpx;
 	height: 48rpx;
 	margin: auto 4rpx;
-	background-image: url('@/static/square/gc_toplist_xunzhang_no3@2x.png');
 }
 
 .rank-msg {
-	height: 48rpx;
 	width: 48rpx;
+	height: 48rpx;
 	text-align: center;
 	line-height: 48rpx;
 	font-size: 28rpx;
