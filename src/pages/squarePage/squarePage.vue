@@ -15,6 +15,7 @@
 				style="margin-left: 24rpx;z-index: 1000;padding-top: 32rpx;">
 				<view class="title-msg">表彰广场</view>
 			</view>
+
 			<view class="bg-white" v-for="item in listRef" :key="item.sourceId" style="margin-bottom: 16rpx;">
 				<view class="flex align-center justify-between padding-lr-12 padding-top-12">
 					<view v-if="isArray(item.userList) && eq(item.userList.length, 1)" class="flex align-center"
@@ -84,7 +85,10 @@
 						</view>
 					</template>
 				</get-commend-cell>
+
+
 			</view>
+			<no-data-wrap v-if="!loading && isEmpty(listRef)" :top='100' />
 			<uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
 		</view>
 		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
@@ -133,13 +137,19 @@ import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
 import lt from "medash/lib/lt"
 
+const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
 	setup() {
 		let title2 = null
 		const isTitle1Top = shallowRef(false)
 		const isTitle2Top = shallowRef(false)
 		const tabbar = reactive(TabbarConfig)
-		const query = { page: 1, size: 20 }
+		const query = {
+			page: 1,
+			size: 20,
+			startTime: Date.now() - MARCH_TIME,
+			endTime: Date.now()
+		}
 		const { loading, listRef, onLoad: onInfiniteScrollLoad } = useInfiniteScroll(query, async (params) => {
 			const [err, result] = await to(getCommendation(params))
 			return result
@@ -211,7 +221,8 @@ export default defineComponent({
 			isTitle1Top,
 			isTitle2Top,
 			getTwoUsers,
-			show
+			show,
+			isEmpty
 		}
 	}
 })
