@@ -269,6 +269,7 @@ export default defineComponent({
 
 	&.is-top {
 		top: 182rpx;
+		padding-top: 0 !important;
 	}
 }
 

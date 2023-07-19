@@ -9,8 +9,8 @@
 			<view class="flex">
 				<view class="text-xl text-bold margin-right-xs">{{ name }}</view>
 				<view class=" margin-auto-tb text-lv">
-					<image :src="picLvImage" style="font-size: 0;width: 26rpx;height: 20rpx;" />
-					<text style="height: 20rpx;display: inline-block;line-height: 20rpx;margin-top: 6rpx;">{{ level }}</text>
+					<image :src="picLvImage" style="font-size: 0;width: 26rpx;height: 28rpx;" />
+					<text style="height: 32rpx;display: inline-block;line-height: 32rpx;">{{ level }}</text>
 				</view>
 			</view>
 			<slot>
