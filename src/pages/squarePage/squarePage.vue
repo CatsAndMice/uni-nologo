@@ -12,7 +12,7 @@
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
 			<view id="title2" class="title-wrap" :class="isTitle2Top ? 'is-top' : null"
-				style="margin-left: 24rpx;z-index: 1000;padding-top: 32rpx;">
+				style="margin-left: 24rpx;padding-top: 32rpx;">
 				<view class="title-msg">表彰广场</view>
 			</view>
 
@@ -265,7 +265,7 @@ export default defineComponent({
 }
 
 #title2 {
-	z-index: 1000;
+	z-index: 2;
 
 	&.is-top {
 		top: 182rpx;
@@ -276,10 +276,10 @@ export default defineComponent({
 .title-wrap {
 	height: 88rpx;
 	line-height: 88rpx;
-	padding-top: 188rpx;
+	padding-top: 184rpx;
 	box-sizing: content-box;
 	top: 0;
-	z-index: 999;
+	z-index: 1;
 	position: sticky;
 
 	&.is-top {
