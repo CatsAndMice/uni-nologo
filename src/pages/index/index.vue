@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view style="position: relative;">
-			<view class="bg-img top-bg"></view>
+			<!-- <view class="bg-img top-bg"></view> -->
 			<view class="main-wrap">
 				<view style="padding: 24rpx 0;">
 					<user-header :avatar='noEmpty(userInfo.avatar)' :name='noEmpty(userInfo.name)'
@@ -215,7 +215,7 @@ export default defineComponent({
 .main-wrap {
 	position: relative;
 	width: 100%;
-	padding-top: 200rpx;
+	// padding-top: 200rpx;
 }
 
 .commend-wrap {

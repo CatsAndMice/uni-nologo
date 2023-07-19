@@ -116,13 +116,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.content {
-    background-image: url('../../static/home/home_hearder_bg.png');
-    background-size: 100vw 300rpx;
-    background-repeat: no-repeat;
-    padding-top: 176rpx;
-}
-
 .title-wrap {
     height: 88rpx;
     line-height: 88rpx;
@@ -133,7 +126,7 @@ export default {
     z-index: 999;
 
     &.is-top {
-        padding-top: 176rpx;
+        // padding-top: 176rpx;
         background-color: #F7F8FA;
     }
 

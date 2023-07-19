@@ -1,18 +1,17 @@
 <template>
 	<view :class="show ? 'is-hidden' : null">
 		<view class="content">
-			<view id="title1" class="title-wrap flex" :class="isTitle1Top ? 'is-top' : null" style="margin-left: 24rpx;">
+			<view id="title1" class="title-wrap flex" style="margin-left: 24rpx;">
 				<view class="title-msg">晶点TOP 5</view>
 			</view>
-			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;">
+			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;margin-bottom: 32rpx;">
 				<uni-list :border="false">
 					<rank-cell v-for="(item, index) in list" :key="index" :item="item" :showSolid="false"
 						:rank-index="index" @click-record="toUserInfoPage(item.userId)" />
 				</uni-list>
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
-			<view id="title2" class="title-wrap" :class="isTitle2Top ? 'is-top' : null"
-				style="margin-left: 24rpx;padding-top: 32rpx;">
+			<view id="title2" class="title-wrap" style="padding-left: 24rpx;">
 				<view class="title-msg">表彰广场</view>
 			</view>
 
@@ -28,9 +27,9 @@
 							">
 						</view>
 						<view class="margin-left-12">
-							<view style="font-size: 28rpx;font-weight: 500;color: #1D2129;">{{ item.userList[0].name }}
+							<view style="font-size: 28rpx;font-weight: 500;color: #1D2129;line-height: 44rpx;">{{ item.userList[0].name }}
 							</view>
-							<view style="font-size: 20rpx;font-weight: 400;color: #A9AEB8;">{{ item.userList[0].deptName }}
+							<view style="font-size: 20rpx;font-weight: 400;color: #A9AEB8;line-height: 32rpx;">{{ item.userList[0].deptName }}
 							</view>
 						</view>
 					</view>
@@ -122,7 +121,7 @@
 <script>
 import TabbarConfig from '@/config/tabbar.js'
 import { defineComponent, reactive, onMounted, shallowRef } from 'vue'
-import { onLoad, onReachBottom, onPageScroll } from "@dcloudio/uni-app"
+import { onLoad, onReachBottom } from "@dcloudio/uni-app"
 import { getRankTotal, getCommendation } from '../../api/rank'
 import { RecordType } from '../../utils/type'
 import useList from '@c/useList'
@@ -135,7 +134,6 @@ import eq from 'medash/lib/eq'
 import { toUserInfoPage } from "./js/page"
 import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
-import lt from "medash/lib/lt"
 
 const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
@@ -172,21 +170,6 @@ export default defineComponent({
 		}
 
 		onReachBottom(onInfiniteScrollLoad)
-
-		onPageScroll((options) => {
-			if (options.scrollTop) {
-				isTitle1Top.value = true
-			} else {
-				isTitle1Top.value = false
-			}
-			title2.boundingClientRect(data => {
-				if (lt(data.top, 129)) {
-					isTitle2Top.value = true
-				} else {
-					isTitle2Top.value = false
-				}
-			}).exec();
-		})
 
 		const getTwoUsers = (users = []) => {
 			return users.slice(0, 2)
@@ -228,13 +211,6 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
-.content {
-	background-image: url('../../static/home/home_hearder_bg.png');
-	background-size: 100vw 496rpx;
-	background-repeat: no-repeat;
-	padding-bottom: 170rpx;
-}
-
 .radius-top {
 	border-top-left-radius: 10rpx;
 	border-top-right-radius: 10rpx;
@@ -264,29 +240,14 @@ export default defineComponent({
 	margin-bottom: calc(140rpx + env(safe-area-inset-bottom));
 }
 
-#title2 {
-	z-index: 2;
-
-	&.is-top {
-		top: 182rpx;
-		padding-top: 0 !important;
-	}
-}
-
 .title-wrap {
 	height: 88rpx;
 	line-height: 88rpx;
-	padding-top: 184rpx;
 	box-sizing: content-box;
 	top: 0;
 	z-index: 1;
 	position: sticky;
-
-	&.is-top {
-		padding-left: 24rpx !important;
-		margin-left: 0 !important;
-		background-color: #F7F8FA;
-	}
+	background-color: #F7F8FA;
 
 	.title-msg {
 		font-size: 32rpx;
