@@ -4,7 +4,7 @@
 			<!-- <view class="bg-img top-bg"></view> -->
 			<view class="main-wrap">
 				<view style="padding: 24rpx 0;">
-					<user-header :avatar='noEmpty(userInfo.avatar)' :name='noEmpty(userInfo.name)'
+					<user-header :avatar='noEmpty(accountInfo.avatar)' :name='noEmpty(accountInfo.name)'
 						:level='accountInfo?.currentLevel' :experience='noEmpty(accountInfo?.experience)'
 						:currentLevelTotalExperience='noEmpty(accountInfo?.currentLevelTotalExperience)'
 						avatar-size="120rpx" />

@@ -211,6 +211,10 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
+.content{
+	padding-bottom: 170rpx;
+}
+
 .radius-top {
 	border-top-left-radius: 10rpx;
 	border-top-right-radius: 10rpx;
