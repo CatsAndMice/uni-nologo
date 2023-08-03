@@ -81,6 +81,7 @@ import { toCommonedList } from "./js/page"
 import useWaitCommend from "./js/useWaitCommend"
 import picDecorationImage from "@/static/home/pic-decoration.png"
 import { noImageDefault } from '../../tools/tool.js'
+import YWJATRACK from "@/config/jstrack.js"
 
 export default defineComponent({
 	setup() {
@@ -163,6 +164,7 @@ export default defineComponent({
 		}
 
 		onLoad(() => {
+			YWJATRACK.uploadTrack('首页','key1')
 			//先检查用户信息
 			if (isUndefined(unref(userInfo).userId)) {
 				//先去获取用户信息

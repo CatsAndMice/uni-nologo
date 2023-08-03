@@ -57,6 +57,7 @@ import { RecordType } from '../../utils/type'
 import { noImageDefault } from '../../tools/tool.js'
 import { ref, onMounted } from "vue"
 import lte from "medash/lib/lte"
+import YWJATRACK from "@/config/jstrack.js"
 export default {
     setup() {
         let userId = '',
@@ -101,7 +102,7 @@ export default {
             userId = options.userId
             onLoadObject()
             onInfiniteScrollLoad()
-
+            YWJATRACK.uploadTrack('个人表彰动态页面', 'key2')
         })
 
         return {

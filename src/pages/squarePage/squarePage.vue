@@ -134,7 +134,7 @@ import eq from 'medash/lib/eq'
 import { toUserInfoPage } from "./js/page"
 import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
-
+import YWJATRACK from "@/config/jstrack.js"
 const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
 	setup() {
@@ -183,6 +183,7 @@ export default defineComponent({
 		onLoad(() => {
 			onLoadList()
 			onInfiniteScrollLoad()
+			YWJATRACK.uploadTrack('广场页面', 'key3')
 		})
 
 		return {

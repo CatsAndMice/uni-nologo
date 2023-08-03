@@ -2,7 +2,7 @@
 	<view>
 		<z-paging ref="paging" v-model="myCommendsList" @query="queryList">
 			<view style="height: 20rpx;"></view>
-			<view class="commend-wrap" >
+			<view class="commend-wrap">
 				<get-commend-cell v-for="item, index in myCommendsList" :item="item" :key="index"></get-commend-cell>
 			</view>
 		</z-paging>
@@ -10,23 +10,13 @@
 </template>
 
 <script>
-import {
-	defineComponent,
-	toRefs,
-	ref,
-	reactive
-} from 'vue'
-import {
-	onLoad
-} from "@dcloudio/uni-app"
-import {
-	storeToRefs
-} from 'pinia'
-import {
-	userData
-} from '../../stores/userData.js'
+import { defineComponent, ref } from 'vue'
+import { onLoad } from "@dcloudio/uni-app"
+import { storeToRefs } from 'pinia'
+import { userData } from '../../stores/userData.js'
 import { getCommendDistribute } from '../../api/commend'
-import {loadingType} from '../../utils/type'
+import YWJATRACK from "@/config/jstrack.js"
+
 export default defineComponent({
 	props: {
 	},
@@ -39,7 +29,7 @@ export default defineComponent({
 		} = storeToRefs(userPData)
 
 		onLoad(() => {
-			// reqMyCommendList()
+			YWJATRACK.uploadTrack('查看更多表彰内容', 'key2')
 		})
 
 		//获取我的表彰列表
@@ -50,7 +40,7 @@ export default defineComponent({
 				size: pageSize,
 				userId: userInfo.value.userId
 			}
-		
+
 			const {
 				code,
 				data
