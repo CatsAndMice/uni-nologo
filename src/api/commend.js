@@ -57,3 +57,12 @@ export const acceptCommend = async (params) => {
 	if (isEmpty(result)) return false
 	return eq(result.code, 200)
 }
+
+/**
+*	表彰项
+*/
+export const getCommendation = async (param) => {
+	const [err, result] = await to(request.post(`/commendation/list`, param))
+	if (isEmpty(result)) return {}
+	return eq(result.code, 200) ? result.data[0] : {}
+}

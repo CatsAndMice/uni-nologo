@@ -75,6 +75,16 @@
 			}
 		},
 		{
+			"path": "pages/colleaguesLike/colleaguesLike",
+			"style": {
+				"navigationBarTitleText": "同事点赞",
+				"enablePullDownRefresh": true,
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				}
+			}
+		},
+		{
 			"path": "pages/recordList/recordList",
 			"style": {
 				"navigationBarTitleText": "明细",
