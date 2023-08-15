@@ -17,41 +17,36 @@
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
             :energy-external="energyExternal" @select-person="openSelectPerson" :person="person" />
         <live-input @live-input="onLiveInput" title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
-        <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交点赞"
-                @submit="open" /></view>
+        <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交点赞" /></view>
     </view>
-   
 </template>
 <script>
 import useObject from "@c/useObject.js"
 import { onLoad } from "@dcloudio/uni-app"
 import { getCommendation } from "@a/commend"
 import { to } from "await-to-js"
-import { noImageDefault } from '../../tools/tool.js'
-import useEnergyScore from "./js/useEnergyScore"
-import { toSelectPerson } from "./js/page"
-import { unref } from 'vue'
+import { noImageDefault } from '@/tools/tool.js'
+import useEnergyScore from "@/pages/colleaguesLike/js/useEnergyScore"
+import { toSelectPerson } from "@/pages/colleaguesLike/js/page"
+import { ref, unref } from 'vue'
 import Cache from '@/utils/cache.js'
 import { BaseDataKey } from '@/utils/type.js'
-import useSubmitLive from "./js/useSubmitLive"
-import usePopup from "@c/usePopup.js"
 
-const type = 'live-colleague'
+const type = 'live-dept'
 export default {
     setup() {
-        const { open, close, popupRef } = usePopup()
+        const person = ref([])
+        const inputValue = ref('')
         const { internal, external, energyInternal, energyExternal, setInternalAndExternal } = useEnergyScore()
-        const { person, onLiveInput, isCheckTrue, submitLive } = useSubmitLive({
-            internal,
-            external,
-            energyInternal,
-            energyExternal
-        })
 
         const { obj, onLoadObject } = useObject(async () => {
-            const [err, result] = await to(getCommendation({ commendationSource: 'LIKE' }))
+            const [err, result] = await to(getCommendation({ commendationSource: 'DEPT' }))
             return result
         })
+
+        const onLiveInput = (inputValue) => {
+            console.log(inputValue)
+        }
 
         const openSelectPerson = () => {
             toSelectPerson('添加点赞对象', type)
@@ -78,11 +73,7 @@ export default {
             onLiveInput,
             internal,
             external,
-            openSelectPerson,
-            submitLive,
-            open,
-            close,
-            popupRef
+            openSelectPerson
         }
     },
 }

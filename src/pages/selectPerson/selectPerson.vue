@@ -2,38 +2,6 @@
     <select-person v-model="search" :num="selects.length" @open-selected="onReset" @submit-select="deleteDiffSelects"
         @submit="onSubmit" @search-input="onSearchInput">
         <template #select-main>
-            <!-- <view v-show="isEmpty(search) && eq(pageType, 'recentlyAdded')"> -->
-            <!-- <view class="bg-white flex"
-                    style="width: calc(100vw - 48rpx);overflow-x: auto;margin-top: 32rpx;padding-top: 16rpx;height: 84rpx;padding-left: 32rpx;border-top-left-radius: 16rpx;border-top-right-radius: 16rpx;">
-                    <uni-breadcrumb separator="/">
-                        <uni-breadcrumb-item v-for="(path, index) in paths" :key="path.deptId">
-                            <view :class="{
-                                'is-blob': eq(index, paths.length - 1),
-                            }" @click="changeDept(path)" style="font-size: 32rpx;font-weight: 400;color: #4E5969;">
-                                {{ path.deptName }}</view>
-                        </uni-breadcrumb-item>
-                    </uni-breadcrumb>
-                </view> -->
-
-            <!-- <view
-                    style="max-height:calc(100vh - 364rpx);overflow-y: auto; background-color: #fff;padding:0  32rpx 16rpx 32rpx;border-bottom-left-radius: 16rpx;border-bottom-right-radius: 16rpx;"> -->
-            <!-- <uni-load-more v-if="recommendLoading" :icon-size="12" iconType="circle" status="loading" />
-                    <view v-for="(l, index) in list" :key="l.userId" class="radio flex align-center"
-                        @click="radioClick(l.userId, l, limitIds.includes(l.userId))">
-                        <radio :value="l.userId" :disabled="limitIds.includes(l.userId)"
-                            :style="{ backgroundColor: limitIds.includes(l.userId) ? '#F2F3F5' : '' }"
-                            :checked="selects.includes(l.userId)" />
-                        <select-person-item :avatar="l.avatar" :name="l.name" :custom-style="{
-                            height: '108rpx',
-                            backgroundColor: '#fff',
-                            flexGrow: 1,
-                            borderWidth: index ? '2rpx' : 0,
-                            marginLeft: '16rpx'
-                        }">
-                        </select-person-item>
-                    </view> -->
-            <!-- </view> -->
-            <!-- </view> -->
 
             <!-- 组织首页 -->
             <view v-show="eq(pageType, 'home') && isEmpty(search)" style="margin-top: 32rpx;">
@@ -250,7 +218,7 @@ export default defineComponent({
             onListLoad()
         }
 
-        onLoad(({ title }) => {
+        onLoad(({ title, type }) => {
             uni.setNavigationBarTitle({ title })
             const person = Cache.get('person') || []
             const limit = Cache.get('limit') || []
@@ -260,6 +228,7 @@ export default defineComponent({
             person.forEach(p => {
                 radioClick(p.userId, p)
             })
+            emitType.value = type
             requestBaseDept()
             getDept()
         })

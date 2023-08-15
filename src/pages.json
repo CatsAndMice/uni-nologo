@@ -85,6 +85,23 @@
 			}
 		},
 		{
+			"path": "pages/deptLive/deptLive",
+			"style": {
+				"navigationBarTitleText": "部门表彰",
+				"enablePullDownRefresh": true,
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				}
+			}
+		},
+		{
+			"path": "pages/selectPerson/selectPerson",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/recordList/recordList",
 			"style": {
 				"navigationBarTitleText": "明细",
@@ -116,13 +133,6 @@
 			"path": "pages/applyCommendForm/applyCommendForm",
 			"style": {
 				"navigationBarTitleText": "个人申请",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
-			"path": "pages/selectPerson/selectPerson",
-			"style": {
-				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
 		},
