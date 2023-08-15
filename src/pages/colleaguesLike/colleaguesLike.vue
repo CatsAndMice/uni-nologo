@@ -14,8 +14,9 @@
             }}</text>晶点
             </view>
         </view>
-        <live-person :energy-internal="energyInternal" :energy-external="energyExternal" />
-        <live-input title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
+        <live-person :energy-internal="energyInternal" :energy-external="energyExternal"
+            @select-person="openSelectPerson" />
+        <live-input @live-input="onLiveInput" title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交点赞" /></view>
     </view>
 </template>
@@ -25,19 +26,24 @@ import { onLoad } from "@dcloudio/uni-app"
 import { getCommendation } from "@a/commend"
 import { to } from "await-to-js"
 import { noImageDefault } from '../../tools/tool.js'
-import liveTooltip from '../../components/live-tooltip/live-tooltip.vue'
 import useEnergyScore from "./js/useEnergyScore"
-import LiveInput from "../../components/live-input/live-input.vue"
 
 export default {
-    components: { liveTooltip, LiveInput },
     setup() {
         const { energyInternal, energyExternal } = useEnergyScore()
+
         const { obj, onLoadObject } = useObject(async () => {
             const [err, result] = await to(getCommendation({ commendationSource: 'LIKE' }))
             return result
         })
 
+        const onLiveInput = (inputValue) => {
+            console.log(inputValue)
+        }
+
+        const openSelectPerson = ()=>{
+            
+        }
 
 
         onLoad(onLoadObject)
@@ -45,7 +51,8 @@ export default {
             obj,
             noImageDefault,
             energyInternal,
-            energyExternal
+            energyExternal,
+            onLiveInput
         }
     },
 }

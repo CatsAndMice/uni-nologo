@@ -1,7 +1,30 @@
 <template>
-    <view class="margin-bottom-12 bg-white  person  padding-bottom-8">
+    <view class="margin-bottom-12 bg-white   padding-bottom-8">
         <view class="title padding-lr-16 bg-white"><text style="margin-right: 8rpx;"> 选择点赞对象</text> <uni-icons
                 type="help-filled" color="#999999" size="16" /></view>
+
+        <view class="select-person padding-lr-16 flex justify-between align-center">
+            <view class="flex">
+                <view v-for="p in person" :key="p.userId" class="cu-avatar df-warp radius" :style="{
+                    width: '80rpx',
+                    height: '80rpx',
+                    backgroundColor: '#fff',
+                    backgroundImage: `url(${p.avatar})`
+                }"></view>
+
+                <view class="cu-avatar df-warp radius" :style="{
+                    width: '80rpx',
+                    height: '80rpx',
+                    backgroundColor: '#fff',
+                    backgroundImage: `url(${addImage})`
+                }" @click="onSelectPerson"></view>
+            </view>
+            <view class="flex align-center padding-left-16" style="font-size: 32rpx;color: rgba(0,0,0,0.4);">
+                <text>0</text>
+                <text style="margin-right: 8rpx;">人</text>
+                <uni-icons color="rgba(0,0,0,0.4)" type="forward" size="24" />
+            </view>
+        </view>
         <view class="padding-lr-16">
             <!-- 我的能量 -->
             <view class="flex justify-between margin-top-8 item">
@@ -27,6 +50,7 @@
     </view>
 </template>
 <script>
+import addImage from "@/static/add.webp"
 export default {
     props: {
         // 内容能量
@@ -38,9 +62,22 @@ export default {
         energyExternal: {
             type: Number,
             default: 0
+        },
+        person: {
+            type: Array,
+            default: []
         }
     },
-    setup() {
+    emits: ['select-person'],
+    setup(props, { emit }) {
+        const onSelectPerson = () => {
+            emit('select-person')
+        }
+
+        return {
+            addImage,
+            onSelectPerson
+        }
 
     },
 }
@@ -62,5 +99,12 @@ export default {
     font-weight: 400;
     color: rgba(0, 0, 0, 0.6);
     line-height: 20px;
+}
+
+.select-person {
+    min-height: 112rpx;
+    padding-top: 16rpx;
+    box-sizing: border-box;
+    padding-bottom: 16rpx;
 }
 </style>

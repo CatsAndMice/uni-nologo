@@ -5,11 +5,14 @@
             <uni-easyinput type="textarea" placeholder-style="font-size: 28rpx;
 font-weight: 400;
 color: rgba(0,0,0,0.26);
-line-height: 44rpx;" :input-border="false" maxlength="200" v-model="value" :placeholder="placeholder"></uni-easyinput>
+line-height: 44rpx;" :input-border="false" maxlength="200" v-model="inputValue" :placeholder="placeholder"
+                @input="onInput"></uni-easyinput>
         </view>
     </view>
 </template>
 <script>
+import { ref, unref } from "vue"
+
 export default {
     props: {
         title: {
@@ -21,8 +24,17 @@ export default {
             default: ''
         }
     },
-    setup() {
+    emits: ['live-input'],
+    setup(props, { emit }) {
+        const inputValue = ref('')
+        const onInput = () => {
+            emit('live-input', unref(inputValue))
+        }
 
+        return {
+            inputValue,
+            onInput
+        }
     },
 }
 </script>

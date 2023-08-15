@@ -120,6 +120,13 @@
 			}
 		},
 		{
+			"path": "pages/selectPerson/selectPerson",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/userInfoPage/userInfoPage",
 			"style": {
 				"navigationBarTitleText": "",

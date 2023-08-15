@@ -15,10 +15,7 @@ export default {
             type: String,
             default: ""
         }
-    },
-    setup() {
-
-    },
+    }
 }
 </script>
 <style lang="scss" scoped>
