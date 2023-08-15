@@ -2,7 +2,8 @@ import { ref, unref } from "vue"
 import gte from "medash/lib/gte"
 import isEmpty from "medash/lib/isEmpty"
 import toast from "@/tools/toast"
-
+import { trim } from "medash/lib/trimString"
+import isFunc from "medash/lib/isFunc"
 
 export default (score) => {
     const { internal, external, energyInternal, energyExternal } = score
@@ -26,22 +27,22 @@ export default (score) => {
             return false
         }
         // 能量是否充足
-        if (isEnergyEnough) {
+        if (!isEnergyEnough()) {
             toast('能量不足支付，请调整人数后再确认')
             return false
         }
 
         // 理由字数至少10
-        if (unref(inputValue).length < 10) {
+        if (trim(unref(inputValue)).length < 10) {
             toast('点赞理由至少10个字')
             return false
         }
+
+        return true
     }
 
-    const submitLive = () => {
-
-
-
+    const submitLive = (callback) => {
+        isFunc(callback)&& callback({person,inputValue})
     }
 
 

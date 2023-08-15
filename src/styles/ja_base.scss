@@ -162,9 +162,21 @@ page {
 	margin-bottom: 16rpx;
 }
 
+.margin-right-8 {
+	margin-right: 16rpx;
+}
+
 .margin-tb-12 {
 	margin-top: 24rpx;
 	margin-bottom: 24rpx;
+}
+
+.margin-left-12 {
+	margin-left: 24rpx;
+}
+
+.margin-right-12 {
+	margin-right: 24rpx;
 }
 
 .margin-tb-16 {
@@ -174,6 +186,12 @@ page {
 
 .padding-24 {
 	padding: 48rpx;
+}
+
+
+.padding-lr-24 {
+	padding-left: 48rpx;
+	padding-right: 48rpx;
 }
 
 
@@ -219,6 +237,10 @@ page {
 
 .padding-left-16 {
 	padding-left: 32rpx;
+}
+
+.padding-bottom-16 {
+	padding-bottom: 32rpx;
 }
 
 .padding-lr-16 {

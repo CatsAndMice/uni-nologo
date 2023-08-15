@@ -26,8 +26,8 @@ import { onLoad } from "@dcloudio/uni-app"
 import { getCommendation } from "@a/commend"
 import { to } from "await-to-js"
 import { noImageDefault } from '@/tools/tool.js'
-import useEnergyScore from "@/pages/colleaguesLike/js/useEnergyScore"
-import { toSelectPerson } from "@/pages/colleaguesLike/js/page"
+import useEnergyScore from "@/pages/colleaguesLive/js/useEnergyScore"
+import { toSelectPerson } from "@/pages/colleaguesLive/js/page"
 import { ref, unref } from 'vue'
 import Cache from '@/utils/cache.js'
 import { BaseDataKey } from '@/utils/type.js'

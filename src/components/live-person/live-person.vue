@@ -5,10 +5,11 @@
         </view>
 
         <view class="select-person padding-lr-16 flex justify-between align-center">
-            <view class="flex">
+            <view class="flex" style="flex-wrap: wrap;">
+                <view v-for="p in person" :key="p.userId" class="margin-right-8 padding-bottom-8" @click="onPreview">
+                    <base-avatar :src="p.avatar" :name="p.name" width="80rpx" height="80rpx" />
+                </view>
 
-                <base-avatar v-for="p in person" :key="p.userId" :src="p.avatar" :name="p.name" width="80rpx"
-                    height="80rpx" />
 
                 <view class="cu-avatar df-warp radius" :style="{
                     width: '80rpx',
@@ -17,7 +18,8 @@
                     backgroundImage: `url(${addImage})`
                 }" @click="onSelectPerson"></view>
             </view>
-            <view class="flex align-center padding-left-16" style="font-size: 32rpx;color: rgba(0,0,0,0.4);">
+            <view class="flex align-center padding-left-16" style="font-size: 32rpx;color: rgba(0,0,0,0.4);"
+                @click="onPreview">
                 <text>{{ person.length }}</text>
                 <text style="margin-right: 8rpx;">人</text>
                 <uni-icons color="rgba(0,0,0,0.4)" type="forward" size="24" />
@@ -92,11 +94,15 @@ export default {
             default: []
         }
     },
-    emits: ['select-person'],
+    emits: ['select-person', 'preview'],
     setup(props, { emit }) {
         const { open, close, popupRef } = usePopup()
         const onSelectPerson = () => {
             emit('select-person')
+        }
+
+        const onPreview = () => {
+            emit('preview')
         }
 
         return {
@@ -104,7 +110,7 @@ export default {
             onSelectPerson,
             open,
             close,
-            popupRef
+            popupRef, onPreview
         }
 
     },
@@ -134,7 +140,7 @@ export default {
     min-height: 112rpx;
     padding-top: 16rpx;
     box-sizing: border-box;
-    padding-bottom: 16rpx;
+    // padding-bottom: 16rpx;
 }
 
 .popup-content {
