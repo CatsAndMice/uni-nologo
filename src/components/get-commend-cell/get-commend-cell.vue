@@ -1,9 +1,11 @@
 <template>
-	<view class="cu-card article">
+	<view class="cu-card article bg-white" style="margin-bottom: 16rpx;">
 		<view class="cu-item shadow min-mp-tb" :class="customClass" :style="customStyle">
-			<view class="flex justify-between  margin-top-12" :class="isMargin ? 'margin-lr-12' : null">
-				<view><text class="text-sm text-c-msg2">获得</text>
-					<view class="margin-left-sm padding-top-sm cu-tag light sm round " :class="tagColor">
+			<view class="flex justify-between align-center  margin-top-12">
+				<view style="height: 44rpx;" class="flex align-center">
+					<text class=" text-c-msg2" style="font-size: 28rpx;">获得</text>
+					<view class="margin-left-sm  cu-tag light  round "
+						style="padding: 0 12rpx;line-height: 44rpx;text-align: center;font-size: 20rpx" :class="tagColor">
 						{{ item.commendationType }}
 					</view>
 				</view>
@@ -13,11 +15,14 @@
 			</view>
 
 			<slot>
-				<view class="flex padding-top-sm">
+				<slot name="top-initiator"></slot>
+				<view class="flex align-center margin-top-8 bg-white"
+					style="height: 176rpx;background: #F3F3F3;border-radius: 12rpx;">
 					<view class=" margin-tp-xs">
-						<view class="margin-auto-lr margin-lr-12" style="width: 80rpx;">
+						<view class="margin-auto-lr margin-lr-12">
 							<view class="cu-avatar df-warp radius bg-white"
-								:style="'background-image:url(' + noImageDefault(item.commendationIcon) + ')'"></view>
+								:style="'background-image:url(' + noImageDefault(item.commendationIcon) + ');width: 128rpx;height: 128rpx;'">
+							</view>
 						</view>
 					</view>
 
@@ -25,6 +30,11 @@
 						<view class="flex  margin-auto-tb">
 							<view class="text-lg text-bold">{{ item.commendationName }}</view>
 						</view>
+					</view>
+
+					<view
+						style="flex-grow: 1;text-align: right;margin-right: 32rpx;font-size: 32rpx;font-weight: 600;color: #F7AF6C;">
+						{{ '+' + item.score }} <text class="margin-left-8 ">晶点</text>
 					</view>
 				</view>
 			</slot>
@@ -106,7 +116,7 @@ export default defineComponent({
 .min-mp-tb {
 	margin-top: 0 !important;
 	padding-bottom: 24rpx !important;
-	margin-bottom: 16rpx !important;
+	margin-bottom: 0 !important;
 	border-radius: 16rpx !important;
 }
 

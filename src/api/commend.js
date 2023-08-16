@@ -33,7 +33,7 @@ export const getCommendApplyDetail = (applyRecordId) => {
  * @returns 
  */
 export const getCommendDistribute = (data) => {
-	return request.post(`/commendation/distribute`, data)
+	return request.post(`/commendation/distribute/user`, data)
 }
 
 /**

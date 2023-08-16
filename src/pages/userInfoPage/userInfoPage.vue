@@ -13,26 +13,17 @@
             <view class="title-msg">个人表彰动态</view>
         </view>
         <view style="margin: 0 -24rpx;">
-            <get-commend-cell custom-style="padding-left: 24rpx;padding-right: 24rpx;" :is-margin="false"
-                v-for="(item, index) in listRef" :key="index" :item="item">
-                <view class="flex align-center justify-between"
-                    style="border-radius: 16rpx;height: 104rpx;margin-top: 20rpx;">
-                    <view class="flex align-center">
-                        <view class="margin-auto-lr " style="width: 80rpx;height: 80rpx;">
-                            <view class="cu-avatar df-warp radius bg-white"
-                                :style="'background-image:url(' + noImageDefault(item.commendationIcon) + ')'"></view>
-                        </view>
-
-                        <view class="margin-auto-tb margin-lr-12">
-                            <view class="flex  margin-auto-tb">
-                                <view class="text-lg text-bold">{{ item.commendationName }}</view>
-                            </view>
-                        </view>
+            <get-commend-cell :is-margin="false" v-for="(item, index) in listRef" :key="index" :item="item">
+                <template #top-initiator>
+                    <view v-show="['DEPT', 'LIKE'].includes(item.source)" class="flex align-center"
+                        style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+                        <view
+                            style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
+                            提名人</view>
+                        <view class="padding-lr-16" style="font-size: 24rpx;font-weight: 400;display: inline-block;">{{
+                            item.initiator.deptName + '-' + item.initiator.name }}</view>
                     </view>
-                    <view class="rank-score">
-                        {{ '+' + item.score }}
-                    </view>
-                </view>
+                </template>
                 <template #reason>
                     <view class="flex  margin-top-8" v-show="item.distributeReason">
                         <view class="commend-msg">{{ item.distributeReason }}</view>

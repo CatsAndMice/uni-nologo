@@ -59,7 +59,6 @@
 					<view class="text-c-msg text-sm">{{ formatDateTimeMDS(item.distributeTime) }}</view>
 				</view>
 				<get-commend-cell :item="item" custom-class="card" :is-show-time="false" :is-margin="false">
-
 					<view class="flex align-center justify-between"
 						style="border-radius: 16rpx;background-color: #F7F8FA;height: 128rpx;margin-top: 20rpx;">
 						<view class="flex align-center">
@@ -82,7 +81,8 @@
 					</view>
 
 					<template #initiator>
-						<view class="flex align-center" style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+						<view v-show="['DEPT', 'LIKE'].includes(item.source)" class="flex align-center"
+							style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
 							<view
 								style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
 								提名人</view>
@@ -97,8 +97,6 @@
 						</view>
 					</template>
 				</get-commend-cell>
-
-
 			</view>
 			<no-data-wrap v-if="!loading && isEmpty(listRef)" :top='100' />
 			<uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />

@@ -25,8 +25,20 @@
 					</view>
 					<template v-if="myCommendsList.length > 0">
 						<view class="commend-wrap">
-							<get-commend-cell v-for="item, index in myCommendsList" :item="item"
-								:key="index"></get-commend-cell>
+							<get-commend-cell v-for="item, index in myCommendsList" :item="item" :key="index">
+								<template #top-initiator>
+									<view v-show="['DEPT', 'LIKE'].includes(item.source)"
+										class="flex align-center margin-top-8"
+										style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+										<view
+											style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
+											提名人</view>
+										<view class="padding-lr-16"
+											style="font-size: 24rpx;font-weight: 400;display: inline-block;">{{
+												item.initiator.deptName + '-' + item.initiator.name }}</view>
+									</view>
+								</template>
+							</get-commend-cell>
 							<view @tap="toCommonedList" v-if="myCommendsList.length == 3"
 								class="text-c-msg text-sm text-center margin-top-8 margin-bottom-16">查看更多表彰内容<text
 									class="cuIcon-right text-sm"></text></view>
@@ -36,7 +48,8 @@
 				</view>
 			</view>
 		</view>
-		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar" @click-center="onClickCenter"></j-tabbar>
+		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar"
+			@click-center="onClickCenter"></j-tabbar>
 		<exchange-modal :show='showModal' :score='12' :jingdian='34' @close="closeModal"
 			@exchangeJingdian='exchangeJingdian'></exchange-modal>
 	</view>
@@ -163,12 +176,12 @@ export default defineComponent({
 			showModal.value = false
 		}
 
-		const onClickCenter = ()=>{
+		const onClickCenter = () => {
 			console.log(11212);
 		}
 
 		onLoad(() => {
-			YWJATRACK.uploadTrack('首页','key1')
+			YWJATRACK.uploadTrack('首页', 'key1')
 			//先检查用户信息
 			if (isUndefined(unref(userInfo).userId)) {
 				//先去获取用户信息
