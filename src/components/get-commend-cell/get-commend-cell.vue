@@ -7,7 +7,9 @@
 						{{ item.commendationType }}
 					</view>
 				</view>
-				<view class="text-c-msg text-sm" v-show="isShowTime">{{ formatDateTimeMDS(item.distributeTime) }}</view>
+				<slot name="initiator">
+					<view class="text-c-msg text-sm" v-show="isShowTime">{{ formatDateTimeMDS(item.distributeTime) }}</view>
+				</slot>
 			</view>
 
 			<slot>

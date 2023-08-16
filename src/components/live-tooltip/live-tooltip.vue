@@ -1,5 +1,5 @@
 <template>
-    <view class="margin-bottom-16" style=" height: 96rpx; "></view>
+    <view :class="customClass" style=" height: 96rpx; "></view>
     <view class="header flex align-center padding-lr-16 ">
         <view class="flex align-center" style="transform: rotate(180deg);">
             <uni-icons color="#FF8917" type="info-filled" size="22" />
@@ -14,6 +14,10 @@ export default {
         message: {
             type: String,
             default: ""
+        },
+        customClass: {
+            type: String,
+            default: ""
         }
     }
 }
@@ -25,7 +29,7 @@ export default {
     left: 0;
     top: 0;
     height: 96rpx;
-    z-index: 999;
+    z-index: 1;
     background: #FFF7E8;
 }
 </style>

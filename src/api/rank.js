@@ -17,7 +17,7 @@ export const getRankTotal = async (data) => {
  * 已发放表彰列表
  */
 export const getCommendation = async (data) => {
-	const [err, result] = await to(request.post(`/commendation/distribute`, data))
+	const [err, result] = await to(request.post(`/commendation/distribute/square`, data))
 	if (isEmpty(result)) return null
 	return eq(result.code, 200) ? result.data : null
 }

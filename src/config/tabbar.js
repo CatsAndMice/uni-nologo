@@ -10,7 +10,7 @@
         selectedIconPath: "",
         text: "首页"
     }, {
-        pagePath: "/pages/commendPage/commendPage",
+        // pagePath: "/pages/commendPage/commendPage",
         iconPath: "/static/home/home_tabbar_button.png",
         selectedIconPath: "/static/home/home_tabbar_button.png",
         text: "",

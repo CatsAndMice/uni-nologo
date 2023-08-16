@@ -36,7 +36,7 @@
 				</view>
 			</view>
 		</view>
-		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar"></j-tabbar>
+		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar" @click-center="onClickCenter"></j-tabbar>
 		<exchange-modal :show='showModal' :score='12' :jingdian='34' @close="closeModal"
 			@exchangeJingdian='exchangeJingdian'></exchange-modal>
 	</view>
@@ -163,6 +163,10 @@ export default defineComponent({
 			showModal.value = false
 		}
 
+		const onClickCenter = ()=>{
+			console.log(11212);
+		}
+
 		onLoad(() => {
 			YWJATRACK.uploadTrack('首页','key1')
 			//先检查用户信息
@@ -196,7 +200,8 @@ export default defineComponent({
 			picDecorationImage,
 			commendInfo,
 			noImageDefault,
-			onAcceptCommend
+			onAcceptCommend,
+			onClickCenter
 		}
 	}
 })

@@ -27,9 +27,11 @@
 							">
 						</view>
 						<view class="margin-left-12">
-							<view style="font-size: 28rpx;font-weight: 500;color: #1D2129;line-height: 44rpx;">{{ item.userList[0].name }}
+							<view style="font-size: 28rpx;font-weight: 500;color: #1D2129;line-height: 44rpx;">{{
+								item.userList[0].name }}
 							</view>
-							<view style="font-size: 20rpx;font-weight: 400;color: #A9AEB8;line-height: 32rpx;">{{ item.userList[0].deptName }}
+							<view style="font-size: 20rpx;font-weight: 400;color: #A9AEB8;line-height: 32rpx;">{{
+								item.userList[0].deptName }}
 							</view>
 						</view>
 					</view>
@@ -57,6 +59,7 @@
 					<view class="text-c-msg text-sm">{{ formatDateTimeMDS(item.distributeTime) }}</view>
 				</view>
 				<get-commend-cell :item="item" custom-class="card" :is-show-time="false" :is-margin="false">
+
 					<view class="flex align-center justify-between"
 						style="border-radius: 16rpx;background-color: #F7F8FA;height: 128rpx;margin-top: 20rpx;">
 						<view class="flex align-center">
@@ -77,6 +80,16 @@
 							{{ '+' + item.score }}
 						</view>
 					</view>
+
+					<template #initiator>
+						<view class="flex align-center" style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+							<view
+								style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
+								提名人</view>
+							<view class="padding-lr-16" style="font-size: 24rpx;font-weight: 400;">{{
+								item.initiator.deptName + '-' + item.initiator.name }}</view>
+						</view>
+					</template>
 
 					<template #reason>
 						<view class="flex  margin-top-8" v-show="item.distributeReason">
@@ -212,7 +225,7 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
-.content{
+.content {
 	padding-bottom: 170rpx;
 }
 

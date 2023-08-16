@@ -33,9 +33,10 @@ export default () => {
     }
 
     onLoad(() => onLoadList(() => {
-        const unrefList = unref(list)
-        if (isEmpty(unrefList)) return
-        openPopup(unrefList)
+        // 临时注释
+        // const unrefList = unref(list)
+        // if (isEmpty(unrefList)) return
+        // openPopup(unrefList)
     }))
 
     return {

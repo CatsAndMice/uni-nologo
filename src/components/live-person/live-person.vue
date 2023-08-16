@@ -10,20 +10,24 @@
                     <base-avatar :src="p.avatar" :name="p.name" width="80rpx" height="80rpx" />
                 </view>
 
-
-                <view class="cu-avatar df-warp radius" :style="{
+                <view v-if="!isEmpty(person)" class="cu-avatar df-warp radius" :style="{
                     width: '80rpx',
                     height: '80rpx',
                     backgroundColor: '#fff',
                     backgroundImage: `url(${addImage})`
-                }" @click="onSelectPerson"></view>
+                }"></view>
+                <view v-else @click="onSelectPerson" style="font-size: 32rpx;font-weight: 400;color: rgba(0,0,0,0.6);">
+                    添加点赞对象</view>
+
             </view>
+
             <view class="flex align-center padding-left-16" style="font-size: 32rpx;color: rgba(0,0,0,0.4);"
                 @click="onPreview">
                 <text>{{ person.length }}</text>
                 <text style="margin-right: 8rpx;">人</text>
                 <uni-icons color="rgba(0,0,0,0.4)" type="forward" size="24" />
             </view>
+
         </view>
         <view class="padding-lr-16">
             <!-- 我的能量 -->
@@ -67,7 +71,7 @@ line-height: 54rpx;">能量消耗说明</view>
 <script>
 import addImage from "@/static/add.webp"
 import usePopup from "@c/usePopup.js"
-
+import isEmpty from "medash/lib/isEmpty"
 export default {
     props: {
         internal: {
@@ -110,7 +114,9 @@ export default {
             onSelectPerson,
             open,
             close,
-            popupRef, onPreview
+            isEmpty,
+            popupRef,
+            onPreview
         }
 
     },

@@ -1,6 +1,6 @@
 <template>
     <view style="padding-bottom: 100rpx;">
-        <live-tooltip message="外部门同事收到表彰会额外获得奖励" />
+        <live-tooltip message="外部门同事收到表彰会额外获得奖励" custom-class="margin-bottom-16" />
         <view class="margin-bottom-16 margin-lr-12 padding-tb-16 bg-white flex align-center"
             style="border-radius: 18rpx;flex-direction: column;">
             <view class="cu-avatar df-warp radius" :style="{
@@ -15,7 +15,8 @@
             </view>
         </view>
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
-            :energy-external="energyExternal" @select-person="openSelectPerson" :person="person" @preview="toPreview(type)" />
+            :energy-external="energyExternal" @select-person="openSelectPerson" :person="person"
+            @preview="toPreview(type)" />
         <live-input @live-input="onLiveInput" title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交点赞"
                 @submit="onBeforeSubmit" /></view>
@@ -41,7 +42,7 @@ import { getCommendation } from "@a/commend"
 import { to } from "await-to-js"
 import { noImageDefault } from '@/tools/tool.js'
 import useEnergyScore from "./js/useEnergyScore"
-import { toSelectPerson,toPreview } from "./js/page"
+import { toSelectPerson, toPreview } from "./js/page"
 import { unref } from 'vue'
 import { BaseDataKey } from '@/utils/type.js'
 import useSubmitLive from "./js/useSubmitLive"
@@ -85,6 +86,9 @@ export default {
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
 
+            if (isSuccess) {
+                uni.switchTab('/pages/index/index')
+            }
         }
 
         onLoad(() => {
