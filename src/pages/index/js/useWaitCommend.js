@@ -35,11 +35,16 @@ export default () => {
 
     }
 	const getCountImageList = (total)=>{
-		let imgArr = ['../../static/com_count/com_x.png','../../static/com_count/com_2.png','../../static/com_count/com_4.png'];
+		let imgArr = [];
 		if(total>99){
-			
+			imgArr = ['../../static/com_count/com_x.png','../../static/com_count/com_9.png','../../static/com_count/com_9.png']
 		} else {
-			
+			let totalStr = total+''
+			imgArr.push('../../static/com_count/com_x.png')
+			for (var i = 0; i < totalStr.length; i++) {
+				let iStr = `../../static/com_count/com_${totalStr[i]}.png`
+				imgArr.push(iStr)
+			}
 		}
 		
 		return imgArr;

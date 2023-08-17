@@ -161,7 +161,16 @@
 				}
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/giftStore/giftStore",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "礼品中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"subPackages": [
 		{
 			"root": "bundle",

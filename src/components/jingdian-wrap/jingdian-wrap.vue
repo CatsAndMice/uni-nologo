@@ -51,8 +51,12 @@
 			})
 
 			const clickToShop = () => {
+				// uni.showToast({
+				// 	title: '功能尚未上线，敬请期待~',
+				// 	icon: 'none'
+				// })
 				uni.navigateTo({
-					url: `/pages/goods/goods`
+					url: '/pages/giftStore/giftStore'
 				})
 			}
 			const clickToRecord = (type) => {
