@@ -60,10 +60,12 @@
 				</view>
 				<get-commend-cell :item="item" custom-class="card" :is-show-time="false" :is-margin="false">
 					<view class="flex align-center justify-between"
-						style="border-radius: 16rpx;background-color: #F7F8FA;height: 128rpx;margin-top: 20rpx;">
+						style="border-radius: 12rpx;background-color: #F7F8FA;height: 176rpx;margin-top: 20rpx;">
 						<view class="flex align-center">
-							<view class="margin-auto-lr margin-lr-12" style="width: 80rpx;height: 80rpx;">
+							<view class="margin-auto-lr margin-lr-12">
 								<view class="cu-avatar df-warp radius" :style="{
+									width: '128rpx',
+									height: '128rpx',
 									backgroundColor: '#F7F8FA',
 									backgroundImage: `url(${noImageDefault(item.commendationIcon)})`
 								}"></view>
@@ -81,8 +83,8 @@
 					</view>
 
 					<template #initiator>
-						<view v-show="['DEPT', 'LIKE'].includes(item.source)" class="flex align-center"
-							style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+						<!-- v-show="['DEPT', 'LIKE'].includes(item.source)" -->
+						<view class="flex align-center" style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
 							<view
 								style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
 								提名人</view>
@@ -278,8 +280,8 @@ export default defineComponent({
 
 .rank-score {
 	color: #FFA24A;
-	font-size: 40rpx;
-	font-weight: 500;
+	font-size: 36rpx;
+	font-weight: 600;
 	margin-right: 24rpx;
 }
 

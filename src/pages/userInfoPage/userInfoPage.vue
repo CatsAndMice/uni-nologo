@@ -15,8 +15,8 @@
         <view style="margin: 0 -24rpx;">
             <get-commend-cell :is-margin="false" v-for="(item, index) in listRef" :key="index" :item="item">
                 <template #top-initiator>
-                    <view v-show="['DEPT', 'LIKE'].includes(item.source)" class="flex align-center"
-                        style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+                    <view v-show="['DEPT', 'LIKE'].includes(item.source)" class="align-center margin-top-8"
+                        style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;display: inline-flex;">
                         <view
                             style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
                             提名人</view>
