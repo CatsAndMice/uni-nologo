@@ -29,7 +29,8 @@
                             message="无可颁发表彰项" /></view>
                 </view>
                 <view v-else style="display: grid;grid-template-columns: 1fr 1fr 1fr;">
-                    <view v-for="l in competenceDimensionList" :key="l.commendationId" @click="clickCommendation(l)">
+                    <view v-for="l in competenceDimensionList" :key="l.commendationId"
+                        @click="clickCommendation(l); reSetInternalAndExternal()">
                         <live-commendation :commendation="l" :commendation-active-id="commendationActive.commendationId" />
                     </view>
                 </view>
@@ -63,12 +64,12 @@
 <script>
 import useList from "@c/useList.js"
 import { onLoad } from "@dcloudio/uni-app"
-import { getDept, getEnum, getCompetenceDimensionList } from "@a/live"
+import { getDept, getEnum, getCompetenceDimensionList, submitDeptLive } from "@a/live"
 import { to } from "await-to-js"
 import { noImageDefault } from '@/tools/tool.js'
 import useEnergyScore from "@/pages/colleaguesLive/js/useEnergyScore"
 import { toSelectPerson } from "@/pages/colleaguesLive/js/page"
-import { ref, unref } from 'vue'
+import { ref, unref, watch } from 'vue'
 import Cache from '@/utils/cache.js'
 import { BaseDataKey } from '@/utils/type.js'
 import usePopup from "@c/usePopup.js"
@@ -97,10 +98,6 @@ export default {
         //    获取部门
         const { list, onLoadList } = useList(async () => {
             const [err, result] = await to(getDept())
-            if (result.length === 1) {
-                setEnergyInternalAndExternal(result[0])
-                curDept.value = result[0]
-            }
             return result
         })
 
@@ -124,6 +121,10 @@ export default {
 
         // 选择表彰项
         const { commendationActive, clickCommendation } = useCommendation()
+
+        const reSetInternalAndExternal = () => {
+            setInternalAndExternal(unref(person), unref(commendationActive).energy || 0)
+        }
 
         const openSelectPerson = () => {
             toSelectPerson('添加点赞对象', type)
@@ -155,17 +156,23 @@ export default {
         }
 
         const onSubmitColleaguesLive = async (query) => {
-            // const { person, inputValue } = query
-            // const [err, isSuccess] = await to(submitColleaguesLive({
-            //     applyReason: unref(inputValue),
-            //     commendationId: unref(obj).commendationId,
-            //     honoreeUserIds: unref(person).map(p => p.userId)
-            // }))
-
-            // if (isSuccess) {
-            //     uni.switchTab('/pages/index/index')
-            // }
+            const { person, inputValue } = query
+            const [err, isSuccess] = await to(submitDeptLive({
+                applyReason: unref(inputValue),
+                commendationId: unref(commendationActive).commendationId,
+                honoreeUserIds: unref(person).map(p => p.userId)
+            }))
+            if (isSuccess) {
+                uni.switchTab({ url: '/pages/index/index' })
+            }
         }
+
+        watch(list, (result) => {
+            if (result.length === 1) {
+                setEnergyInternalAndExternal(result[0])
+                curDept.value = result[0]
+            }
+        })
 
         onLoad(() => {
             onLoadList()
@@ -207,7 +214,8 @@ export default {
             deptClose,
             deptPopup,
             competenceDimensionList,
-            enumName
+            enumName,
+            reSetInternalAndExternal
         }
     },
 }

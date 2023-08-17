@@ -1,7 +1,6 @@
 <template>
 	<view>
 		<view style="position: relative;">
-			<!-- <view class="bg-img top-bg"></view> -->
 			<view class="main-wrap">
 				<view style="padding: 24rpx 0;">
 					<user-header :avatar='noEmpty(accountInfo.avatar)' :name='noEmpty(accountInfo.name)'

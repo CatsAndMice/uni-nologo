@@ -85,9 +85,8 @@ export default {
                 commendationId: unref(obj).commendationId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
-
             if (isSuccess) {
-                uni.switchTab('/pages/index/index')
+                uni.switchTab({ url: '/pages/index/index' })
             }
         }
 

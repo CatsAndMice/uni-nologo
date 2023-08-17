@@ -15,7 +15,7 @@
                     height: '80rpx',
                     backgroundColor: '#fff',
                     backgroundImage: `url(${addImage})`
-                }"></view>
+                }" @click="onSelectPerson"></view>
                 <view v-else @click="onSelectPerson" style="font-size: 32rpx;font-weight: 400;color: rgba(0,0,0,0.6);">
                     添加点赞对象</view>
 

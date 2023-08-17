@@ -9,7 +9,7 @@ import isEmpty from 'medash/lib/isEmpty'
  * @returns 
  */
 export const reqCommendApply = (data) => {
-	return request.post(`/commendation/apply`, data)
+	return request.post(`/commendation/apply/personal`, data)
 }
 /**
  * 获取表彰申请列表
