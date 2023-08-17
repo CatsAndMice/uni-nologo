@@ -85,7 +85,7 @@ import { to } from "await-to-js"
 import { noImageDefault } from '@/tools/tool.js'
 import useEnergyScore from "@/pages/colleaguesLive/js/useEnergyScore"
 import { toSelectPerson } from "@/pages/colleaguesLive/js/page"
-import { ref, unref, watch } from 'vue'
+import { ref, unref, watch, computed } from 'vue'
 import Cache from '@/utils/cache.js'
 import { BaseDataKey } from '@/utils/type.js'
 import usePopup from "@c/usePopup.js"
@@ -142,7 +142,7 @@ export default {
             return result
         })
 
-        const { enumActive, enumName, selectEnum } = useActive(enumList, onLoadCompetenceDimensionList)
+        const { enumActive, selectEnum } = useActive(enumList, onLoadCompetenceDimensionList)
 
         const { info, change, current } = useSwiper(competenceDimensionList)
 
@@ -167,6 +167,20 @@ export default {
             open()
         }
 
+        const enumName = computed(() => {
+            const competenceDimension = unref(commendationActive).competenceDimension
+            let name = ''
+            unref(enumList).some(l => {
+                const { label, value } = l
+                const isEq = value === competenceDimension
+                if (isEq) {
+                    name = label
+                }
+                return isEq
+            })
+            return name
+        })
+
         const onChange = (l) => {
             curDept.value = l
             setEnergyInternalAndExternal(l)
@@ -187,7 +201,7 @@ export default {
             const [err, isSuccess] = await to(submitDeptLive({
                 applyReason: unref(inputValue),
                 commendationId: unref(commendationActive).commendationId,
-                deptId: unref(commendationActive).deptId,
+                deptId: unref(curDept).deptId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
             if (isSuccess) {
@@ -304,6 +318,7 @@ export default {
         color: #F7AF6C;
     }
 }
+
 .enum:first-child {
     margin-left: 32rpx;
 }
