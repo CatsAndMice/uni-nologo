@@ -32,7 +32,9 @@ page {
 	width: 100vw;
 	height: 100vh;
 }
-
+.df-bg-color {
+	background-color: $uni-bg-color-grey;
+}
 .margin-auto-tb {
 	margin: auto 0;
 }
@@ -52,7 +54,9 @@ page {
 .bg-theme {
 	background-color: #FFA24A;
 }
-
+.bg-clear {
+	background-color: rgba(1, 1, 1, 0);
+}
 .text-c-msg {
 	color: #86909C;
 }
@@ -68,7 +72,9 @@ page {
 .text-56 {
 	font-size: 56rpx;
 }
-
+.line-height-20 {
+	line-height: 40rpx;
+}
 .line-height-22 {
 	line-height: 44rpx;
 }
@@ -117,7 +123,10 @@ page {
 	margin-left: 24rpx;
 	margin-right: 24rpx;
 }
-
+.margin-lr-24 {
+	margin-left: 48rpx;
+	margin-right: 48rpx;
+}
 .margin-top-8 {
 	margin-top: 16rpx;
 }
@@ -183,7 +192,9 @@ page {
 	margin-top: 32rpx;
 	margin-bottom: 32rpx;
 }
-
+.margin-12 {
+	margin: 24rpx;
+}
 .padding-24 {
 	padding: 48rpx;
 }
@@ -272,7 +283,9 @@ page {
 .radius-lg {
 	border-radius: 16rpx;
 }
-
+.radius-12 {
+	border-radius: 24rpx;
+}
 .solidm,
 .solidm-top,
 .solidm-right,

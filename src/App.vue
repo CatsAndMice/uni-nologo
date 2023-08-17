@@ -39,5 +39,6 @@
 	/*每个页面公共css */
 	@import "@/static/colorui/main.css";
 	@import "@/static/colorui/icon.css";
+	@import "@/static/colorui/animation.css";
 	@import "@/styles/ja_base.scss";
 </style>

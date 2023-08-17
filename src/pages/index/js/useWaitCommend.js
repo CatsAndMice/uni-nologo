@@ -12,7 +12,10 @@ export default () => {
 
     const openPopup = (unrefList) => {
         const item = unrefList.splice(0, 1)[0]
+		
         commendInfo.value = isEmpty(item) ? {} : item
+		//根据total获取imageList
+		commendInfo.value.countImgList = getCountImageList(item.total)
         list.value = unrefList
         open()
     }
@@ -31,12 +34,22 @@ export default () => {
         }
 
     }
+	const getCountImageList = (total)=>{
+		let imgArr = ['../../static/com_count/com_x.png','../../static/com_count/com_2.png','../../static/com_count/com_4.png'];
+		if(total>99){
+			
+		} else {
+			
+		}
+		
+		return imgArr;
+	}
 
     onLoad(() => onLoadList(() => {
         // 临时注释
-        // const unrefList = unref(list)
-        // if (isEmpty(unrefList)) return
-        // openPopup(unrefList)
+        const unrefList = unref(list)
+        if (isEmpty(unrefList)) return
+        openPopup(unrefList)
     }))
 
     return {

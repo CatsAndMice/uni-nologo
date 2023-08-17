@@ -46,10 +46,11 @@
 				</view>
 			</view>
 		</view>
-		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar"
-			@click-center="onClickCenter"></j-tabbar>
-		<exchange-modal :show='showModal' :score='12' :jingdian='34' @close="closeModal"
-			@exchangeJingdian='exchangeJingdian'></exchange-modal>
+
+		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar" @click-center="onClickCenter"></j-tabbar>
+<!-- 		<exchange-modal :show='showModal' :score='12' :jingdian='34' @close="closeModal"
+			@exchangeJingdian='exchangeJingdian'></exchange-modal> -->
+		<commend-item-popup :show='showModal' @close="closeModal"></commend-item-popup>
 	</view>
 
 	<uni-popup ref="popupRef" :is-mask-click="false">
@@ -61,8 +62,17 @@
 			</view>
 
 			<view class="commend flex align-center" style="flex-direction: column;">
+				<!-- //noImageDefault(commendInfo.commendationIcon) -->
+				<view class="flex justify-center">
 				<view class="cu-avatar radius bg-white"
-					:style="'background-image:url(' + noImageDefault(commendInfo.commendationIcon) + ');width:200rpx;height:200rpx'">
+					:style="'background-image:url(' + '/static/detail/img_default.png' + ');width:200rpx;height:200rpx'">
+				</view>
+				<view class="flex margin-lr-8">
+					<view class="margin-auto-tb" v-for="item,index in commendInfo.countImgList" :key="index">
+					<image class="" :src="item" mode="aspectFit"
+						style="width: 44rpx;height: 88rpx;"></image>
+					</view>
+				</view>
 				</view>
 				<view style="font-size: 32rpx;font-weight: 500;line-height: 48rpx;margin-top: 32rpx;">{{
 					commendInfo.commendationName }}
@@ -79,7 +89,7 @@
 
 <script>
 import TabbarConfig from '@/config/tabbar.js'
-import { defineComponent, ref, reactive, unref } from 'vue'
+import { defineComponent, ref, reactive, unref ,shallowRef} from 'vue'
 import { userData } from '../../stores/userData.js'
 import { storeToRefs } from 'pinia'
 import { onLoad } from "@dcloudio/uni-app"
@@ -174,7 +184,9 @@ export default defineComponent({
 			showModal.value = false
 		}
 
-		const onClickCenter = () => {
+		const onClickCenter = ()=>{
+			showModal.value = true
+
 			console.log(11212);
 		}
 
