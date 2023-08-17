@@ -86,7 +86,7 @@ export default {
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
             if (isSuccess) {
-                uni.switchTab({ url: '/pages/index/index' })
+                uni.reLaunch({ url: '/pages/index/index' })
             }
         }
 

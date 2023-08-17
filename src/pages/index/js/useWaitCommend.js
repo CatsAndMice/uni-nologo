@@ -51,7 +51,6 @@ export default () => {
 	}
 
     onLoad(() => onLoadList(() => {
-        // 临时注释
         const unrefList = unref(list)
         if (isEmpty(unrefList)) return
         openPopup(unrefList)

@@ -1,7 +1,7 @@
 <template>
 	<view :class="show ? 'is-hidden' : null">
 		<view class="content">
-			<view id="title1" class="title-wrap flex" style="margin-left: 24rpx;">
+			<view class="title-wrap flex" style="margin-left: 24rpx;">
 				<view class="title-msg">晶点TOP 5</view>
 			</view>
 			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;margin-bottom: 32rpx;">
@@ -11,7 +11,7 @@
 				</uni-list>
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
-			<view id="title2" class="title-wrap" style="padding-left: 24rpx;">
+			<view class="title-wrap" style="padding-left: 24rpx;">
 				<view class="title-msg">表彰广场</view>
 			</view>
 
@@ -83,8 +83,8 @@
 					</view>
 
 					<template #initiator>
-						<!-- v-show="['DEPT', 'LIKE'].includes(item.source)" -->
-						<view class="flex align-center" style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
+						<view v-show="['DEPT', 'LIKE'].includes(item.source)" class="flex align-center"
+							style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;">
 							<view
 								style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
 								提名人</view>
@@ -102,10 +102,14 @@
 			</view>
 			<no-data-wrap v-if="!loading && isEmpty(listRef)" :top='100' />
 			<uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
+			<view v-show="!isEmpty(listRef) && !hasMore"
+				style="height: 40rpx;font-size: 24rpx;font-weight: 400;color: rgba(0,0,0,0.4);line-height: 40rpx;text-align: center;">
+				到底啦，展示近3个月的表彰动态…</view>
 		</view>
-		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar"></j-tabbar>
+		<j-tabbar fixed fill safeBottom current="2" :tabbar="tabbar" @click-center="openModal"></j-tabbar>
+		<commend-item-popup :show='showModal' @close="closeModal" />
 	</view>
-	<uni-popup ref="popupRef" type="bottom" :z-index="1000" :is-mask-click="false">
+	<uni-popup ref="popupRef" type="bottom" :z-index="9999" :is-mask-click="false">
 		<view class="popup-content bg-white" style="height:1148rpx;border-radius: 16rpx 16rpx 0 0;overflow: hidden;">
 			<view class="text-center"
 				style="height: 88rpx;line-height: 88rpx;color:#1D2129;font-size: 32rpx;font-weight: 500;position: relative;">
@@ -133,7 +137,7 @@
 
 <script>
 import TabbarConfig from '@/config/tabbar.js'
-import { defineComponent, reactive, onMounted, shallowRef } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import { onLoad, onReachBottom } from "@dcloudio/uni-app"
 import { getRankTotal, getCommendation } from '../../api/rank'
 import { RecordType } from '../../utils/type'
@@ -148,12 +152,11 @@ import { toUserInfoPage } from "./js/page"
 import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
 import YWJATRACK from "@/config/jstrack.js"
+import useModal from "@/pages/index/js/useModal"
+
 const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
 	setup() {
-		let title2 = null
-		const isTitle1Top = shallowRef(false)
-		const isTitle2Top = shallowRef(false)
 		const tabbar = reactive(TabbarConfig)
 		const query = {
 			page: 1,
@@ -161,7 +164,7 @@ export default defineComponent({
 			startTime: Date.now() - MARCH_TIME,
 			endTime: Date.now()
 		}
-		const { loading, listRef, onLoad: onInfiniteScrollLoad } = useInfiniteScroll(query, async (params) => {
+		const { loading, listRef, onLoad: onInfiniteScrollLoad, hasMore } = useInfiniteScroll(query, async (params) => {
 			const [err, result] = await to(getCommendation(params))
 			return result
 		})
@@ -177,6 +180,8 @@ export default defineComponent({
 
 		const { persons, setPerson } = usePersonList()
 
+		const { showModal, closeModal, openModal } = useModal()
+
 		const onLookUsers = (item) => {
 			setPerson(item.userList)
 			open()
@@ -187,11 +192,6 @@ export default defineComponent({
 		const getTwoUsers = (users = []) => {
 			return users.slice(0, 2)
 		}
-
-		onMounted(() => {
-			const query = uni.createSelectorQuery();
-			title2 = query.select('#title2')
-		})
 
 		onLoad(() => {
 			onLoadList()
@@ -215,11 +215,13 @@ export default defineComponent({
 			onLookUsers,
 			persons,
 			close,
-			isTitle1Top,
-			isTitle2Top,
 			getTwoUsers,
 			show,
-			isEmpty
+			isEmpty,
+			showModal,
+			closeModal,
+			openModal,
+			hasMore
 		}
 	}
 })

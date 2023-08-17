@@ -1,5 +1,5 @@
 <template>
-    <view class="card padding-tb-12 padding-lr-16">
+    <view class="card padding-tb-12 padding-lr-16" style="border-top: 1px solid #E7E7E7;">
         <view style="height: 44rpx;" class="flex justify-between align-center margin-bottom-8">
             <view class="flex align-center">
                 <view style="font-size: 28rpx;font-weight: 600;color: rgba(0,0,0,0.9);">{{ commendation.commendationName }}

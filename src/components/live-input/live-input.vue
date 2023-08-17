@@ -11,7 +11,7 @@ line-height: 44rpx;" :input-border="false" maxlength="200" v-model="inputValue" 
     </view>
 </template>
 <script>
-import { ref, unref } from "vue"
+import { nextTick, ref, unref } from "vue"
 
 export default {
     props: {
@@ -28,7 +28,9 @@ export default {
     setup(props, { emit }) {
         const inputValue = ref('')
         const onInput = () => {
-            emit('live-input', unref(inputValue))
+            nextTick(() => {
+                emit('live-input', unref(inputValue))
+            })
         }
 
         return {

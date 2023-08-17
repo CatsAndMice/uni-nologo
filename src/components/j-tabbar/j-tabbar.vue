@@ -95,7 +95,7 @@ export default {
 		},
 		zIndex: {
 			type: [Number, String],
-			default: 1000
+			default: 99
 		},
 		beforeChange: {
 			type: Function,

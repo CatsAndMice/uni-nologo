@@ -47,9 +47,8 @@
 			</view>
 		</view>
 
-		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar" @click-center="onClickCenter"></j-tabbar>
-<!-- 		<exchange-modal :show='showModal' :score='12' :jingdian='34' @close="closeModal"
-			@exchangeJingdian='exchangeJingdian'></exchange-modal> -->
+		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar"
+			@click-center="openModal"></j-tabbar>
 		<commend-item-popup :show='showModal' @close="closeModal"></commend-item-popup>
 	</view>
 
@@ -57,22 +56,22 @@
 		<view class="popup-content radius-lg bg-white" style="width: 480rpx;height: 600rpx; overflow: hidden;">
 			<view class="flex margin-auto-lr justify-center align-center" style="margin-top:48rpx;">
 				<image :src="picDecorationImage" style="width:48rpx;height:48rpx" />
-				<text style="font-size: 32rpx;font-weight: 500;line-height: 48rpx; " class="margin-lr-8 text-black">恭喜你获得新表彰</text>
+				<text style="font-size: 32rpx;font-weight: 500;line-height: 48rpx; "
+					class="margin-lr-8 text-black">恭喜你获得新表彰</text>
 				<image :src="picDecorationImage" style="width:48rpx;height:48rpx" />
 			</view>
 
 			<view class="commend flex align-center" style="flex-direction: column;">
 				<!-- //noImageDefault(commendInfo.commendationIcon) -->
 				<view class="flex justify-center margin-tb-20">
-				<view class="cu-avatar radius bg-white "
-					:style="'background-image:url(' + noImageDefault(commendInfo.commendationIcon) + ');width:176rpx;height:176rpx'">
-				</view>
-				<view class="flex margin-lr-8">
-					<view class="margin-auto-tb" v-for="item,index in commendInfo.countImgList" :key="index">
-					<image class="" :src="item" mode="aspectFit"
-						style="width: 44rpx;height: 88rpx;"></image>
+					<view class="cu-avatar radius bg-white "
+						:style="'background-image:url(' + noImageDefault(commendInfo.commendationIcon) + ');width:176rpx;height:176rpx'">
 					</view>
-				</view>
+					<view class="flex margin-lr-8">
+						<view class="margin-auto-tb" v-for="item, index in commendInfo.countImgList" :key="index">
+							<image class="" :src="item" mode="aspectFit" style="width: 44rpx;height: 88rpx;"></image>
+						</view>
+					</view>
 				</view>
 				<view class="text-black text-bold" style="font-size: 32rpx;font-weight: 500;line-height: 48rpx;">{{
 					commendInfo.commendationName }}
@@ -89,7 +88,7 @@
 
 <script>
 import TabbarConfig from '@/config/tabbar.js'
-import { defineComponent, ref, reactive, unref ,shallowRef} from 'vue'
+import { defineComponent, ref, reactive, unref } from 'vue'
 import { userData } from '../../stores/userData.js'
 import { storeToRefs } from 'pinia'
 import { onLoad } from "@dcloudio/uni-app"
@@ -103,6 +102,7 @@ import useWaitCommend from "./js/useWaitCommend"
 import picDecorationImage from "@/static/home/pic-decoration.png"
 import { noImageDefault } from '../../tools/tool.js'
 import YWJATRACK from "@/config/jstrack.js"
+import useModal from "./js/useModal"
 
 export default defineComponent({
 	setup() {
@@ -110,11 +110,10 @@ export default defineComponent({
 		const userPData = userData()
 		const { setHiddenBanner } = userPData
 		const { userInfo, accountInfo, userJingdian, userScore, hiddenBanner } = storeToRefs(userPData)
-		const showModal = ref(false)
 		const myCommendsList = ref([])
 
 		const { popupRef, show, commendInfo, onAcceptCommend } = useWaitCommend()
-
+		const { showModal, closeModal, openModal } = useModal()
 		//获取用户信息
 		const reqUserInfo = async () => {
 			const { code, data } = await getUserInfo({})
@@ -170,24 +169,9 @@ export default defineComponent({
 			setHiddenBanner()
 		}
 
-		const checkShowEModal = () => {
-			//检查是否有兑换
-			showModal.value = true
-		}
-
 		const exchangeJingdian = () => {
 			//调用兑换
 			closeModal()
-		}
-
-		const closeModal = () => {
-			showModal.value = false
-		}
-
-		const onClickCenter = ()=>{
-			showModal.value = true
-
-			console.log(11212);
 		}
 
 		onLoad(() => {
@@ -205,13 +189,13 @@ export default defineComponent({
 		return {
 			popupRef,
 			show,
+			openModal,
 			toCommonedList,
 			tabbar,
 			userJingdian,
 			userScore,
 			hiddenBanner,
 			closeBanner,
-			checkShowEModal,
 			showModal,
 			exchangeJingdian,
 			closeModal,
@@ -224,7 +208,6 @@ export default defineComponent({
 			commendInfo,
 			noImageDefault,
 			onAcceptCommend,
-			onClickCenter
 		}
 	}
 })

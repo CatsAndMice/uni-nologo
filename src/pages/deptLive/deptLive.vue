@@ -28,19 +28,35 @@
                     <view style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);"> <live-empty
                             message="无可颁发表彰项" /></view>
                 </view>
-                <view v-else style="display: grid;grid-template-columns: 1fr 1fr 1fr;">
-                    <view v-for="l in competenceDimensionList" :key="l.commendationId"
-                        @click="clickCommendation(l); reSetInternalAndExternal()">
-                        <live-commendation :commendation="l" :commendation-active-id="commendationActive.commendationId" />
-                    </view>
-                </view>
+                <template v-else>
+                    <uni-swiper-dot :info="info" :current="current" field="content" mode="dot" :dots-styles="{
+                        selectedBackgroundColor: '#F7AF6C',
+                        selectedBorder: '1px #F7AF6C solid',
+                        backgroundColor: '#EEEEEE',
+                        bottom: info.length === 1 ? 1000 : 12,
+                        border: '1px #EEEEEE solid'
+                    }">
+                        <swiper class="swiper-box" @change="change">
+                            <swiper-item v-for="( item, index ) in  info " :key="index">
+                                <view style="display: grid;grid-template-columns: 1fr 1fr 1fr;padding-bottom: 52rpx;">
+                                    <view v-for=" l  in  item " :key="l.commendationId"
+                                        @click="clickCommendation(l); reSetInternalAndExternal()">
+                                        <live-commendation :commendation="l"
+                                            :commendation-active-id="commendationActive.commendationId" />
+                                    </view>
+                                </view>
+                            </swiper-item>
+                        </swiper>
+                    </uni-swiper-dot>
+                </template>
             </view>
             <live-description v-if="!isEmpty(commendationActive)" :commendation="commendationActive"
                 :enum-name="enumName" />
         </view>
 
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
-            :energy-external="energyExternal" @select-person="openSelectPerson" :person="person" />
+            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type)"
+            :person="person" />
         <live-input @live-input="onLiveInput" title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表彰"
                 @submit="onBeforeSubmit" /></view>
@@ -79,6 +95,9 @@ import useSubmitLive from "@/pages/colleaguesLive/js/useSubmitLive"
 import isEmpty from 'medash/lib/isEmpty'
 import useCommendation from "./js/useCommendation"
 import toast from "@/tools/toast"
+import toNumber from "medash/lib/toNumber"
+import useSwiper from "./js/useSwiper"
+import { toPreview } from "@/pages/colleaguesLive/js/page"
 
 const type = 'live-dept'
 export default {
@@ -118,6 +137,8 @@ export default {
         })
 
         const { enumActive, enumName, selectEnum } = useActive(enumList, onLoadCompetenceDimensionList)
+
+        const { info, change, current } = useSwiper(competenceDimensionList)
 
         // 选择表彰项
         const { commendationActive, clickCommendation } = useCommendation()
@@ -160,27 +181,35 @@ export default {
             const [err, isSuccess] = await to(submitDeptLive({
                 applyReason: unref(inputValue),
                 commendationId: unref(commendationActive).commendationId,
+                deptId: unref(commendationActive).deptId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
             if (isSuccess) {
-                uni.switchTab({ url: '/pages/index/index' })
+                uni.reLaunch({ url: '/pages/index/index' })
             }
         }
 
         watch(list, (result) => {
+            if (!isEmpty(unref(curDept))) return
             if (result.length === 1) {
                 setEnergyInternalAndExternal(result[0])
                 curDept.value = result[0]
             }
         })
 
-        onLoad(() => {
+        onLoad((options) => {
             onLoadList()
             onLoadEnumList()
+            if (!isEmpty(options)) {
+                const { deptId, deptName, energyExternal, energyInternal } = options
+                curDept.value = { deptId, deptName, energyExternal: toNumber(energyExternal), energyInternal: toNumber(energyInternal) }
+            }
+            Cache.set('person', [])
             uni.$off(type)
             uni.$on(type, (p) => {
                 person.value = p
                 setInternalAndExternal(p, unref(commendationActive).energy || 0)
+                Cache.set('person', p)
             })
         })
 
@@ -215,7 +244,12 @@ export default {
             deptPopup,
             competenceDimensionList,
             enumName,
-            reSetInternalAndExternal
+            reSetInternalAndExternal,
+            info,
+            change,
+            current,
+            toPreview,
+            type
         }
     },
 }

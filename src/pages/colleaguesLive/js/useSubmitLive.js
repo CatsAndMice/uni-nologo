@@ -31,7 +31,6 @@ export default (score) => {
             toast('能量不足支付，请调整人数后再确认')
             return false
         }
-
         // 理由字数至少10
         if (trim(unref(inputValue)).length < 10) {
             toast('点赞理由至少10个字')
@@ -42,7 +41,7 @@ export default (score) => {
     }
 
     const submitLive = (callback) => {
-        isFunc(callback)&& callback({person,inputValue})
+        isFunc(callback) && callback({ person, inputValue })
     }
 
 

@@ -1,4 +1,8 @@
 <template>
+    <view v-if="isEmpty(personList)" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%,-50%);">
+        <live-empty message="暂无数据" />
+    </view>
+
     <view v-for="p in personList" :key="p.userId" class="padding-lr-16 flex justify-between align-center"
         style="height: 112rpx;">
         <view class="flex align-center">
@@ -13,6 +17,7 @@
 import { onShow, onLoad } from "@dcloudio/uni-app"
 import { ref, unref } from 'vue'
 import Cache from '@/utils/cache.js'
+import isEmpty from "medash/lib/isEmpty"
 
 export default {
     setup() {
@@ -34,7 +39,8 @@ export default {
 
         return {
             personList,
-            onDelete
+            onDelete,
+            isEmpty
         }
     },
 }

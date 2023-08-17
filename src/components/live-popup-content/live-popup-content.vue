@@ -4,8 +4,8 @@
                 size="24" @click="onClose" /></view>
         <view class=" title">{{ title }}</view>
         <view class="padding-lr-24">
-            <view v-for="l in list" :key="l.deptId" class="item padding-lr-16 " :class="deptId == l.deptId ? 'is-active' : null"
-                @click="onActive(l)">
+            <view v-for="l in list" :key="l.deptId" class="item padding-lr-16 "
+                :class="deptId == l.deptId ? 'is-active' : null" @click="onActive(l)">
                 {{ l.deptName }}
                 <image class="image" :src="isSelectImage" />
             </view>
@@ -25,8 +25,8 @@ export default {
             default: () => ([])
         },
         deptId: {
-            type: Number,
-            default: 0
+            type: String,
+            default: ''
         }
     },
     emits: ['close', 'change'],
@@ -87,10 +87,15 @@ export default {
     &.is-active {
         border-color: #F7AF6C;
         background-color: #fff;
+
+        .image {
+            opacity: 1;
+        }
     }
 
     .image {
         position: absolute;
+        opacity: 0;
         top: -4rpx;
         left: -4rpx;
         width: 56rpx;
