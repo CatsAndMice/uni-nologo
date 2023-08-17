@@ -65,7 +65,7 @@
 				<!-- //noImageDefault(commendInfo.commendationIcon) -->
 				<view class="flex justify-center margin-tb-20">
 				<view class="cu-avatar radius bg-white "
-					:style="'background-image:url(' + '/static/detail/img_default.png' + ');width:176rpx;height:176rpx'">
+					:style="'background-image:url(' + noImageDefault(commendInfo.commendationIcon) + ');width:176rpx;height:176rpx'">
 				</view>
 				<view class="flex margin-lr-8">
 					<view class="margin-auto-tb" v-for="item,index in commendInfo.countImgList" :key="index">
