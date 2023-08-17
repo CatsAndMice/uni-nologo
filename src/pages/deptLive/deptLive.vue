@@ -15,7 +15,7 @@
                 选择表彰项
             </view>
 
-            <view class="padding-lr-16 margin-bottom-8">
+            <view class="margin-bottom-8">
                 <view class="flex align-center" style="overflow-y: auto;height: 96rpx;">
                     <view class="enum" v-for="e in enumList" :key="e.value"
                         :class="enumActive === e.value ? 'is-active' : null" @click="selectEnum(e)">{{ e.label }}
@@ -98,8 +98,10 @@ import toast from "@/tools/toast"
 import toNumber from "medash/lib/toNumber"
 import useSwiper from "./js/useSwiper"
 import { toPreview } from "@/pages/colleaguesLive/js/page"
+import eq from "medash/lib/eq"
 
 const type = 'live-dept'
+const ALL = "ALL"
 export default {
     setup() {
         const curDept = ref({})
@@ -123,7 +125,7 @@ export default {
         // 获取枚举
         const { list: enumList, onLoadList: onLoadEnumList } = useList(async () => {
             const [err, result] = await to(getEnum())
-            const list = []
+            const list = [{ label: '全部', value: ALL }]
             each(result || {}, (key, value) => {
                 list.push({ label: value, value: key })
             })
@@ -132,7 +134,11 @@ export default {
 
         // 表彰类型列表
         const { list: competenceDimensionList, onLoadList: onLoadCompetenceDimensionList } = useList(async () => {
-            const [err, result] = await to(getCompetenceDimensionList({ commendationSource: 'DEPT', competenceDimension: unref(enumActive) }))
+            const query = { commendationSource: 'DEPT', competenceDimension: unref(enumActive) }
+            if (eq(query.competenceDimension, ALL)) {
+                delete query.competenceDimension
+            }
+            const [err, result] = await to(getCompetenceDimensionList(query))
             return result
         })
 
@@ -298,9 +304,12 @@ export default {
         color: #F7AF6C;
     }
 }
+.enum:first-child {
+    margin-left: 32rpx;
+}
 
 .enum:last-child {
-    margin: 0;
+    margin-right: 32rpx;
 }
 
 

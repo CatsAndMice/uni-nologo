@@ -32,15 +32,6 @@
 			}
 		},
 		{
-			"path": "pages/goods/goods",
-			"style": {
-				"navigationBarTitleText": "礼品中心",
-				"mp-alipay": {
-					"allowsBounceVertical": "NO"
-				}
-			}
-		},
-		{
 			"path": "pages/squarePage/squarePage",
 			"style": {
 				"navigationBarTitleText": "广场", //广场
