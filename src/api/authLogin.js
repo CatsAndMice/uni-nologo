@@ -1,22 +1,12 @@
 import ajax from 'uni-ajax'
-import {
-	baseURL
-} from '../config/app'
-import {
-	to
-} from "await-to-js"
-import {
-	isUndefined,
-	isFunction,
-	isNull
-} from '@/tools/tool.js'
-import {
-	userData
-} from '../stores/userData.js'
-import {
-	LoginType
-} from '../utils/type.js'
-import {saveUserData} from './user.js'
+import { baseURL } from '../config/app'
+import { to } from "await-to-js"
+import { isUndefined, isFunction, isNull } from '@/tools/tool.js'
+import { userData } from '../stores/userData.js'
+import { LoginType } from '../utils/type.js'
+import { saveUserData } from './user.js'
+import Cache from '@/utils/cache.js'
+import { BaseDataKey } from '@/utils/type.js'
 
 const instance = ajax.create({
 	// 默认配置 
@@ -30,11 +20,15 @@ const instance = ajax.create({
 // 添加响应拦截器
 instance.interceptors.response.use(
 	response => {
-		const {
-			statusCode
-		} = response
+		const { statusCode, data } = response
+		console.log(data, response);
 		if (statusCode == 200) {
-			return response.data
+			return data
+		} else {
+			uni.showToast({
+				title: data.msg || '请求失败',
+				icon: "none"
+			})
 		}
 	},
 	error => {
@@ -50,16 +44,17 @@ const getAppId = async (callback) => {
 	const [err, data] = await to(instance.post('/basic/open/domain/check', {
 		domain: appIdRes.appId
 	}))
+	console.log(data);
 	callback(data)
 }
 //钉钉自动登录 
 export const dingLogin = (callback) => {
 	getAppId((appIdRes) => {
-		if (isUndefined(appIdRes)||isNull(appIdRes)) {
+		if (isUndefined(appIdRes) || isNull(appIdRes)) {
 			isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 			return
 		}
-		
+
 		dd.getAuthCode({
 			success: async (res) => {
 				const [err, data] = await to(instance.post(
@@ -68,6 +63,9 @@ export const dingLogin = (callback) => {
 				if (isUndefined(data)) {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				} else if (data.code == 200) {
+					console.log(data.code, 'code');
+
+					Cache.remove(BaseDataKey.USER_INFO)
 					//保存token
 					userData().setToken(data.data)
 					saveUserData()
@@ -76,9 +74,28 @@ export const dingLogin = (callback) => {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
 			},
-			fail: function(err) {
+			fail: function (err) {
 				isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 			}
 		});
+	})
+}
+
+export const accountLogin = (query) => {
+	getAppId(async (appIdRes) => {
+		console.log(appIdRes);
+		const [err, data] = await to(instance.post(
+			`/dian/apis/session/${appIdRes.appId}/account-authorized`, query
+		))
+		if (data.code === 200) {
+			//保存token
+			userData().setToken(data.data)
+			const [err, isSuccess] = await to(saveUserData())
+			if (isSuccess) {
+				uni.reLaunch({
+					url: '/pages/index/index'
+				})
+			}
+		}
 	})
 }

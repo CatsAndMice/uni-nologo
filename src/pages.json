@@ -13,6 +13,18 @@
 			}
 		},
 		{
+			"path": "pages/handLogin/handLogin",
+			"style": {
+				"navigationBarTitleText": "登陆", //启动登录页
+				"transparentTitle": "always",
+				"navigationBarBackgroundColor": "#FFA24A",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO",
+					"transparentTitle": "always"
+				}
+			}
+		},
+		{
 			"path": "pages/introducePage/introducePage",
 			"style": {
 				"navigationBarTitleText": "", //介绍页
@@ -151,17 +163,15 @@
 					"allowsBounceVertical": "NO"
 				}
 			}
+		},
+		{
+			"path": "pages/giftStore/giftStore",
+			"style": {
+				"navigationBarTitleText": "礼品中心",
+				"enablePullDownRefresh": false
+			}
 		}
-	    ,{
-            "path" : "pages/giftStore/giftStore",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "礼品中心",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"subPackages": [
 		{
 			"root": "bundle",

@@ -15,16 +15,13 @@ export const getUserInfo = (data) => {
 
 export const saveUserData = async () => {
 	const [err, result] = await to(getUserInfo({}))
-
 	if (isUndefined(result)) {
-		return
+		return false
 	}
-	const {
-		code,
-		data,
-		msg
-	} = result
+	const { code, data } = result
 	if (code === 200) {
 		userData().setUserInfo(data)
 	}
+
+	return true
 }

@@ -19,13 +19,14 @@ export const userData = defineStore('userData', {
 		},
 		setUserInfo(userInfo) {
 			this.userInfo = userInfo
+			Cache.set(BaseDataKey.USER_INFO, userInfo)
 			YWJATRACK.userInfo.userName = userInfo.name
 			YWJATRACK.userInfo.userId = userInfo.userId
 			YWJATRACK.userInfo.deptName = userInfo.deptName
 			YWJATRACK.userInfo.deptId = userInfo.deptId
 			YWJATRACK.userInfo.jobNumber = userInfo.jobNumber
 			YWJATRACK.userInfo.mobile = userInfo.mobile
-			Cache.set(BaseDataKey.USER_INFO, userInfo);
+
 		},
 		setAccountInfo(accountInfo) {
 			this.accountInfo = accountInfo
