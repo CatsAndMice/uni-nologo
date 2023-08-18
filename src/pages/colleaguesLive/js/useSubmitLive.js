@@ -19,11 +19,11 @@ export default (score) => {
         const isExternalEnough = gte(unref(energyExternal), unref(external))
         return isInternalEnough && isExternalEnough
     }
-
+    // 同事点赞
     const isCheckTrue = () => {
         //是否已添加人员
         if (isEmpty(unref(person))) {
-            toast('请选择点赞人员')
+            toast('未添加点赞人员')
             return false
         }
         // 能量是否充足
@@ -40,6 +40,27 @@ export default (score) => {
         return true
     }
 
+    // 部门表彰
+    const isCheckDeptTrue = () => {
+        //是否已添加人员
+        if (isEmpty(unref(person))) {
+            toast('未添加表彰对象')
+            return false
+        }
+        // 能量是否充足
+        if (!isEnergyEnough()) {
+            toast('能量不足支付，请调整人数后再确认')
+            return false
+        }
+        // 理由字数至少10
+        if (trim(unref(inputValue)).length < 10) {
+            toast('表彰理由至少10个字')
+            return false
+        }
+
+        return true
+    }
+
     const submitLive = (callback) => {
         isFunc(callback) && callback({ person, inputValue })
     }
@@ -50,6 +71,7 @@ export default (score) => {
         inputValue,
         onLiveInput,
         isCheckTrue,
-        submitLive
+        submitLive,
+        isCheckDeptTrue
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <view class="margin-bottom-12 bg-white   padding-bottom-8">
-        <view class="title padding-lr-16 bg-white"><text style="margin-right: 8rpx;"> 选择点赞对象</text>
+        <view class="title padding-lr-16 bg-white"><text style="margin-right: 8rpx;">{{ title }}</text>
             <uni-icons type="help-filled" color="#999999" size="16" @click="open" />
         </view>
 
@@ -17,7 +17,7 @@
                     backgroundImage: `url(${addImage})`
                 }" @click="onSelectPerson"></view>
                 <view v-else @click="onSelectPerson" style="font-size: 32rpx;font-weight: 400;color: rgba(0,0,0,0.6);">
-                    添加点赞对象</view>
+                    {{ message }}</view>
 
             </view>
 
@@ -96,6 +96,14 @@ export default {
         person: {
             type: Array,
             default: []
+        },
+        title:{
+            type: String,
+            default:'选择点赞对象'
+        },
+        message:{
+            type: String,
+            default:'选择点赞对象'
         }
     },
     emits: ['select-person', 'preview'],

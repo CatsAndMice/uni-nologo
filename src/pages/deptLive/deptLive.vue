@@ -55,9 +55,9 @@
         </view>
 
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
-            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type)"
-            :person="person" />
-        <live-input @live-input="onLiveInput" title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
+            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type)" :person="person"
+            title="选择表彰对象" message="添加表彰对象" />
+        <live-input @live-input="onLiveInput" title="表彰理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表彰"
                 @submit="onBeforeSubmit" /></view>
     </view>
@@ -109,7 +109,7 @@ export default {
         const { open: deptOpen, close: deptClose, popupRef: deptPopup } = usePopup()
         const { internal, external, energyInternal, energyExternal, setInternalAndExternal, setEnergyInternalAndExternal } = useEnergyScore()
 
-        const { person, onLiveInput, isCheckTrue, submitLive } = useSubmitLive({
+        const { person, onLiveInput, isCheckDeptTrue, submitLive } = useSubmitLive({
             internal,
             external,
             energyInternal,
@@ -154,7 +154,7 @@ export default {
         }
 
         const openSelectPerson = () => {
-            toSelectPerson('添加点赞对象', type)
+            toSelectPerson('添加表彰对象', type)
             Cache.set('person', unref(person))
             Cache.set('limit', [Cache.get(BaseDataKey.ACCOUNT_INFO)])
         }
@@ -188,10 +188,10 @@ export default {
 
         const onBeforeSubmit = () => {
             if (isEmpty(unref(commendationActive))) {
-                toast('表彰对象未选择')
+                toast('未选择表彰项')
                 return
             }
-            const isCheck = isCheckTrue()
+            const isCheck = isCheckDeptTrue()
             if (!isCheck) return
             deptOpen()
         }
