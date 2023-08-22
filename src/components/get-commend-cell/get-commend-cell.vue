@@ -26,10 +26,8 @@
 						</view>
 					</view>
 
-					<view class=" margin-auto-tb">
-						<view class="flex  margin-auto-tb">
-							<view class="text-lg text-bold">{{ item.commendationName }}</view>
-						</view>
+					<view class=" margin-auto-tb text-lg text-bold line1" style="max-width: 350rpx;">
+						{{ item.commendationName }}
 					</view>
 
 					<view

@@ -9,14 +9,14 @@
                 backgroundImage: `url(${noImageDefault(obj.commendationIcon)})`
             }"></view>
             <view class="title margin-top-8">{{ obj.commendationName }}</view>
-            <view class="margin-tb-8 description">{{ obj.commendationDescription }}</view>
+            <view class="margin-tb-8 description line1" style="width:500rpx">{{ obj.commendationDescription }}</view>
             <view class="score"><text style="font-size: 40rpx;font-weight: bold;margin-right: 8rpx;">{{ obj.score
             }}</text>晶点
             </view>
         </view>
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
             :energy-external="energyExternal" @select-person="openSelectPerson" :person="person"
-            @preview="toPreview(type,'表扬对象')" />
+            @preview="toPreview(type, '表扬对象')" />
         <live-input @live-input="onLiveInput" title="表扬理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让表扬更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表扬"
                 @submit="onBeforeSubmit" /></view>
@@ -86,7 +86,7 @@ export default {
                 commendationId: unref(obj).commendationId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
-            YWJATRACK.uploadTrack('提交同事表扬','colleagues-live')
+            YWJATRACK.uploadTrack('提交同事表扬', 'colleagues-live')
             if (isSuccess) {
                 uni.reLaunch({ url: '/pages/index/index' })
             }
@@ -101,7 +101,7 @@ export default {
                 setInternalAndExternal(p, unref(obj).energy || 0)
                 Cache.set('person', p)
             })
-            YWJATRACK.uploadTrack('同事表扬页面','colleagues-live-page')
+            YWJATRACK.uploadTrack('同事表扬页面', 'colleagues-live-page')
         })
 
 
