@@ -64,7 +64,7 @@ font-weight: 600;
 color: rgba(0,0,0,0.9);
 line-height: 54rpx;">能量消耗说明</view>
             <view style="width: 384rpx;margin: auto;color: rgba(0,0,0,0.6);font-size: 32rpx;line-height: 48rpx;">
-                点赞或表彰本部门同事消耗 [内部能量]，点赞或表彰其他部门同事消耗 [外部能量]</view>
+                表扬或表彰本部门同事消耗 [内部能量]，表扬或表彰其他部门同事消耗 [外部能量]</view>
         </view>
     </uni-popup>
 </template>
@@ -99,11 +99,11 @@ export default {
         },
         title:{
             type: String,
-            default:'选择点赞对象'
+            default:'选择表扬对象'
         },
         message:{
             type: String,
-            default:'选择点赞对象'
+            default:'选择表扬对象'
         }
     },
     emits: ['select-person', 'preview'],

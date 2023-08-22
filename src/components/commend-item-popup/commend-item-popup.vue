@@ -46,7 +46,7 @@
 								</view>
 								<view class="margin-auto-tb ">
 									<view class="margin-left-sm line-height-24 text-c-title text-bold text-lg text-left">
-										同事点赞
+										同事表扬
 									</view>
 									<view class="margin-left-sm margin-top-8 line-height-20 text-c-msg line1"
 										style="max-width: 460rpx;">
@@ -113,6 +113,7 @@ import { getDept } from "@a/live"
 import { to } from "await-to-js"
 import isEmpty from 'medash/lib/isEmpty'
 import usePopup from "@c/usePopup.js"
+import YWJATRACK from "@/config/jstrack.js"
 
 export default defineComponent({
 	name: 'commend-item-popup',
@@ -153,6 +154,7 @@ export default defineComponent({
 			const unrefList = unref(list) || []
 			if (unrefList.length > 1) {
 				open()
+				YWJATRACK.uploadTrack('跳转部门表彰页面前选择部门','dept')
 				return
 			}
 			pageNavigateTo(deptLive)

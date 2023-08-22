@@ -1,5 +1,7 @@
 import { ref, unref, watch } from "vue"
 import isFunc from "medash/lib/isFunc"
+import YWJATRACK from "@/config/jstrack.js"
+
 export default (list, callback) => {
     const enumActive = ref('')
     const enumName = ref('')
@@ -7,6 +9,7 @@ export default (list, callback) => {
         enumActive.value = e.value
         enumName.value = e.label
         isFunc(callback) && callback(unref(enumActive))
+        YWJATRACK.uploadTrack('部门表彰-切换表彰类型','type')
     }
 
     watch(list, (l) => {

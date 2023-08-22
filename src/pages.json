@@ -89,7 +89,7 @@
 		{
 			"path": "pages/colleaguesLive/colleaguesLive",
 			"style": {
-				"navigationBarTitleText": "同事点赞",
+				"navigationBarTitleText": "同事表扬",
 				"enablePullDownRefresh": true,
 				"mp-alipay": {
 					"allowsBounceVertical": "NO"
@@ -116,7 +116,7 @@
 		{
 			"path": "pages/previewPerson/previewPerson",
 			"style": {
-				"navigationBarTitleText": "点赞对象",
+				"navigationBarTitleText": "表扬对象",
 				"enablePullDownRefresh": false
 			}
 		},

@@ -19,11 +19,11 @@ export default (score) => {
         const isExternalEnough = gte(unref(energyExternal), unref(external))
         return isInternalEnough && isExternalEnough
     }
-    // 同事点赞
+    // 同事表扬
     const isCheckTrue = () => {
         //是否已添加人员
         if (isEmpty(unref(person))) {
-            toast('未添加点赞人员')
+            toast('未添加表扬人员')
             return false
         }
         // 能量是否充足
@@ -33,7 +33,7 @@ export default (score) => {
         }
         // 理由字数至少10
         if (trim(unref(inputValue)).length < 10) {
-            toast('点赞理由至少10个字')
+            toast('表扬理由至少10个字')
             return false
         }
 

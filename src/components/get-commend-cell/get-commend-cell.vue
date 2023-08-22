@@ -34,7 +34,7 @@
 
 					<view
 						style="flex-grow: 1;text-align: right;margin-right: 32rpx;font-size: 32rpx;font-weight: 600;color: #F7AF6C;">
-						{{ '+' + item.score }} <text class="margin-left-8 ">晶点</text>
+						{{ '+' + getScore(item) }} <text class="margin-left-8 ">晶点</text>
 					</view>
 				</view>
 			</slot>
@@ -48,21 +48,11 @@
 </template>
 
 <script>
-import {
-	defineComponent,
-	toRefs,
-	ref,
-	reactive,
-	computed,
-	unref
-} from 'vue'
-import {
-	CommendationType
-} from '../../utils/type.js'
-import {
-	formatDateTimeMDS,
-	noImageDefault
-} from '../../tools/tool.js'
+import { defineComponent, toRefs, computed, unref } from 'vue'
+import { CommendationType } from '../../utils/type.js'
+import { formatDateTimeMDS, noImageDefault } from '../../tools/tool.js'
+import getScore from '@/utils/getScore'
+
 export default defineComponent({
 	name: 'get-commend-cell',
 	props: {
@@ -106,7 +96,8 @@ export default defineComponent({
 		return {
 			tagColor,
 			formatDateTimeMDS,
-			noImageDefault
+			noImageDefault,
+			getScore
 		}
 	}
 })

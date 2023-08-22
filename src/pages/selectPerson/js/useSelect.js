@@ -10,7 +10,7 @@ export const failedToast = (title = "登陆失败", config = {}) => {
     })
 }
 
-const MAX_NUM = 100
+const MAX_NUM = 10000
 export default () => {
     const selects = shallowRef([])
     const selectPerson = shallowRef([])

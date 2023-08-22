@@ -16,9 +16,9 @@
         </view>
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
             :energy-external="energyExternal" @select-person="openSelectPerson" :person="person"
-            @preview="toPreview(type)" />
-        <live-input @live-input="onLiveInput" title="点赞理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
-        <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交点赞"
+            @preview="toPreview(type,'表扬对象')" />
+        <live-input @live-input="onLiveInput" title="表扬理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让表扬更加真诚哦！" />
+        <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表扬"
                 @submit="onBeforeSubmit" /></view>
     </view>
     <uni-popup ref="popupRef" :is-mask-click="false">
@@ -26,7 +26,7 @@
             style="width:622rpx;height:292rpx; background: #FFFFFF;border-radius: 24rpx;overflow: hidden;">
             <view
                 style=" text-align: center;height: 53rpx;margin-top: 64rpx; font-size: 36rpx;font-weight: 600;color: rgba(0,0,0,0.9);line-height: 53rpx;">
-                是否确认提交同事点赞？
+                是否确认提交同事表扬？
             </view>
             <view class="flex padding-lr-24 justify-between" style="margin-top: 48rpx;">
                 <view class="margin-right-12 btn" style="background: #FFF7E8;color: #F7AF6C;" @click="close">取消</view>
@@ -49,6 +49,7 @@ import useSubmitLive from "./js/useSubmitLive"
 import usePopup from "@c/usePopup.js"
 import { submitColleaguesLive } from "@a/live.js"
 import Cache from '@/utils/cache.js'
+import YWJATRACK from "@/config/jstrack.js"
 
 const type = 'live-colleague'
 export default {
@@ -68,7 +69,7 @@ export default {
         })
 
         const openSelectPerson = () => {
-            toSelectPerson('添加点赞对象', type)
+            toSelectPerson('添加表扬对象', type)
             Cache.set('limit', [Cache.get(BaseDataKey.ACCOUNT_INFO)])
         }
 
@@ -85,6 +86,7 @@ export default {
                 commendationId: unref(obj).commendationId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
+            YWJATRACK.uploadTrack('提交同事表扬','colleagues-live')
             if (isSuccess) {
                 uni.reLaunch({ url: '/pages/index/index' })
             }
@@ -99,6 +101,7 @@ export default {
                 setInternalAndExternal(p, unref(obj).energy || 0)
                 Cache.set('person', p)
             })
+            YWJATRACK.uploadTrack('同事表扬页面','colleagues-live-page')
         })
 
 

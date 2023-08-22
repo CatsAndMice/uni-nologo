@@ -4,8 +4,8 @@ export const toSelectPerson = (title, type) => {
     })
 }
 
-export const toPreview = (type) => {
+export const toPreview = (type, title) => {
     uni.navigateTo({
-        url: `/pages/previewPerson/previewPerson?type=${type}`
+        url: `/pages/previewPerson/previewPerson?type=${type}&title=${title}`
     })
 }

@@ -1,5 +1,5 @@
 import { ref, watch } from "vue"
-
+import YWJATRACK from "@/config/jstrack.js"
 export default (competenceDimensionList) => {
     const info = ref([])
     const current = ref(0)
@@ -7,6 +7,7 @@ export default (competenceDimensionList) => {
 
     const change = (e) => {
         current.value = e.detail.current
+        YWJATRACK.uploadTrack('部门表彰-滑动切换表彰项页','swiper')
     }
 
     watch(competenceDimensionList, (list = []) => {

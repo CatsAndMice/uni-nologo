@@ -55,7 +55,7 @@
         </view>
 
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
-            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type)" :person="person"
+            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type,'表彰对象')" :person="person"
             title="选择表彰对象" message="添加表彰对象" />
         <live-input @live-input="onLiveInput" title="表彰理由" placeholder="请填写表彰的理由，至少10个字，详实的理由能让表彰更有价值。" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表彰"
@@ -99,6 +99,7 @@ import toNumber from "medash/lib/toNumber"
 import useSwiper from "./js/useSwiper"
 import { toPreview } from "@/pages/colleaguesLive/js/page"
 import eq from "medash/lib/eq"
+import YWJATRACK from "@/config/jstrack.js"
 
 const type = 'live-dept'
 const ALL = "ALL"
@@ -186,6 +187,7 @@ export default {
             curDept.value = l
             setEnergyInternalAndExternal(l)
             reSetInternalAndExternal()
+            YWJATRACK.uploadTrack('部门表彰-切换部门','dept-live-dept')
         }
 
         const onBeforeSubmit = () => {
@@ -206,6 +208,7 @@ export default {
                 deptId: unref(curDept).deptId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
+            YWJATRACK.uploadTrack('提交部门表彰','dept-live')
             if (isSuccess) {
                 uni.reLaunch({ url: '/pages/index/index' })
             }
@@ -234,6 +237,8 @@ export default {
                 reSetInternalAndExternal()
                 Cache.set('person', p)
             })
+
+            YWJATRACK.uploadTrack('部门表彰页面','dept-live-page')
         })
 
 

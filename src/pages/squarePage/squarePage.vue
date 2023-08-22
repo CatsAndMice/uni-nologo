@@ -78,7 +78,8 @@
 							</view>
 						</view>
 						<view class="rank-score">
-							{{ '+' + item.score }}
+							{{ '+' + getScore(item) }}
+							<text class="margin-left-8 ">晶点</text>
 						</view>
 					</view>
 
@@ -153,6 +154,7 @@ import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
 import YWJATRACK from "@/config/jstrack.js"
 import useModal from "@/pages/index/js/useModal"
+import getScore from '@/utils/getScore'
 
 const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
@@ -221,7 +223,8 @@ export default defineComponent({
 			showModal,
 			closeModal,
 			openModal,
-			hasMore
+			hasMore,
+			getScore
 		}
 	}
 })

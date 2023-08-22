@@ -4,6 +4,7 @@ import usePopup from "@c/usePopup"
 import { onLoad } from "@dcloudio/uni-app"
 import isEmpty from "medash/lib/isEmpty"
 import { shallowRef, unref } from "vue"
+import YWJATRACK from "@/config/jstrack.js"
 
 export default () => {
     const { list, onLoadList } = useList(getWaitCommend)
@@ -24,6 +25,7 @@ export default () => {
         const isSuccess = await acceptCommend({ commendationIds: [item.commendationId] })
         if (isSuccess) {
             close(() => {
+                YWJATRACK.uploadTrack('接受表彰','accept-commend')
                 setTimeout(() => {
                     const unrefList = unref(list)
                     if (isEmpty(unrefList)) return
