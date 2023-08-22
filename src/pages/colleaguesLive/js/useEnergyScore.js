@@ -15,9 +15,9 @@ export default () => {
         energyExternal.value = unref(queryEnergyExternal)
     }
 
-    const setInternalAndExternal = (person = [], energy) => {
+    const setInternalAndExternal = (person = [], energy, deptId = '') => {
         const userInfo = Cache.get(BaseDataKey.USER_INFO)
-        const curDeptId = userInfo.deptId
+        const curDeptId = deptId || userInfo.deptId
         let internalNum = 0
         person.forEach(p => {
             const { deptId } = p

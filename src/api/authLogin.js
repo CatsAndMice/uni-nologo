@@ -32,8 +32,10 @@ instance.interceptors.response.use(
 		}
 	},
 	error => {
-		// 对响应错误做些什么
-		console.log('响应错误后', error)
+		uni.showToast({
+			title: '响应错误后',
+			icon: "none"
+		})
 		return Promise.reject(error)
 	}
 )

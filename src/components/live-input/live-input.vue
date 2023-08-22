@@ -5,7 +5,7 @@
             <uni-easyinput type="textarea" placeholder-style="font-size: 28rpx;
 font-weight: 400;
 color: rgba(0,0,0,0.26);
-line-height: 44rpx;" :input-border="false" maxlength="200" v-model="inputValue" :placeholder="placeholder"
+line-height: 44rpx;" :input-border="false" maxlength="100" v-model="inputValue" :placeholder="placeholder"
                 @input="onInput"></uni-easyinput>
         </view>
     </view>

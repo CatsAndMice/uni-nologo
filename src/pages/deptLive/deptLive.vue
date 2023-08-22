@@ -57,7 +57,7 @@
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
             :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type)" :person="person"
             title="选择表彰对象" message="添加表彰对象" />
-        <live-input @live-input="onLiveInput" title="表彰理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让点赞更加真诚哦！" />
+        <live-input @live-input="onLiveInput" title="表彰理由" placeholder="请填写表彰的理由，至少10个字，详实的理由能让表彰更有价值。" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表彰"
                 @submit="onBeforeSubmit" /></view>
     </view>
@@ -150,7 +150,8 @@ export default {
         const { commendationActive, clickCommendation } = useCommendation()
 
         const reSetInternalAndExternal = () => {
-            setInternalAndExternal(unref(person), unref(commendationActive).energy || 0)
+            //考虑部门切换时，消耗的能量重新根据选择的部门进行计算
+            setInternalAndExternal(unref(person), unref(commendationActive).energy || 0, unref(curDept).deptId)
         }
 
         const openSelectPerson = () => {
@@ -184,6 +185,7 @@ export default {
         const onChange = (l) => {
             curDept.value = l
             setEnergyInternalAndExternal(l)
+            reSetInternalAndExternal()
         }
 
         const onBeforeSubmit = () => {
@@ -223,12 +225,13 @@ export default {
             if (!isEmpty(options)) {
                 const { deptId, deptName, energyExternal, energyInternal } = options
                 curDept.value = { deptId, deptName, energyExternal: toNumber(energyExternal), energyInternal: toNumber(energyInternal) }
+                setEnergyInternalAndExternal(unref(curDept))
             }
             Cache.set('person', [])
             uni.$off(type)
             uni.$on(type, (p) => {
                 person.value = p
-                setInternalAndExternal(p, unref(commendationActive).energy || 0)
+                reSetInternalAndExternal()
                 Cache.set('person', p)
             })
         })

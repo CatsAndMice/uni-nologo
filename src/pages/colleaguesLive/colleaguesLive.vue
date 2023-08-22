@@ -26,7 +26,7 @@
             style="width:622rpx;height:292rpx; background: #FFFFFF;border-radius: 24rpx;overflow: hidden;">
             <view
                 style=" text-align: center;height: 53rpx;margin-top: 64rpx; font-size: 36rpx;font-weight: 600;color: rgba(0,0,0,0.9);line-height: 53rpx;">
-                是否确认发起表彰？
+                是否确认提交同事点赞？
             </view>
             <view class="flex padding-lr-24 justify-between" style="margin-top: 48rpx;">
                 <view class="margin-right-12 btn" style="background: #FFF7E8;color: #F7AF6C;" @click="close">取消</view>
