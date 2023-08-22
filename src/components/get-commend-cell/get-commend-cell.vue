@@ -16,7 +16,7 @@
 
 			<slot>
 				<slot name="top-initiator"></slot>
-				<view class="flex align-center margin-top-8 bg-white"
+				<view class="flex align-center justify-between margin-top-8 bg-white"
 					style="height: 176rpx;background: #F3F3F3;border-radius: 12rpx;">
 					<view class=" margin-tp-xs">
 						<view class="margin-auto-lr margin-lr-12">
@@ -26,12 +26,11 @@
 						</view>
 					</view>
 
-					<view class=" margin-auto-tb text-lg text-bold line1" style="max-width: 350rpx;">
+					<view class="margin-auto-tb text-lg text-bold line1 text-left" style="flex-grow: 1;">
 						{{ item.commendationName }}
 					</view>
 
-					<view
-						style="flex-grow: 1;text-align: right;margin-right: 32rpx;font-size: 32rpx;font-weight: 600;color: #F7AF6C;">
+					<view style="text-align: right;margin-right: 32rpx;font-size: 32rpx;font-weight: 600;color: #F7AF6C;white-space: nowrap;flex-shrink: 0;">
 						{{ '+' + getScore(item) }} <text class="margin-left-8 ">晶点</text>
 					</view>
 				</view>

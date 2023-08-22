@@ -61,23 +61,21 @@
 				<get-commend-cell :item="item" custom-class="card" :is-show-time="false" :is-margin="false">
 					<view class="flex align-center justify-between"
 						style="border-radius: 12rpx;background-color: #F7F8FA;height: 176rpx;margin-top: 20rpx;">
-						<view class="flex align-center">
-							<view class="margin-auto-lr margin-lr-12">
-								<view class="cu-avatar df-warp radius" :style="{
-									width: '128rpx',
-									height: '128rpx',
-									backgroundColor: '#F7F8FA',
-									backgroundImage: `url(${noImageDefault(item.commendationIcon)})`
-								}"></view>
-							</view>
 
-							<view class=" margin-auto-tb text-lg text-bold line1" style="max-width: 350rpx;">
-								{{ item.commendationName }}
-							</view>
+						<view class="margin-auto-lr margin-lr-12" style="flex-shrink: 0;">
+							<view class="cu-avatar df-warp radius" :style="{
+								width: '128rpx',
+								height: '128rpx',
+								backgroundColor: '#F7F8FA',
+								backgroundImage: `url(${noImageDefault(item.commendationIcon)})`
+							}"></view>
 						</view>
-						<view class="rank-score">
+						<view class="margin-auto-tb text-lg text-bold line1 text-left" style="flex-grow: 1;">
+							{{ item.commendationName }}
+						</view>
+						<view class="rank-score line1 margin-left-8" style="white-space: nowrap;flex-shrink: 0;">
 							{{ '+' + getScore(item) }}
-							<text class="margin-left-8 ">晶点</text>
+							<text class="margin-left-8 line1">晶点</text>
 						</view>
 					</view>
 
@@ -285,7 +283,7 @@ export default defineComponent({
 	color: #FFA24A;
 	font-size: 36rpx;
 	font-weight: 600;
-	margin-right: 24rpx;
+	padding-right: 24rpx;
 }
 
 .is-hidden {
