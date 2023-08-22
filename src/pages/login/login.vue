@@ -27,10 +27,10 @@ import {
 export default defineComponent({
 	setup() {
 		onLoad(() => {
-			// if (process.env.UNI_NODE_ENV !== 'prod') {
-			// 	uni.reLaunch({ url: '/pages/handLogin/handLogin' })
-			// 	return
-			// }
+			if (process.env.UNI_NODE_ENV !== 'prod') {
+				uni.reLaunch({ url: '/pages/handLogin/handLogin' })
+				return
+			}
 
 			//调用登录接口--
 			loginMethod()
