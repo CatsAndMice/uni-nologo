@@ -32,7 +32,7 @@
         <view class="padding-lr-16">
             <!-- 我的能量 -->
             <view class="flex justify-between margin-top-8 item">
-                <view style="color: rgba(0, 0, 0, 0.9);">我的能量</view>
+                <view style="color: rgba(0, 0, 0, 0.9);">{{ totalEnergyTitle }}</view>
                 <view class="flex align-center">
                     <view><text style="margin-right: 4rpx;color: rgba(0, 0, 0, 0.9);">{{ energyInternal }}</text>内部能量</view>
                     <view class="margin-left-8"><text style="margin-right: 4rpx;color: rgba(0, 0, 0, 0.9);">{{
@@ -43,7 +43,7 @@
 
             <!-- 我消耗的能量 -->
             <view class="flex justify-between item" style="margin-top: 8rpx;">
-                <view style="color: rgba(0, 0, 0, 0.9);">我消耗的能量</view>
+                <view style="color: rgba(0, 0, 0, 0.9);">本次消耗的能量</view>
                 <view class="flex align-center">
                     <view><text style="margin-right: 4rpx;color: rgba(0, 0, 0, 0.9);">{{ internal }}</text>内部能量</view>
                     <view class="margin-left-8"><text style="margin-right: 4rpx;color: rgba(0, 0, 0, 0.9);">{{ external
@@ -106,6 +106,10 @@ export default {
         message: {
             type: String,
             default: '选择表扬对象'
+        },
+        totalEnergyTitle: {
+            type: String,
+            default: ''
         }
     },
     emits: ['select-person', 'preview'],

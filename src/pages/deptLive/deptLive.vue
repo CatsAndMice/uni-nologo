@@ -56,6 +56,7 @@
 
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
             :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type,'表彰对象')" :person="person"
+            total-energy-title="部门能量"
             title="选择表彰对象" message="添加表彰对象" />
         <live-input @live-input="onLiveInput" title="表彰理由" placeholder="请填写表彰的理由，至少10个字，详实的理由能让表彰更有价值。" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表彰"
@@ -210,7 +211,9 @@ export default {
             }))
             YWJATRACK.uploadTrack('提交部门表彰','dept-live')
             if (isSuccess) {
-                uni.reLaunch({ url: '/pages/index/index' })
+                uni.reLaunch({ url: '/pages/index/index',success(){
+                    toast('表彰成功')
+                } })
             }
         }
 

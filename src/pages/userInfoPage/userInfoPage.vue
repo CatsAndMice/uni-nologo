@@ -13,7 +13,8 @@
             <view class="title-msg">个人表彰动态</view>
         </view>
         <view style="margin: 0 -24rpx;">
-            <get-commend-cell :is-margin="false" v-for="(item, index) in listRef" :key="index" :item="item">
+            <get-commend-cell :is-margin="false" v-for="(item, index) in listRef" :key="index" :item="item"
+                :user-id="obj.userId">
                 <template #top-initiator>
                     <view v-show="['DEPT', 'LIKE'].includes(item.source)" class="align-center margin-top-8"
                         style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;display: inline-flex;">

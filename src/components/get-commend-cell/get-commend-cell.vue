@@ -31,7 +31,7 @@
 					</view>
 
 					<view style="text-align: right;margin-right: 32rpx;font-size: 32rpx;font-weight: 600;color: #F7AF6C;white-space: nowrap;flex-shrink: 0;">
-						{{ '+' + getScore(item) }} <text class="margin-left-8 ">晶点</text>
+						{{ '+' + getScore(item,userId) }} <text class="margin-left-8 ">晶点</text>
 					</view>
 				</view>
 			</slot>
@@ -72,6 +72,10 @@ export default defineComponent({
 		isMargin: {
 			type: Boolean,
 			default: true
+		},
+		userId:{
+			type: Number,
+			default: 0
 		}
 	},
 	setup(props) {

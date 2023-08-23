@@ -1,12 +1,18 @@
 import isEmpty from "medash/lib/isEmpty"
 import toArray from "medash/lib/toArray"
-export default (item = {}) => {
+export default (item = {}, userId) => {
     const { userList = [], score } = item
     if (isEmpty(userList)) return score
     const scoreSet = new Set()
     const num = 1
     userList.forEach(u => {
-        scoreSet.add(u.score || 0)
+        if (userId) {
+            if (u.userId === userId) {
+                scoreSet.add(u.score || 0)
+            }
+        } else {
+            scoreSet.add(u.score || 0)
+        }
     })
 
     const size = scoreSet.size
