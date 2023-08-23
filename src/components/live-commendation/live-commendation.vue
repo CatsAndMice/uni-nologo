@@ -5,6 +5,7 @@
             marginTop: '32rpx',
             width: '142rpx',
             height: '142rpx',
+            backgroundColor: 'transparent',
             backgroundImage: `url(${noImageDefault(commendation.commendationIcon)})`
         }"></view>
         <view class="title margin-top-8 line1" style="max-width: 200rpx;">{{ commendation.commendationName }}</view>

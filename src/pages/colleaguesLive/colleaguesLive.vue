@@ -6,7 +6,8 @@
             <view class="cu-avatar df-warp radius" :style="{
                 width: '176rpx',
                 height: '176rpx',
-                backgroundImage: `url(${noImageDefault(obj.commendationIcon)})`
+                backgroundImage: `url(${noImageDefault(obj.commendationIcon)})`,
+                backgroundColor: 'transparent'
             }"></view>
             <view class="title margin-top-8">{{ obj.commendationName }}</view>
             <view class="margin-tb-8 description line1" style="width:500rpx">{{ obj.commendationDescription }}</view>
@@ -21,7 +22,7 @@
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表扬"
                 @submit="onBeforeSubmit" /></view>
     </view>
-    <uni-popup ref="popupRef" :is-mask-click="false">
+    <uni-popup ref="popupRef" :is-mask-click="false" :animation="false">
         <view class="popup-content"
             style="width:622rpx;height:292rpx; background: #FFFFFF;border-radius: 24rpx;overflow: hidden;">
             <view

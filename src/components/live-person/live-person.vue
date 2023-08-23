@@ -22,7 +22,7 @@
             </view>
 
             <view class="flex align-center padding-left-16" style="font-size: 32rpx;color: rgba(0,0,0,0.4);"
-                @click="onPreview">
+                @click="onSelectOrPreview">
                 <text>{{ person.length }}</text>
                 <text style="margin-right: 8rpx;">人</text>
                 <uni-icons color="rgba(0,0,0,0.4)" type="forward" size="24" />
@@ -54,7 +54,7 @@
         </view>
     </view>
 
-    <uni-popup ref="popupRef" :is-mask-click="false">
+    <uni-popup ref="popupRef" :is-mask-click="false" :animation="false">
         <view class="popup-content">
             <view style="position: absolute;top: 32rpx;right: 32rpx;"><uni-icons type="closeempty" color="rgba(0,0,0,0.9)"
                     size="24" @click="close" /></view>
@@ -72,6 +72,8 @@ line-height: 54rpx;">能量消耗说明</view>
 import addImage from "@/static/add.webp"
 import usePopup from "@c/usePopup.js"
 import isEmpty from "medash/lib/isEmpty"
+import { toRefs, unref } from "vue"
+
 export default {
     props: {
         internal: {
@@ -97,17 +99,18 @@ export default {
             type: Array,
             default: []
         },
-        title:{
+        title: {
             type: String,
-            default:'选择表扬对象'
+            default: '选择表扬对象'
         },
-        message:{
+        message: {
             type: String,
-            default:'选择表扬对象'
+            default: '选择表扬对象'
         }
     },
     emits: ['select-person', 'preview'],
     setup(props, { emit }) {
+        const { person } = toRefs(props)
         const { open, close, popupRef } = usePopup()
         const onSelectPerson = () => {
             emit('select-person')
@@ -117,6 +120,10 @@ export default {
             emit('preview')
         }
 
+        const onSelectOrPreview = () => {
+            isEmpty(unref(person)) ? onSelectPerson() : onPreview()
+        }
+
         return {
             addImage,
             onSelectPerson,
@@ -124,7 +131,8 @@ export default {
             close,
             isEmpty,
             popupRef,
-            onPreview
+            onPreview,
+            onSelectOrPreview
         }
 
     },

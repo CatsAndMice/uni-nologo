@@ -21,7 +21,7 @@
 					<view class=" margin-tp-xs">
 						<view class="margin-auto-lr margin-lr-12">
 							<view class="cu-avatar df-warp radius bg-white"
-								:style="'background-image:url(' + noImageDefault(item.commendationIcon) + ');width: 128rpx;height: 128rpx;'">
+								:style="'background-image:url(' + noImageDefault(item.commendationIcon) + ');width: 128rpx;height: 128rpx;background-color: transparent'">
 							</view>
 						</view>
 					</view>

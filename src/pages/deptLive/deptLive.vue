@@ -63,7 +63,7 @@
     </view>
 
 
-    <uni-popup ref="deptPopup" :is-mask-click="false">
+    <uni-popup ref="deptPopup" :is-mask-click="false" :animation="false">
         <view class="popup-content"
             style="width:622rpx;height:292rpx; background: #FFFFFF;border-radius: 24rpx;overflow: hidden;">
             <view
