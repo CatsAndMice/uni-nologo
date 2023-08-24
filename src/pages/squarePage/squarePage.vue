@@ -112,8 +112,8 @@
 				style="height: 88rpx;line-height: 88rpx;color:#1D2129;font-size: 32rpx;font-weight: 500;position: relative;">
 				表彰名单
 				<view @click="close" class="round flex align-center justify-center"
-					style="background-color: #F2F3F5;position: absolute;width: 32rpx;height: 32rpx;top: 50%;right: 32rpx;transform: translateY(-50%);">
-					<uni-icons type="closeempty" size="12" color="#A9AEB8;"></uni-icons>
+					style="background-color: #F2F3F5;position: absolute;width: 54rpx;height: 54rpx;top: 50%;right: 32rpx;transform: translateY(-50%);">
+					<uni-icons type="closeempty" size="24" color="#A9AEB8;"></uni-icons>
 				</view>
 				<view class="grid col-4 padding-lr-xl" style="padding-top: 20rpx;max-height: 1060rpx;overflow: scroll;">
 					<view class="flex justify-start align-center" @click="toUserInfoPage(p.userId)"

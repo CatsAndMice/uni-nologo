@@ -7,16 +7,15 @@
 
 <script>
 import {
-	defineComponent,
-	ref,
-	reactive
+	defineComponent
 } from 'vue'
 import {
 	onLoad
 } from "@dcloudio/uni-app"
 import Cache from '@/utils/cache.js'
 import {
-	BaseCacheKey
+	BaseCacheKey,
+	BaseDataKey
 } from '@/utils/type.js'
 import {
 	dingLogin
@@ -24,6 +23,8 @@ import {
 import {
 	LoginType
 } from '../../utils/type.js'
+
+
 export default defineComponent({
 	setup() {
 		onLoad(() => {
@@ -31,7 +32,6 @@ export default defineComponent({
 			// 	uni.reLaunch({ url: '/pages/handLogin/handLogin' })
 			// 	return
 			// }
-
 			//调用登录接口--
 			loginMethod()
 		})

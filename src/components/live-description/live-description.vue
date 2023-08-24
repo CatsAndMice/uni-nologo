@@ -8,7 +8,7 @@
                     style="color: #F77234;height: 40rpx;background: #FFF3E8;border-radius: 6rpx;padding: 0 12rpx;font-size: 20rpx;line-height: 40rpx;text-align: center;">
                     {{ enumName }}</view>
             </view>
-            <view style="font-size: 24rpx;font-weight: 400;color: rgba(0,0,0,0.4);">消耗每人次<text
+            <view style="font-size: 24rpx;font-weight: 400;color: rgba(0,0,0,0.4);">每人次消耗<text
                     style="margin: 0 8rpx;color: #F7AF6C;">{{ commendation.energy }}</text> 能量</view>
         </view>
         <view style="font-size: 24rpx;font-weight: 400;color: rgba(0,0,0,0.6);line-height: 40rpx;">

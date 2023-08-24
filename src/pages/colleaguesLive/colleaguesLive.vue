@@ -16,8 +16,7 @@
             </view>
         </view>
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
-            :energy-external="energyExternal" @select-person="openSelectPerson" :person="person"
-            total-energy-title="我的能量"
+            :energy-external="energyExternal" @select-person="openSelectPerson" :person="person" total-energy-title="我的能量"
             @preview="toPreview(type, '表扬对象')" />
         <live-input @live-input="onLiveInput" title="表扬理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让表扬更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表扬"
@@ -53,6 +52,7 @@ import { submitColleaguesLive } from "@a/live.js"
 import Cache from '@/utils/cache.js'
 import YWJATRACK from "@/config/jstrack.js"
 import toast from "@/tools/toast"
+import isIos from "@/tools/isIos"
 
 const type = 'live-colleague'
 export default {
@@ -93,6 +93,12 @@ export default {
             if (isSuccess) {
                 uni.reLaunch({
                     url: '/pages/index/index', success() {
+                        if (isIos()) {
+                            setTimeout(() => {
+                                toast('表扬成功')
+                            }, 1000)
+                            return
+                        }
                         toast('表扬成功')
                     }
                 })

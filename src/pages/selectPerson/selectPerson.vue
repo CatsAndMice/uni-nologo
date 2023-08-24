@@ -21,7 +21,7 @@
                         }" title="组织架构">
                             <view style="margin-left: 32rpx;width: 24rpx;height:2rpx;background-color: #C9CDD4;"></view>
                         </organization-group-item>
-                    </view>
+                    </view> 
                     <view @click="changeDept(userInfo)">
                         <organization-group-item :src="jaImage" :height="'112rpx'" :title-style="{
                             fontSize: '28rpx',
@@ -173,8 +173,7 @@ export default defineComponent({
         const deptList = ref([])
         const query = { page: 1, size: 20, isSearchDept: "TRUE" }
 
-        const userInfo = Cache.get(BaseDataKey.USER_INFO)
-
+        const userInfo = Cache.get(BaseDataKey.ACCOUNT_INFO)
         const { listRef, loading, onLoad: onListLoad, onReset: onResetQuery, hasMore } = useInfiniteScroll(query, async (params) => {
             const [err, data] = await to(getDepAndUsers(params))
             deptList.value = isEmpty(data.deptList) ? [] : data.deptList

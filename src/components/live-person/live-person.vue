@@ -45,8 +45,8 @@
             <view class="flex justify-between item" style="margin-top: 8rpx;">
                 <view style="color: rgba(0, 0, 0, 0.9);">本次消耗的能量</view>
                 <view class="flex align-center">
-                    <view><text style="margin-right: 4rpx;color: rgba(0, 0, 0, 0.9);">{{ internal }}</text>内部能量</view>
-                    <view class="margin-left-8"><text style="margin-right: 4rpx;color: rgba(0, 0, 0, 0.9);">{{ external
+                    <view><text style="margin-right: 4rpx;color: #F53F3F;">{{ internal }}</text>内部能量</view>
+                    <view class="margin-left-8"><text style="margin-right: 4rpx;color: #F53F3F;">{{ external
                     }}</text>外部能量
                     </view>
                 </view>

@@ -161,8 +161,8 @@ export default defineComponent({
 		}
 
 		const onChange = (dept) => {
-			const { deptId, deptName, energyExternal, energyInternal } = dept
-			const url = deptLive + `?deptId=${deptId}&deptName=${deptName}&energyExternal=${energyExternal}&energyInternal=${energyInternal}`
+			const { deptId, deptName, energyExternal, energyInternal,isAuditor } = dept
+			const url = deptLive + `?deptId=${deptId}&deptName=${deptName}&energyExternal=${energyExternal}&energyInternal=${energyInternal}&isAuditor=${isAuditor}`
 			pageNavigateTo(url)
 		}
 

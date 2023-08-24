@@ -50,16 +50,20 @@ import { noImageDefault } from '../../tools/tool.js'
 import { ref, onMounted } from "vue"
 import lte from "medash/lib/lte"
 import YWJATRACK from "@/config/jstrack.js"
+import { getCommendDistribute } from '../../api/commend'
 export default {
     setup() {
         let userId = '',
             el = null
         const isTop = ref(false)
-        const query = { page: 1, size: 20, accountType: RecordType.JINGDIAN }
+        const query = { page: 1, size: 20 }
         const { loading, listRef, onLoad: onInfiniteScrollLoad } = useInfiniteScroll(query, async (params) => {
             params.userId = userId
-            const [err, result] = await to(getCommendation(params))
-            return result
+            const { code, data } = await getCommendDistribute(params)
+            console.log(data);
+            if (code == 200) {
+                return data
+            }
         })
 
         const { obj, onLoadObject } = useObject(async () => {

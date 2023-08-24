@@ -55,9 +55,8 @@
         </view>
 
         <live-person :internal="internal" :external="external" :energy-internal="energyInternal"
-            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type,'表彰对象')" :person="person"
-            total-energy-title="部门能量"
-            title="选择表彰对象" message="添加表彰对象" />
+            :energy-external="energyExternal" @select-person="openSelectPerson" @preview="toPreview(type, '表彰对象')"
+            :person="person" total-energy-title="部门能量" title="选择表彰对象" message="添加表彰对象" />
         <live-input @live-input="onLiveInput" title="表彰理由" placeholder="请填写表彰的理由，至少10个字，详实的理由能让表彰更有价值。" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表彰"
                 @submit="onBeforeSubmit" /></view>
@@ -101,7 +100,7 @@ import useSwiper from "./js/useSwiper"
 import { toPreview } from "@/pages/colleaguesLive/js/page"
 import eq from "medash/lib/eq"
 import YWJATRACK from "@/config/jstrack.js"
-
+import isIos from "@/tools/isIos"
 const type = 'live-dept'
 const ALL = "ALL"
 export default {
@@ -188,7 +187,7 @@ export default {
             curDept.value = l
             setEnergyInternalAndExternal(l)
             reSetInternalAndExternal()
-            YWJATRACK.uploadTrack('部门表彰-切换部门','dept-live-dept')
+            YWJATRACK.uploadTrack('部门表彰-切换部门', 'dept-live-dept')
         }
 
         const onBeforeSubmit = () => {
@@ -209,11 +208,19 @@ export default {
                 deptId: unref(curDept).deptId,
                 honoreeUserIds: unref(person).map(p => p.userId)
             }))
-            YWJATRACK.uploadTrack('提交部门表彰','dept-live')
+            YWJATRACK.uploadTrack('提交部门表彰', 'dept-live')
             if (isSuccess) {
-                uni.reLaunch({ url: '/pages/index/index',success(){
-                    toast('表彰成功')
-                } })
+                uni.reLaunch({
+                    url: '/pages/index/index', success() {
+                        if (isIos()) {
+                            setTimeout(() => {
+                                unref(curDept).isAuditor === "TRUE" ? toast('表彰成功') : toast('提交成功，请等待审核')
+                            }, 1000)
+                            return
+                        }
+                        unref(curDept).isAuditor === "TRUE" ? toast('表彰成功') : toast('提交成功，请等待审核')
+                    }
+                })
             }
         }
 
@@ -229,8 +236,8 @@ export default {
             onLoadList()
             onLoadEnumList()
             if (!isEmpty(options)) {
-                const { deptId, deptName, energyExternal, energyInternal } = options
-                curDept.value = { deptId, deptName, energyExternal: toNumber(energyExternal), energyInternal: toNumber(energyInternal) }
+                const { deptId, deptName, energyExternal, energyInternal, isAuditor} = options
+                curDept.value = { deptId, deptName, energyExternal: toNumber(energyExternal), energyInternal: toNumber(energyInternal),isAuditor }
                 setEnergyInternalAndExternal(unref(curDept))
             }
             Cache.set('person', [])
@@ -241,7 +248,7 @@ export default {
                 Cache.set('person', p)
             })
 
-            YWJATRACK.uploadTrack('部门表彰页面','dept-live-page')
+            YWJATRACK.uploadTrack('部门表彰页面', 'dept-live-page')
         })
 
 
