@@ -44,6 +44,15 @@
 			}
 		},
 		{
+			"path": "pages/userManual/userManual",
+			"style": {
+				"navigationBarTitleText": "",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				}
+			}
+		},
+		{
 			"path": "pages/squarePage/squarePage",
 			"style": {
 				"navigationBarTitleText": "广场", //广场

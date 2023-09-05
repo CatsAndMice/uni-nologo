@@ -10,7 +10,8 @@
                 backgroundColor: 'transparent'
             }"></view>
             <view class="title margin-top-8">{{ obj.commendationName }}</view>
-            <view class="margin-tb-8 description line1" style="width:500rpx">{{ obj.commendationDescription }}</view>
+            <view class="margin-tb-8 description line1 text-center" style="width:500rpx">{{ obj.commendationDescription }}
+            </view>
             <view class="score"><text style="font-size: 40rpx;font-weight: bold;margin-right: 8rpx;">{{ obj.score
             }}</text>晶点
             </view>

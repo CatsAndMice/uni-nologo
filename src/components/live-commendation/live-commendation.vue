@@ -8,7 +8,7 @@
             backgroundColor: 'transparent',
             backgroundImage: `url(${noImageDefault(commendation.commendationIcon)})`
         }"></view>
-        <view class="title margin-top-8 line1" style="max-width: 200rpx;">{{ commendation.commendationName }}</view>
+        <view class="title margin-top-8 line1 text-center" style="max-width: 200rpx;">{{ commendation.commendationName }}</view>
         <view class="score"><text style="margin-right: 8rpx;">{{ commendation.score
         }}</text>晶点
         </view>

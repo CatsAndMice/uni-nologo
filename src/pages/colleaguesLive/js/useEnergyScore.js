@@ -16,7 +16,7 @@ export default () => {
     }
 
     const setInternalAndExternal = (person = [], energy, deptId = '') => {
-        const userInfo = Cache.get(BaseDataKey.USER_INFO)
+        const userInfo = Cache.get(BaseDataKey.ACCOUNT_INFO)
         const curDeptId = deptId || userInfo.deptId
         let internalNum = 0
         person.forEach(p => {

@@ -50,40 +50,40 @@
 		<j-tabbar fixed fill safeBottom current="0" :z-index="show ? 0 : 1000" :tabbar="tabbar"
 			@click-center="openModal"></j-tabbar>
 		<commend-item-popup :show='showModal' @close="closeModal"></commend-item-popup>
-	</view>
 
-	<uni-popup ref="popupRef" :is-mask-click="false">
-		<view class="popup-content radius-lg bg-white" style="width: 480rpx;height: 600rpx; overflow: hidden;">
-			<view class="flex margin-auto-lr justify-center align-center" style="margin-top:48rpx;">
-				<image :src="picDecorationImage" style="width:48rpx;height:48rpx" />
-				<text style="font-size: 32rpx;font-weight: 500;line-height: 48rpx; "
-					class="margin-lr-8 text-black">恭喜你获得新表彰</text>
-				<image :src="picDecorationImage" style="width:48rpx;height:48rpx" />
-			</view>
+		<uni-popup ref="popupRef" :is-mask-click="false">
+			<view class="popup-content radius-lg bg-white" style="width: 480rpx;height: 600rpx; overflow: hidden;">
+				<view class="flex margin-auto-lr justify-center align-center" style="margin-top:48rpx;">
+					<image :src="picDecorationImage" style="width:48rpx;height:48rpx" />
+					<text style="font-size: 32rpx;font-weight: 500;line-height: 48rpx; "
+						class="margin-lr-8 text-black">恭喜你获得新表彰</text>
+					<image :src="picDecorationImage" style="width:48rpx;height:48rpx" />
+				</view>
 
-			<view class="commend flex align-center" style="flex-direction: column;">
-				<!-- //noImageDefault(commendInfo.commendationIcon) -->
-				<view class="flex justify-center margin-tb-20">
-					<view class="cu-avatar radius bg-white "
-						:style="'background-image:url(' + noImageDefault(commendInfo.commendationIcon) + ');width:176rpx;height:176rpx'">
-					</view>
-					<view class="flex margin-lr-8">
-						<view class="margin-auto-tb" v-for="item, index in commendInfo.countImgList" :key="index">
-							<image class="" :src="item" mode="aspectFit" style="width: 44rpx;height: 88rpx;"></image>
+				<view class="commend flex align-center" style="flex-direction: column;">
+					<!-- //noImageDefault(commendInfo.commendationIcon) -->
+					<view class="flex justify-center margin-tb-20">
+						<view class="cu-avatar radius bg-white "
+							:style="'background-image:url(' + noImageDefault(commendInfo.commendationIcon) + ');width:176rpx;height:176rpx'">
+						</view>
+						<view class="flex margin-lr-8">
+							<view class="margin-auto-tb" v-for="item, index in commendInfo.countImgList" :key="index">
+								<image class="" :src="item" mode="aspectFit" style="width: 44rpx;height: 88rpx;"></image>
+							</view>
 						</view>
 					</view>
+					<view class="text-black text-bold" style="font-size: 32rpx;font-weight: 500;line-height: 48rpx;">{{
+						commendInfo.commendationName }}
+					</view>
 				</view>
-				<view class="text-black text-bold" style="font-size: 32rpx;font-weight: 500;line-height: 48rpx;">{{
-					commendInfo.commendationName }}
-				</view>
-			</view>
 
-			<view class="flex align-center justify-center" style="padding: 48rpx 0;margin: auto;">
-				<button @click="onAcceptCommend(commendInfo)" class="cu-btn round"
-					style="width: 384rpx;height: 80rpx; border: 2rpx solid #F7AF6C;background-color: transparent;color:  #F7AF6C;line-height: 48rpx;font-size: 32rpx;font-weight: 400;padding: 0 86rpx;">太棒了</button>
+				<view class="flex align-center justify-center" style="padding: 48rpx 0;margin: auto;">
+					<button @click="onAcceptCommend(commendInfo)" class="cu-btn round"
+						style="width: 384rpx;height: 80rpx; border: 2rpx solid #F7AF6C;background-color: transparent;color:  #F7AF6C;line-height: 48rpx;font-size: 32rpx;font-weight: 400;padding: 0 86rpx;">太棒了</button>
+				</view>
 			</view>
-		</view>
-	</uni-popup>
+		</uni-popup>
+	</view>
 </template>
 
 <script>
