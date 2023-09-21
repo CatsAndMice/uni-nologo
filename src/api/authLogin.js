@@ -4,7 +4,7 @@ import { to } from "await-to-js"
 import { isUndefined, isFunction, isNull } from '@/tools/tool.js'
 import { userData } from '../stores/userData.js'
 import { LoginType } from '../utils/type.js'
-import { saveUserData } from './user.js'
+import { saveUserData ,getUserInfo} from './user.js'
 import Cache from '@/utils/cache.js'
 import { BaseDataKey } from '@/utils/type.js'
 
@@ -70,8 +70,17 @@ export const dingLogin = (callback) => {
 					Cache.remove(BaseDataKey.USER_INFO)
 					//保存token
 					userData().setToken(data.data)
-					saveUserData()
-					isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
+					const [err, result] = await to(getUserInfo({}))
+					if (isUndefined(result)) {
+						isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+					}
+					
+					if (result.code === 200 && result.data !=null) {
+						userData().setUserInfo(result.data)
+						isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
+					} else {
+						isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+					}
 				} else {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
@@ -83,21 +92,31 @@ export const dingLogin = (callback) => {
 	})
 }
 
-export const accountLogin = (query) => {
+export const accountLogin = (query,callback) => {
 	getAppId(async (appIdRes) => {
 		console.log(appIdRes);
 		const [err, data] = await to(instance.post(
 			`/dian/apis/session/${appIdRes.appId}/account-authorized`, query
 		))
-		if (data.code === 200) {
-			//保存token
-			userData().setToken(data.data)
-			const [err, isSuccess] = await to(saveUserData())
-			if (isSuccess) {
-				uni.reLaunch({
-					url: '/pages/index/index'
-				})
+			if (isUndefined(data)) {
+				isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+			} else if (data.code == 200) {
+				Cache.remove(BaseDataKey.USER_INFO)
+				//保存token
+				userData().setToken(data.data)
+				const [err, result] = await to(getUserInfo({}))
+				if (isUndefined(result)) {
+					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+				}
+				
+				if (result.code === 200 && result.data !=null) {
+					userData().setUserInfo(result.data)
+					isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
+				} else {
+					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+				}
+			} else {
+				isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 			}
-		}
 	})
 }

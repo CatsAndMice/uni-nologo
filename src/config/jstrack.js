@@ -67,7 +67,8 @@ export function sendStatData(dataUrl) {
 	console.log(dataUrl);
 	uni.request({
 		url: dataUrl,
-		method: 'GET'
+		method: 'GET',
+		dataType:'image/x-icon'
 	})
 }
 /**
