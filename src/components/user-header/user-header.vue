@@ -7,7 +7,7 @@
 		</view>
 		<view class="flex flex-direction margin-left-sm justify-center">
 			<view class="flex">
-				<view class="text-xl text-bold margin-right-xs">{{ name }}</view>
+				<view class="text-xl text-bold margin-right-xs line1" style="max-width: 320rpx;">{{ name }}</view>
 				<view class=" margin-auto-tb text-lv">
 					<image :src="picLvImage" style="font-size: 0;width: 26rpx;height: 28rpx;" />
 					<text style="height: 32rpx;display: inline-block;line-height: 32rpx;">{{ level }}</text>

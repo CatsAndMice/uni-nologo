@@ -1,18 +1,18 @@
 <template>
-    <view class="padding-lr-12 content">
-        <view class="flex align-center" style=" height: 156rpx;margin: 0 -24rpx;">
+    <view class="content">
+        <view class="flex align-center padding-lr-12" style=" height: 156rpx;margin: 0 -24rpx;">
             <user-header :avatar='noEmpty(obj.avatar)' :name='noEmpty(obj.name)' :level='noEmpty(obj.currentLevel)'
                 avatar-size="120rpx">
                 <view style="font-size: 24rpx;font-weight: 400;color: #A9AEB8;margin-top: 8rpx;">{{ noEmpty(obj.deptName) }}
                 </view>
             </user-header>
         </view>
-        <view class="title-wrap" :class="{
+        <view class="title-wrap padding-left-12" :class="{
             'is-top': isTop
         }">
             <view class="title-msg">个人表彰动态</view>
         </view>
-        <view style="margin: 0 -24rpx;">
+        <view class="padding-lr-12" style="margin: 0 -24rpx;">
             <get-commend-cell :is-margin="false" v-for="(item, index) in listRef" :key="index" :item="item"
                 :user-id="obj.userId">
                 <template #top-initiator>
@@ -121,9 +121,9 @@ export default {
     padding-top: 32rpx;
     top: 0;
     z-index: 999;
-
+    width: 100vw;
+    padding-left: 24rpx;
     &.is-top {
-        // padding-top: 176rpx;
         background-color: #F7F8FA;
     }
 

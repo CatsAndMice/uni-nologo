@@ -2,11 +2,15 @@
 	<view>
 		<view style="position: relative;">
 			<view class="main-wrap">
-				<view style="padding: 24rpx 0;">
+				<view style="padding: 24rpx 0;position: relative;">
 					<user-header :avatar='noEmpty(accountInfo.avatar)' :name='noEmpty(accountInfo.name)'
 						:level='accountInfo?.currentLevel' :experience='noEmpty(accountInfo?.experience)'
 						:currentLevelTotalExperience='noEmpty(accountInfo?.currentLevelTotalExperience)'
 						avatar-size="120rpx" />
+					<view class="feedback" @click="toFeedback(userInfo)">
+						<image :src="feedbackImage" style="width: 32rpx;height: 32rpx;" />
+						<text style="margin-left: 8rpx;">我要反馈</text>
+					</view>
 				</view>
 
 				<view class="margin">
@@ -97,9 +101,10 @@ import { getUserInfo } from '../../api/user.js'
 import { getCommendDistribute } from '../../api/commend'
 import { noEmpty, isUndefined } from '../../tools/tool.js'
 import { dianWord } from '../../config/app'
-import { toCommonedList } from "./js/page"
+import { toCommonedList,toFeedback } from "./js/page"
 import useWaitCommend from "./js/useWaitCommend"
 import picDecorationImage from "@/static/home/pic-decoration.png"
+import feedbackImage from "@/static/home/feedback.webp"
 import { noImageDefault } from '../../tools/tool.js'
 import YWJATRACK from "@/config/jstrack.js"
 import useModal from "./js/useModal"
@@ -208,6 +213,8 @@ export default defineComponent({
 			commendInfo,
 			noImageDefault,
 			onAcceptCommend,
+			feedbackImage,
+			toFeedback
 		}
 	}
 })
@@ -243,5 +250,18 @@ export default defineComponent({
 	background-image: url('~@/static/home/background-tc.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
+}
+
+.feedback {
+	position: absolute;
+	right: 32rpx;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 28rpx;
+	font-weight: 400;
+	color: rgba(0, 0, 0, 0.6);
+	line-height: 44rpx;
+	display: flex;
+	align-items: center;
 }
 </style>

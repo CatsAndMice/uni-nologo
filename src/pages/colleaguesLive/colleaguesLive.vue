@@ -22,17 +22,33 @@
         <live-input @live-input="onLiveInput" title="表扬理由" placeholder="请描述下同事具体的行为表现，表达你的赞赏，详实的理由能让表扬更加真诚哦！" />
         <view class="flex align-center justify-center" style="padding-top: 8rpx;"><live-button message="提交表扬"
                 @submit="onBeforeSubmit" /></view>
-    </view>
-    <uni-popup ref="popupRef" :is-mask-click="false" :animation="false">
-        <view class="popup-content"
-            style="width:622rpx;height:292rpx; background: #FFFFFF;border-radius: 24rpx;overflow: hidden;">
-            <view
-                style=" text-align: center;height: 53rpx;margin-top: 64rpx; font-size: 36rpx;font-weight: 600;color: rgba(0,0,0,0.9);line-height: 53rpx;">
-                是否确认提交同事表扬？
+        <uni-popup ref="popupRef" :is-mask-click="false" :animation="false">
+            <view class="popup-content"
+                style="width:622rpx;height:292rpx; background: #FFFFFF;border-radius: 24rpx;overflow: hidden;">
+                <view
+                    style=" text-align: center;height: 53rpx;margin-top: 64rpx; font-size: 36rpx;font-weight: 600;color: rgba(0,0,0,0.9);line-height: 53rpx;">
+                    是否确认提交同事表扬？
+                </view>
+                <view class="flex padding-lr-24 justify-between" style="margin-top: 48rpx;">
+                    <view class="margin-right-12 btn" style="background: #FFF7E8;color: #F7AF6C;" @click="close">取消</view>
+                    <view class="btn" @click="close(); submitLive(onSubmitColleaguesLive)">确认</view>
+                </view>
             </view>
-            <view class="flex padding-lr-24 justify-between" style="margin-top: 48rpx;">
-                <view class="margin-right-12 btn" style="background: #FFF7E8;color: #F7AF6C;" @click="close">取消</view>
-                <view class="btn" @click="close(); submitLive(onSubmitColleaguesLive)">确认</view>
+        </uni-popup>
+    </view>
+
+    <uni-popup ref="confirmPopupRef" :is-mask-click="false" :animation="false">
+        <view class="popup-content">
+            <view class="margin-bottom-8" style="margin-top: 64rpx;text-align: left; 
+font-size: 32rpx;
+font-weight: 400;
+color: rgba(0,0,0,0.6);
+line-height: 48rpx;">同事表扬会在广场中公开展示，填写表扬理由时请认真填写。</view>
+            <view class="margin-top-8" style="color: #F53F3F;font-size: 32rpx;line-height: 48rpx;">
+                注意：不合规的表扬理由会被取消</view>
+
+            <view class="btn text-white" @click="confirmClose" style=" width:526rpx;margin-top: 48rpx;background: #F7AF6C;">
+                确认
             </view>
         </view>
     </uni-popup>
@@ -40,6 +56,7 @@
 <script>
 import useObject from "@c/useObject.js"
 import { onLoad } from "@dcloudio/uni-app"
+import { onMounted } from "vue"
 import { getCommendation } from "@a/commend"
 import { to } from "await-to-js"
 import { noImageDefault } from '@/tools/tool.js'
@@ -59,6 +76,7 @@ const type = 'live-colleague'
 export default {
     setup() {
         const { open, close, popupRef } = usePopup()
+        const { open: confirmOpen, close: confirmClose, popupRef: confirmPopupRef } = usePopup()
         const { internal, external, energyInternal, energyExternal, setInternalAndExternal } = useEnergyScore()
         const { person, onLiveInput, isCheckTrue, submitLive } = useSubmitLive({
             internal,
@@ -118,6 +136,7 @@ export default {
             YWJATRACK.uploadTrack('同事表扬页面', 'colleagues-live-page')
         })
 
+        onMounted(confirmOpen)
 
         return {
             obj,
@@ -136,7 +155,9 @@ export default {
             close,
             popupRef,
             onBeforeSubmit,
-            onSubmitColleaguesLive
+            onSubmitColleaguesLive,
+            confirmClose,
+            confirmPopupRef
         }
     },
 }
@@ -177,5 +198,14 @@ export default {
     text-align: center;
     font-weight: 600;
     color: #FFFFFF;
+}
+
+.popup-content {
+    width: 622rpx;
+    background: #FFFFFF;
+    border-radius: 24rpx;
+    overflow: hidden;
+    position: relative;
+    padding: 0 48rpx 48rpx 48rpx;
 }
 </style>

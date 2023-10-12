@@ -4,10 +4,23 @@
 			<view class="title-wrap flex" style="margin-left: 24rpx;">
 				<view class="title-msg">晶点TOP 5</view>
 			</view>
-			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0;margin-bottom: 32rpx;">
+			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0 0 0;margin-bottom: 32rpx;overflow: hidden;">
 				<uni-list :border="false">
 					<rank-cell v-for="(item, index) in list" :key="index" :item="item" :showSolid="false"
 						:rank-index="index" @click-record="toUserInfoPage(item.userId)" />
+
+					<view style="background: #FFF7E8;position: relative;">
+						<image :src="meImage" style="width: 72rpx;height: 48rpx;position: absolute;top: 0;left: 0;" />
+						<rank-cell :item="{
+							avatar: 'https://static-legacy.dingtalk.com/media/lADPDhJzuyYLpT3NA1DNAyk_809_848.jpg', deptName: '质量部',
+							name: '吴艳文', rank: 1, userId: 287193332846725, value: 3719
+						}" :showSolid="false" :rank-index="1" @click-record="toUserInfoPage(item.userId)" />
+					</view>
+
+					<view @click="toMoreRankPage" class="text-center radius-lg"
+						style="height: 88rpx;line-height: 88rpx;overflow: hidden;color: rgba(0,0,0,0.4);font-size: 24rpx;">
+						查看更多排名 <uni-icons type="forward" size="12" color="rgba(0,0,0,0.4)"></uni-icons>
+					</view>
 				</uni-list>
 				<uni-load-more v-if="rankLoading" :icon-size="12" iconType="circle" status="loading" />
 			</view>
@@ -145,12 +158,13 @@ import isEmpty from 'medash/lib/isEmpty'
 import { formatDateTimeMDS, noImageDefault, noAvatarDefault } from '../../tools/tool.js'
 import isArray from 'medash/lib/isArray'
 import eq from 'medash/lib/eq'
-import { toUserInfoPage } from "./js/page"
+import { toUserInfoPage, toMoreRankPage } from "./js/page"
 import usePopup from "@c/usePopup"
 import usePersonList from "./js/usePersonList"
 import YWJATRACK from "@/config/jstrack.js"
 import useModal from "@/pages/index/js/useModal"
 import getScore from '@/utils/getScore'
+import meImage from "@/static/square/me.webp"
 
 const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
@@ -220,7 +234,9 @@ export default defineComponent({
 			closeModal,
 			openModal,
 			hasMore,
-			getScore
+			getScore,
+			toMoreRankPage,
+			meImage
 		}
 	}
 })

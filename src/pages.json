@@ -62,6 +62,15 @@
 			}
 		},
 		{
+			"path": "pages/moreRank/moreRank",
+			"style": {
+				"navigationBarTitleText": "排行榜",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO"
+				}
+			}
+		},
+		{
 			"path": "pages/commendPage/commendPage",
 			"style": {
 				"navigationBarTitleText": "申请表彰",

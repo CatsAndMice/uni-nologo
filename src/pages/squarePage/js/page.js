@@ -3,3 +3,10 @@ export const toUserInfoPage = (userId) => {
         url: `/pages/userInfoPage/userInfoPage?userId=${userId}`
     })
 }
+
+
+export const toMoreRankPage = () => {
+    uni.navigateTo({
+        url: `/pages/moreRank/moreRank`
+    })
+} 
