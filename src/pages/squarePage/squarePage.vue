@@ -7,14 +7,12 @@
 			<view class="bg-white radius-lg margin-lr" style="padding: 24rpx 0 0 0;margin-bottom: 32rpx;overflow: hidden;">
 				<uni-list :border="false">
 					<rank-cell v-for="(item, index) in list" :key="index" :item="item" :showSolid="false"
-						:rank-index="index" @click-record="toUserInfoPage(item.userId)" />
+						:rank-index="item.rank - 1" @click-record="toUserInfoPage(item.userId)" />
 
 					<view style="background: #FFF7E8;position: relative;">
 						<image :src="meImage" style="width: 72rpx;height: 48rpx;position: absolute;top: 0;left: 0;" />
-						<rank-cell :item="{
-							avatar: 'https://static-legacy.dingtalk.com/media/lADPDhJzuyYLpT3NA1DNAyk_809_848.jpg', deptName: '质量部',
-							name: '吴艳文', rank: 1, userId: 287193332846725, value: 3719
-						}" :showSolid="false" :rank-index="1" @click-record="toUserInfoPage(item.userId)" />
+						<rank-cell :item="rankingUser" :showSolid="false" :rank-index="rankingUser.rank - 1"
+							@click-record="toUserInfoPage(rankingUser.userId)" />
 					</view>
 
 					<view @click="toMoreRankPage" class="text-center radius-lg"
@@ -147,7 +145,7 @@
 
 <script>
 import TabbarConfig from '@/config/tabbar.js'
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, unref, ref } from 'vue'
 import { onLoad, onReachBottom } from "@dcloudio/uni-app"
 import { getRankTotal, getCommendation } from '../../api/rank'
 import { RecordType } from '../../utils/type'
@@ -165,26 +163,35 @@ import YWJATRACK from "@/config/jstrack.js"
 import useModal from "@/pages/index/js/useModal"
 import getScore from '@/utils/getScore'
 import meImage from "@/static/square/me.webp"
+import { userData } from '../../stores/userData.js'
+import { storeToRefs } from 'pinia'
 
 const MARCH_TIME = 90 * 1000 * 60 * 60 * 24
 export default defineComponent({
 	setup() {
 		const tabbar = reactive(TabbarConfig)
+		const userPData = userData()
+		const { userInfo } = storeToRefs(userPData)
 		const query = {
 			page: 1,
 			size: 20,
 			startTime: Date.now() - MARCH_TIME,
 			endTime: Date.now()
 		}
+		const rankingUser = ref({})
 		const { loading, listRef, onLoad: onInfiniteScrollLoad, hasMore } = useInfiniteScroll(query, async (params) => {
 			const [err, result] = await to(getCommendation(params))
 			return result
 		})
 
 		const { list, onLoadList, loading: rankLoading } = useList(async () => {
-			let query = { accountType: RecordType.JINGDIAN, page: 1, size: 5 }
+			let query = { accountType: RecordType.JINGDIAN, page: 1, size: 5, userId: unref(userInfo).userId }
 			const [err, result] = await to(getRankTotal(query))
-			if (!isEmpty(result)) return result.data
+
+			if (!isEmpty(result)) {
+				rankingUser.value = result.rankingUser
+				return result.userPage.data
+			}
 			return []
 		})
 
@@ -230,6 +237,7 @@ export default defineComponent({
 			getTwoUsers,
 			show,
 			isEmpty,
+			rankingUser,
 			showModal,
 			closeModal,
 			openModal,

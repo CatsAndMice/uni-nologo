@@ -1,19 +1,16 @@
 <template>
-    <uni-list :border="false">
+    <uni-list :border="false" style="margin-bottom:214rpx">
         <view class="content">
-            <rank-cell v-for="(item, index) in listRef" :key="index" :item="item" :showSolid="false" :rank-index="index"
-                @click-record="toUserInfoPage(item.userId)" />
+            <rank-cell v-for="(item, index) in listRef" :key="index" :item="item" :showSolid="false"
+                :rank-index="item.rank - 1" @click-record="toUserInfoPage(item.userId)" />
             <uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
             <no-data-wrap v-if="!loading && isEmpty(listRef)" :top='100' />
         </view>
     </uni-list>
-
     <view class="fixed bg-white">
         <view style="background: #FFF7E8;box-shadow: 0px 4px 8px 0px rgba(151,98,0,0.1);margin: 0 32rpx;">
-            <rank-cell :item="{
-                avatar: 'https://static-legacy.dingtalk.com/media/lADPDhJzuyYLpT3NA1DNAyk_809_848.jpg', deptName: '质量部',
-                name: '吴艳文', rank: 1, userId: 287193332846725, value: 3719
-            }" :showSolid="false" :rank-index="1" @click-record="toUserInfoPage(item.userId)" />
+            <rank-cell :item="rankingUser" :showSolid="false" :rank-index="rankingUser.rank - 1"
+                @click-record="toUserInfoPage(rankingUser.userId)" />
         </view>
     </view>
 </template>
@@ -25,15 +22,27 @@ import isEmpty from 'medash/lib/isEmpty'
 import { toUserInfoPage } from "../squarePage/js/page"
 import { onLoad, onReachBottom } from "@dcloudio/uni-app"
 import { to } from "await-to-js"
+import { userData } from '../../stores/userData.js'
+import { storeToRefs } from 'pinia'
+import { unref, ref } from "vue"
 
 export default {
     setup() {
-        let query = { accountType: RecordType.JINGDIAN, page: 1, size: 20 }
+        const rankingUser = ref({})
+        const userPData = userData()
+        const { userInfo } = storeToRefs(userPData)
+        let query = { accountType: RecordType.JINGDIAN, page: 1, size: 20, userId: unref(userInfo).userId }
         const { loading, listRef, onLoad: onInfiniteScrollLoad, hasMore } = useInfiniteScroll(query, async () => {
             const [err, result] = await to(getRankTotal(query))
-            if (!isEmpty(result)) return result
+            console.log(result);
+            if (!isEmpty(result)) {
+                rankingUser.value = result.rankingUser
+                return result.userPage
+            }
             return []
         })
+
+
         onReachBottom(onInfiniteScrollLoad)
         onLoad(() => {
             onInfiniteScrollLoad()
@@ -45,15 +54,15 @@ export default {
             onInfiniteScrollLoad,
             hasMore,
             isEmpty,
-            toUserInfoPage
+            toUserInfoPage,
+            rankingUser
         }
     },
 }
 </script>
 <style lang="scss" scoped>
 .content {
-    margin:0 32rpx;
-    padding-bottom: 214rpx;
+    margin: 0 32rpx;
 }
 
 .fixed {
