@@ -1,6 +1,5 @@
 <template>
     <view class="page">
-
         <view>
             <view class="img-a">
                 <view class="t-b">
@@ -35,7 +34,10 @@
 
 <script>
 import { defineComponent, ref, unref } from 'vue'
-import {  accountLogin } from '../../api/authLogin.js'
+import { accountLogin } from '../../api/authLogin.js'
+import { LoginType } from '../../utils/type.js'
+import Cache from '@/utils/cache.js'
+import { BaseCacheKey } from '@/utils/type.js'
 
 export default defineComponent({
     setup() {
@@ -43,13 +45,59 @@ export default defineComponent({
         const pwd = ref('jingdian@2022')
         const zhuhu = ref(1)
 
+        const checkEnterStatus = () => {
+            //检查是否已进入过
+            const hasEnter = Cache.get(BaseCacheKey.HAS_ENTER);
+            if (hasEnter) {
+                uni.reLaunch({
+                    url: '/pages/index/index'
+                })
+            } else {
+                uni.reLaunch({
+                    url: '/pages/introducePage/introducePage'
+                })
+            }
+        }
+
+        const enterNoAuthPage = () => {
+            uni.reLaunch({
+                url: '/pages/noAuthorityPage/noAuthorityPage'
+            })
+        }
+
+        const checkENVShow = () => {
+            //弹窗提示
+            uni.showModal({
+                title: '提示',
+                content: '登录失败',
+                confirmText: '确实',
+                cancelText: '取消',
+                success: function (res) {
+
+                }
+            });
+        }
+
+
         const loginAccount = () => {
             let params = {
                 account: unref(account),
                 password: unref(pwd),
                 tenantId: unref(zhuhu)
             }
-            accountLogin(params)
+            accountLogin(params, (status) => {
+                if (status === LoginType.LOGIN_SUCCESS) {
+                    //获取用户信息
+                    // checkENVShow()
+                    checkEnterStatus()
+                } else if (status === LoginType.LOGIN_FAIL) {
+                    checkENVShow()
+
+                } else {
+                    //无权限--跳转到默认页==
+                    enterNoAuthPage()
+                }
+            })
         }
 
         return {
