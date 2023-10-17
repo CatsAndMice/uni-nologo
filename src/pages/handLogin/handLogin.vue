@@ -78,7 +78,6 @@ export default defineComponent({
             });
         }
 
-
         const loginAccount = () => {
             let params = {
                 account: unref(account),

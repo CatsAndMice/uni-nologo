@@ -1,12 +1,13 @@
 <template>
     <view class="content">
-        <view class="flex align-center padding-lr-12" style=" height: 156rpx;margin: 0 -24rpx;">
+        <view class="flex align-center" style="height: 156rpx;margin: 0 -24rpx;">
             <user-header :avatar='noEmpty(obj.avatar)' :name='noEmpty(obj.name)' :level='noEmpty(obj.currentLevel)'
                 avatar-size="120rpx">
                 <view style="font-size: 24rpx;font-weight: 400;color: #A9AEB8;margin-top: 8rpx;">{{ noEmpty(obj.deptName) }}
                 </view>
             </user-header>
         </view>
+
         <view class="title-wrap padding-left-12" :class="{
             'is-top': isTop
         }">
@@ -113,6 +114,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.content{
+    width: 100vw;
+    overflow-x: hidden;
+}
 .title-wrap {
     height: 88rpx;
     line-height: 88rpx;
@@ -121,7 +126,7 @@ export default {
     padding-top: 32rpx;
     top: 0;
     z-index: 999;
-    width: 100vw;
+    // width: 100vw;
     padding-left: 24rpx;
     &.is-top {
         background-color: #F7F8FA;
