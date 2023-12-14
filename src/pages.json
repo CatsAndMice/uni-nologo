@@ -1,6 +1,18 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/downtime/downtime",
+			"style": {
+				"navigationBarTitleText": "", //启动登录页
+				"transparentTitle": "always",
+				"navigationBarBackgroundColor": "#FFA24A",
+				"mp-alipay": {
+					"allowsBounceVertical": "NO",
+					"transparentTitle": "always"
+				}
+			}
+		},
+		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "", //启动登录页
