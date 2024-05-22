@@ -32,7 +32,7 @@ background:  #F5F5F5;">
     </view>
 </template>
 <script>
-import { getOpt } from "@/api/getOps.js"
+import { getOpt,cacheOpt } from "@/api/getOps.js"
 import { onLoad } from "@dcloudio/uni-app"
 import useList from "@/common/useList.js"
 import { to } from "await-to-js"
@@ -73,6 +73,9 @@ export default {
             if (result.code === 200 && result.data != null) {
                 console.log(result);
                 userData().setUserInfo(result.data)
+                cacheOpt({
+                    selectedOpsBaseDeptId: data.opsBaseDeptId
+                })
                 checkEnterStatus()
             } else {
                 uni.showToast({

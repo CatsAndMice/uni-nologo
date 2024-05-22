@@ -52,7 +52,7 @@ font-weight: 400;line-height: 108rpx;" @click="open">
 </template>
 <script>
 import useList from "@/common/useList.js"
-import { getOpt } from "@/api/getOps.js"
+import { getOpt, cacheOpt } from "@/api/getOps.js"
 import usePopup from "@c/usePopup.js"
 import { to } from "await-to-js"
 import { onLoad } from "@dcloudio/uni-app"
@@ -85,6 +85,9 @@ export default {
 
             if (result.code === 200 && result.data != null) {
                 userData().setUserInfo(result.data)
+                cacheOpt({
+                    selectedOpsBaseDeptId: data.opsBaseDeptId
+                })
                 uni.reLaunch({
                     url: '/pages/index/index?form=changeOpt'
                 })

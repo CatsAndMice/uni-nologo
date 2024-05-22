@@ -30,7 +30,7 @@ instancePlus.interceptors.request.use(
     config => {
         config.data = checkParams(config.data)
         config.params = checkParams(config.params)
-        console.log( userData().token.session,1111);
+        console.log(userData().token.session, 1111);
         config.header.Authorization = userData().token.session
         return config
     },
@@ -67,4 +67,8 @@ export const getOpt = async (params) => {
     const [err, result] = await to(instancePlus.get('/jingjie/apis/auth/ops/base-dept-items', params))
     if (isEmpty(result)) return []
     return result.code === 200 ? result.data : []
+}
+
+export const cacheOpt = async (params) => {
+    await to(instancePlus.get('/jingjie/apis/auth/ops/cache-selected', params))
 }
