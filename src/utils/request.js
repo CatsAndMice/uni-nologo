@@ -3,13 +3,6 @@ import {
 	baseURL
 } from '../config/app'
 import {
-	paramsToStr
-} from '../tools/uni-tools.js'
-import Cache from '../utils/cache.js'
-import {
-	BaseDataKey
-} from '../utils/type.js'
-import {
 	dingLogin
 } from '../api/authLogin.js'
 import {
@@ -41,7 +34,7 @@ instance.interceptors.request.use(
 	config => {
 		config.data = checkParams(config.data)
 		config.params = checkParams(config.params)
-		config.header.Authorization = userData().token
+		config.header.Authorization = userData().token.session
 		return config
 	},
 	error => {

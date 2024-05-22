@@ -21,10 +21,6 @@
 							<text class="txt margin-auto-tb">密码</text>
 							<input type="text" name="code" :password="true" maxlength="18" placeholder="请输入您的密码" v-model="pwd" />
 						</view>
-						<view class="t-a flex margin-bottom">
-							<text class="txt margin-auto-tb">租户id</text>
-							<input type="number" name="code" maxlength="18" placeholder="请输入您的租户id" v-model="zhuhu" />
-						</view>
 						<button @tap="loginAccount()">登 录</button>
 					</form>
 
@@ -112,7 +108,6 @@
 			const checkEnterStatus = () => {
 				//检查是否已进入过
 				const hasEnter = Cache.get(BaseCacheKey.HAS_ENTER);
-				console.log(hasEnter);
 				if (hasEnter) {
 					uni.reLaunch({
 						url: '/pages/index/index'
@@ -126,14 +121,13 @@
 
 			const isAuto = ref(true)
 			const account = ref('')
-			const pwd = ref('jingdian@2022')
+			const pwd = ref('Aa123456.')
 			const zhuhu = ref(1)
 			const loginAccount = () => {
 
 				let params = {
 					account: unref(account),
 					password: unref(pwd),
-					tenantId: unref(zhuhu)
 				}
 				accountLogin(params, (status) => {
 					if (status === LoginType.LOGIN_SUCCESS) {

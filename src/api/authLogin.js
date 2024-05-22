@@ -4,10 +4,10 @@ import { to } from "await-to-js"
 import { isUndefined, isFunction, isNull } from '@/tools/tool.js'
 import { userData } from '../stores/userData.js'
 import { LoginType } from '../utils/type.js'
-import { saveUserData ,getUserInfo} from './user.js'
+import { saveUserData, getUserInfo } from './user.js'
 import Cache from '@/utils/cache.js'
 import { BaseDataKey } from '@/utils/type.js'
-
+import { getOpt } from "@/api/getOps.js"
 const instance = ajax.create({
 	// 默认配置 
 	baseURL,
@@ -49,6 +49,17 @@ const getAppId = async (callback) => {
 	console.log(data);
 	callback(data)
 }
+
+
+const getSelectedOpt = (opts = []) => {
+	for (let index = 0; index < opts.length; index++) {
+		if (opts[index].isLastSelected) {
+			return opts[index]
+		}
+	}
+	return null
+}
+
 //钉钉自动登录 
 export const dingLogin = (callback) => {
 	getAppId((appIdRes) => {
@@ -60,27 +71,40 @@ export const dingLogin = (callback) => {
 		dd.getAuthCode({
 			success: async (res) => {
 				const [err, data] = await to(instance.post(
-					`/dian/apis/session/${appIdRes.appId}/automatic-authorized/${res.authCode}`, {}
+					`/jingjie/apis/auth/session/v2/dingtalk/automatic-authorized`, {
+					appCode: "JING_DIAN",
+					appId: appIdRes.appId,
+					dingCode: res.authCode
+				}
 				))
+
 				if (isUndefined(data)) {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				} else if (data.code == 200) {
-					console.log(data.code, 'code');
-
 					Cache.remove(BaseDataKey.USER_INFO)
 					//保存token
 					userData().setToken(data.data)
-					const [err, result] = await to(getUserInfo({}))
-					if (isUndefined(result)) {
-						isFunction(callback) && callback(LoginType.LOGIN_FAIL)
-					}
-					
-					if (result.code === 200 && result.data !=null) {
-						userData().setUserInfo(result.data)
-						isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
+					const [error, opts] = await to(getOpt())
+
+					const selectedOpt = getSelectedOpt(opts)
+					if (selectedOpt) {
+						const [err, result] = await to(getUserInfo(selectedOpt))
+						if (isUndefined(result)) {
+							isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+						}
+
+						if (result.code === 200 && result.data != null) {
+							userData().setUserInfo(result.data)
+							isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
+						} else {
+							isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+						}
 					} else {
-						isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+						uni.reLaunch({
+							url: '/pages/changeLogin/changeLogin'
+						})
 					}
+
 				} else {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
@@ -92,31 +116,45 @@ export const dingLogin = (callback) => {
 	})
 }
 
-export const accountLogin = (query,callback) => {
+export const accountLogin = (query, callback) => {
 	getAppId(async (appIdRes) => {
-		console.log(appIdRes);
+		delete query["tenantId"]
 		const [err, data] = await to(instance.post(
-			`/dian/apis/session/${appIdRes.appId}/account-authorized`, query
+			'/jingjie/apis/auth/session/account-only-token?appCode=' + 'JING_DIAN', query
 		))
-			if (isUndefined(data)) {
-				isFunction(callback) && callback(LoginType.LOGIN_FAIL)
-			} else if (data.code == 200) {
-				Cache.remove(BaseDataKey.USER_INFO)
-				//保存token
-				userData().setToken(data.data)
-				const [err, result] = await to(getUserInfo({}))
+		if (isUndefined(data)) {
+			isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+		} else if (data.code == 200) {
+			Cache.remove(BaseDataKey.USER_INFO)
+			//保存token
+			userData().setToken(data.data)
+			callback(LoginType.LOGIN_SUCCESS)
+
+			// 判断是否已选择组织
+			const [error, opts] = await to(getOpt())
+			console.log(opts);
+			const selectedOpt = getSelectedOpt(opts)
+			console.log(selectedOpt, 111);
+
+			if (selectedOpt) {
+				const [err, result] = await to(getUserInfo(selectedOpt))
 				if (isUndefined(result)) {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
-				
-				if (result.code === 200 && result.data !=null) {
+
+				if (result.code === 200 && result.data != null) {
 					userData().setUserInfo(result.data)
 					isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
 				} else {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
 			} else {
-				isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+				uni.reLaunch({
+					url: '/pages/changeLogin/changeLogin'
+				})
 			}
+		} else {
+			isFunction(callback) && callback(LoginType.LOGIN_FAIL)
+		}
 	})
 }

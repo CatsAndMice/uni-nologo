@@ -1,16 +1,18 @@
 <template>
     <view class="content">
+        
         <view class="flex align-center" style="height: 156rpx;margin: 0 -24rpx;">
             <user-header :avatar='noEmpty(obj.avatar)' :name='noEmpty(obj.name)' :level='noEmpty(obj.currentLevel)'
                 avatar-size="120rpx">
-                <view style="font-size: 24rpx;font-weight: 400;color: #A9AEB8;margin-top: 8rpx;">{{ noEmpty(obj.deptName) }}
+                <view style="font-size: 24rpx;font-weight: 400;color: #A9AEB8;margin-top: 8rpx;">{{
+                noEmpty(obj.deptName) }}
                 </view>
             </user-header>
         </view>
 
         <view class="title-wrap padding-left-12" :class="{
-            'is-top': isTop
-        }">
+                'is-top': isTop
+            }">
             <view class="title-msg">个人表彰动态</view>
         </view>
         <view class="padding-lr-12" style="margin: 0 -24rpx;">
@@ -23,7 +25,7 @@
                             style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
                             提名人</view>
                         <view class="padding-lr-16" style="font-size: 24rpx;font-weight: 400;display: inline-block;">{{
-                            item.initiator.deptName + '-' + item.initiator.name }}</view>
+                item.initiator.deptName + '-' + item.initiator.name }}</view>
                     </view>
                 </template>
                 <template #reason>
@@ -35,29 +37,43 @@
             <uni-load-more v-if="loading" :icon-size="12" iconType="circle" status="loading" />
         </view>
     </view>
+
+    <uni-popup ref="popupRef" :is-mask-click="false" :animation="false">
+        <view class="popup-content">
+            <view class="margin-bottom-8" style="margin-top: 64rpx;text-align: left; 
+font-size: 32rpx;
+font-weight: 400;
+color: rgba(0,0,0,0.6);
+line-height: 48rpx;">同事表扬会在广场中公开展示，填写表扬理由时请认真填写。</view>
+
+        </view>
+    </uni-popup>
 </template>
 <script>
 import { onLoad, onReachBottom, onPageScroll } from "@dcloudio/uni-app"
 import { getAccountDetail } from "@a/account"
-import { getCommendation } from "@a/rank"
 import { to } from "await-to-js"
 import useObject from "@c/useObject"
 import eq from "medash/lib/eq"
 import isEmpty from "medash/lib/isEmpty"
 import { noEmpty } from '../../tools/tool.js'
 import useInfiniteScroll from '@c/useInfiniteScroll'
-import { RecordType } from '../../utils/type'
 import { noImageDefault } from '../../tools/tool.js'
 import { ref, onMounted } from "vue"
 import lte from "medash/lib/lte"
 import YWJATRACK from "@/config/jstrack.js"
 import { getCommendDistribute } from '../../api/commend'
+import usePopup from "@c/usePopup.js"
+
 export default {
     setup() {
         let userId = '',
             el = null
         const isTop = ref(false)
         const query = { page: 1, size: 20 }
+
+        const { open, close, popupRef } = usePopup()
+
         const { loading, listRef, onLoad: onInfiniteScrollLoad } = useInfiniteScroll(query, async (params) => {
             params.userId = userId
             const { code, data } = await getCommendDistribute(params)
@@ -108,16 +124,17 @@ export default {
             loading,
             listRef,
             noImageDefault,
-            isTop
+            isTop,
         }
     },
 }
 </script>
 <style lang="scss" scoped>
-.content{
+.content {
     width: 100vw;
     overflow-x: hidden;
 }
+
 .title-wrap {
     height: 88rpx;
     line-height: 88rpx;
@@ -128,6 +145,7 @@ export default {
     z-index: 999;
     // width: 100vw;
     padding-left: 24rpx;
+
     &.is-top {
         background-color: #F7F8FA;
     }

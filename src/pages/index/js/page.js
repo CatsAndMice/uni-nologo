@@ -16,3 +16,10 @@ export const toFeedback = (userInfo) => {
         onFail: function (err) { }
     })
 }
+
+
+export const toSetOpt = () => {
+    uni.navigateTo({
+        url: '/pages/changeOpt/changeOpt'
+    })
+}

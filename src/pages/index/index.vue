@@ -9,7 +9,12 @@
 						avatar-size="120rpx" />
 					<view class="feedback" @click="toFeedback(userInfo)">
 						<image :src="feedbackImage" style="width: 32rpx;height: 32rpx;" />
-						<text style="margin-left: 8rpx;">我要反馈</text>
+						<text style="margin-left: 8rpx;">反馈</text>
+					</view>
+
+					<view class="set-opt" @click="toSetOpt(userInfo)">
+						<image :src="settingsImage" style="width: 32rpx;height: 32rpx;" />
+						<text style="margin-left: 8rpx;">设置</text>
 					</view>
 				</view>
 
@@ -30,14 +35,15 @@
 						<view class="commend-wrap">
 							<get-commend-cell v-for="item, index in myCommendsList" :item="item" :key="index">
 								<template #top-initiator>
-									<view v-show="['DEPT', 'LIKE'].includes(item.source)" class="align-center margin-top-8"
+									<view v-show="['DEPT', 'LIKE'].includes(item.source)"
+										class="align-center margin-top-8"
 										style="border-radius: 6rpx;border: 2rpx solid #F7AF6C;display: inline-flex;">
 										<view
 											style="width: 104rpx;height: 48rpx;line-height: 48rpx;text-align: center; background: #F7AF6C;font-size: 24rpx;font-weight: 600;color: #FFFFFF;">
 											提名人</view>
 										<view class="padding-lr-16"
 											style="font-size: 24rpx;font-weight: 400;display: inline-block;">{{
-												item.initiator.deptName + '-' + item.initiator.name }}</view>
+						item.initiator.deptName + '-' + item.initiator.name }}</view>
 									</view>
 								</template>
 							</get-commend-cell>
@@ -72,7 +78,8 @@
 						</view>
 						<view class="flex margin-lr-8">
 							<view class="margin-auto-tb" v-for="item, index in commendInfo.countImgList" :key="index">
-								<image class="" :src="item" mode="aspectFit" style="width: 44rpx;height: 88rpx;"></image>
+								<image class="" :src="item" mode="aspectFit" style="width: 44rpx;height: 88rpx;">
+								</image>
 							</view>
 						</view>
 					</view>
@@ -101,13 +108,15 @@ import { getUserInfo } from '../../api/user.js'
 import { getCommendDistribute } from '../../api/commend'
 import { noEmpty, isUndefined } from '../../tools/tool.js'
 import { dianWord } from '../../config/app'
-import { toCommonedList,toFeedback } from "./js/page"
+import { toCommonedList, toFeedback, toSetOpt } from "./js/page"
 import useWaitCommend from "./js/useWaitCommend"
 import picDecorationImage from "@/static/home/pic-decoration.png"
 import feedbackImage from "@/static/home/feedback.webp"
+import settingsImage from "@/static/home/settings.png"
 import { noImageDefault } from '../../tools/tool.js'
 import YWJATRACK from "@/config/jstrack.js"
 import useModal from "./js/useModal"
+import eq from "medash/lib/eq"
 
 export default defineComponent({
 	setup() {
@@ -124,6 +133,9 @@ export default defineComponent({
 			const { code, data } = await getUserInfo({})
 			if (code == 200 && !isUndefined(data.userId)) {
 				userPData.setUserInfo(data)
+				uni.setNavigationBarTitle({
+					title: unref(userInfo).baseDeptName
+				})
 				reqAccountData()
 				reqMyCommendList()
 			} else {
@@ -179,19 +191,35 @@ export default defineComponent({
 			closeModal()
 		}
 
-		onLoad(() => {
+
+		onLoad((options) => {
+			// console.log(options,11);
 			YWJATRACK.uploadTrack('首页', 'key1')
+
+			if (eq(options.form, 'changeOpt')) {
+				uni.showToast({
+					icon: 'none',
+					title: '组织身份切换成功',
+					position: 'bottom'
+				})
+			}
+
 			//先检查用户信息
 			if (isUndefined(unref(userInfo).userId)) {
 				//先去获取用户信息
 				reqUserInfo()
 				return
 			}
+			uni.setNavigationBarTitle({
+				title: unref(userInfo).baseDeptName
+			})
 			reqAccountData()
 			reqMyCommendList()
 		})
 
 		return {
+			toSetOpt,
+			settingsImage,
 			popupRef,
 			show,
 			openModal,
@@ -252,9 +280,10 @@ export default defineComponent({
 	background-repeat: no-repeat;
 }
 
-.feedback {
+.feedback,
+.set-opt {
 	position: absolute;
-	right: 32rpx;
+	right: 120rpx;
 	top: 50%;
 	transform: translateY(-50%);
 	font-size: 28rpx;
@@ -262,6 +291,11 @@ export default defineComponent({
 	color: rgba(0, 0, 0, 0.6);
 	line-height: 44rpx;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
+}
+
+.set-opt {
+	right: 48rpx;
 }
 </style>

@@ -10,7 +10,7 @@ import {
 } from '../stores/userData.js'
 
 export const getUserInfo = (data) => {
-	return request.get('/session/info', data)
+	return request.get('/session/info?orgId=' + data.opsBaseDeptId, {})
 }
 
 export const saveUserData = async () => {
