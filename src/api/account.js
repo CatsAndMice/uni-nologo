@@ -13,7 +13,7 @@ export const getAccountDetail = (userId) => {
  * @returns 
  */
 export const getAccountStatement = (data) => {
-	return request.get(`/account/statement`, data)
+	return request.post(`/account/statement`, data)
 }
 /**
  * 兑换晶点
