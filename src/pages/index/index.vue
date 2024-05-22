@@ -111,7 +111,7 @@ import { dianWord } from '../../config/app'
 import { toCommonedList, toFeedback, toSetOpt } from "./js/page"
 import useWaitCommend from "./js/useWaitCommend"
 import picDecorationImage from "@/static/home/pic-decoration.png"
-import feedbackImage from "@/static/home/feedback.webp"
+import feedbackImage from "@/static/home/feedback.png"
 import settingsImage from "@/static/home/settings.png"
 import { noImageDefault } from '../../tools/tool.js'
 import YWJATRACK from "@/config/jstrack.js"
