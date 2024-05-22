@@ -14,23 +14,9 @@ const instancePlus = ajax.create({
 })
 
 
-function checkParams(params) {
-    if (typeof params != 'object') return params
-    for (let key in params) {
-        const value = params[key];
-        if (value === null || value === undefined || value === "") {
-            delete params[key];
-        }
-    }
-    return params;
-}
-
 // 添加请求拦截器
 instancePlus.interceptors.request.use(
     config => {
-        config.data = checkParams(config.data)
-        config.params = checkParams(config.params)
-        console.log(userData().token.session, 1111);
         config.header.Authorization = userData().token.session
         return config
     },
@@ -69,6 +55,7 @@ export const getOpt = async (params) => {
     return result.code === 200 ? result.data : []
 }
 
-export const cacheOpt = async (params) => {
-    await to(instancePlus.get('/jingjie/apis/auth/ops/cache-selected', params))
+export const cacheOpt = (params) => {
+    console.log(params);
+    instancePlus.post('/jingjie/apis/auth/ops/cache-selected', params)
 }

@@ -74,6 +74,7 @@ export default {
         })
 
         const onClick = async (data) => {
+            cacheOpt({selectedOpsBaseDeptId: data.opsBaseDeptId})
             const [err, result] = await to(getUserInfo(data))
             if (isUndefined(result)) {
                 uni.showToast({
@@ -85,9 +86,7 @@ export default {
 
             if (result.code === 200 && result.data != null) {
                 userData().setUserInfo(result.data)
-                cacheOpt({
-                    selectedOpsBaseDeptId: data.opsBaseDeptId
-                })
+             
                 uni.reLaunch({
                     url: '/pages/index/index?form=changeOpt'
                 })
