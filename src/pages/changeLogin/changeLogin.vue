@@ -46,8 +46,8 @@ export default {
     setup() {
         const checkEnterStatus = () => {
             //检查是否已进入过
-            const hasEnter = Cache.get(BaseCacheKey.HAS_ENTER);
-            console.log(hasEnter);
+            const hasEnter = Cache.get(BaseCacheKey.HAS_ENTER)
+
             if (hasEnter) {
                 uni.reLaunch({
                     url: '/pages/index/index'
@@ -71,9 +71,7 @@ export default {
             }
 
             if (result.code === 200 && result.data != null) {
-                console.log(result);
                 userData().setUserInfo(result.data)
-
                 checkEnterStatus()
             } else {
                 uni.showToast({

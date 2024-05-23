@@ -56,6 +56,6 @@ export const getOpt = async (params) => {
 }
 
 export const cacheOpt = (params) => {
-    console.log(params);
-    instancePlus.post('/jingjie/apis/auth/ops/cache-selected', params)
+    // console.log(params);
+    instancePlus.post('/jingjie/apis/auth/ops/cache-selected', params.selectedOpsBaseDeptId)
 }

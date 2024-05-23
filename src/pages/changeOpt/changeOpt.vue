@@ -67,7 +67,7 @@ export default {
     setup() {
         const { open, close, popupRef } = usePopup()
         const userInfo = Cache.get(BaseDataKey.USER_INFO)
-        console.log(userInfo);
+        
         const { list, onLoadList } = useList(async () => {
             const [err, result] = await to(getOpt())
             return result
