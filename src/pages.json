@@ -55,7 +55,8 @@
 		{
 			"path": "pages/changeOpt/changeOpt",
 			"style": {
-				"navigationBarTitleText": "设置"
+				"navigationBarTitleText": "设置",
+				"navigationBarBackgroundColor": "#FFF"
 			}
 		},
 		{

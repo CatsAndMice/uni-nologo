@@ -34,7 +34,7 @@ instance.interceptors.request.use(
 	config => {
 		config.data = checkParams(config.data)
 		config.params = checkParams(config.params)
-		config.header.Authorization = userData().token.session
+		config.header.Authorization = userData().token
 		return config
 	},
 	error => {

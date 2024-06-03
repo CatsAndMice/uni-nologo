@@ -83,16 +83,20 @@ export const dingLogin = (callback) => {
 				} else if (data.code == 200) {
 					Cache.remove(BaseDataKey.USER_INFO)
 					//保存token
-					userData().setToken(data.data)
+					userData().setToken(data.data.session)
 					const [error, opts] = await to(getOpt())
 
 					const selectedOpt = getSelectedOpt(opts)
 					if (selectedOpt) {
 						const [err, result] = await to(getUserInfo(selectedOpt))
+						console.log(result);
+
+
 						if (isUndefined(result)) {
 							isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 						}
 
+						
 						if (result.code === 200 && result.data != null) {
 							userData().setUserInfo(result.data)
 							isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
@@ -122,27 +126,24 @@ export const accountLogin = (query, callback) => {
 		const [err, data] = await to(instance.post(
 			'/jingjie/apis/auth/session/account-only-token?appCode=' + 'JING_DIAN', query
 		))
+		console.log(data, 21212);
 		if (isUndefined(data)) {
 			isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 		} else if (data.code == 200) {
-			Cache.remove(BaseDataKey.USER_INFO)
 			//保存token
 			userData().setToken(data.data)
-			callback(LoginType.LOGIN_SUCCESS)
-
+		
 			// 判断是否已选择组织
 			const [error, opts] = await to(getOpt())
-			console.log(opts);
 			const selectedOpt = getSelectedOpt(opts)
-			console.log(selectedOpt, 111);
-
 			if (selectedOpt) {
 				const [err, result] = await to(getUserInfo(selectedOpt))
+				console.log(result,'200');
 				if (isUndefined(result)) {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
-
 				if (result.code === 200 && result.data != null) {
+					console.log(result,'111');
 					userData().setUserInfo(result.data)
 					isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
 				} else {

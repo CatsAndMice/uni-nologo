@@ -3,7 +3,7 @@ import isEmpty from "medash/lib/isEmpty"
 import ajax from 'uni-ajax'
 import { userData } from '../stores/userData.js'
 import { baseURL } from '../config/app'
-
+import isArray from "medash/lib/isArray.js"
 const instancePlus = ajax.create({
     // 默认配置 
     baseURL,
@@ -17,7 +17,7 @@ const instancePlus = ajax.create({
 // 添加请求拦截器
 instancePlus.interceptors.request.use(
     config => {
-        config.header.Authorization = userData().token.session
+        config.header.Authorization = userData().token
         return config
     },
     error => {
@@ -52,6 +52,9 @@ instancePlus.interceptors.response.use(
 export const getOpt = async (params) => {
     const [err, result] = await to(instancePlus.get('/jingjie/apis/auth/ops/base-dept-items', params))
     if (isEmpty(result)) return []
+    if (isArray(result.data) && result.data.length === 1) {
+        result.data[0].isLastSelected = 1
+    }
     return result.code === 200 ? result.data : []
 }
 

@@ -6,15 +6,15 @@
 					<user-header :avatar='noEmpty(accountInfo.avatar)' :name='noEmpty(accountInfo.name)'
 						:level='accountInfo?.currentLevel' :experience='noEmpty(accountInfo?.experience)'
 						:currentLevelTotalExperience='noEmpty(accountInfo?.currentLevelTotalExperience)'
-						avatar-size="120rpx" />
+						avatar-size="96rpx" />
 					<view class="feedback" @click="toFeedback(userInfo)">
 						<image :src="feedbackImage" style="width: 32rpx;height: 32rpx;" />
-						<text style="margin-left: 8rpx;">反馈</text>
+						<text style="font-size: 20rpx;">反馈</text>
 					</view>
 
 					<view class="set-opt" @click="toSetOpt(userInfo)">
 						<image :src="settingsImage" style="width: 32rpx;height: 32rpx;" />
-						<text style="margin-left: 8rpx;">设置</text>
+						<text style="font-size: 20rpx;">设置</text>
 					</view>
 				</view>
 
@@ -96,7 +96,6 @@
 		</uni-popup>
 	</view>
 </template>
-
 <script>
 import TabbarConfig from '@/config/tabbar.js'
 import { defineComponent, ref, reactive, unref } from 'vue'
@@ -117,6 +116,9 @@ import { noImageDefault } from '../../tools/tool.js'
 import YWJATRACK from "@/config/jstrack.js"
 import useModal from "./js/useModal"
 import eq from "medash/lib/eq"
+import Cache from '@/utils/cache.js'
+import { BaseDataKey } from '@/utils/type.js'
+import isEmpty from 'medash/lib/isEmpty'
 
 export default defineComponent({
 	setup() {
@@ -130,7 +132,18 @@ export default defineComponent({
 		const { showModal, closeModal, openModal } = useModal()
 		//获取用户信息
 		const reqUserInfo = async () => {
-			const { code, data } = await getUserInfo({})
+			const cacheUserInfo = Cache.get(BaseDataKey.USER_INFO)
+			if (isEmpty(cacheUserInfo)) {
+				uni.showToast({
+					icon: 'none',
+					title: '未获取到用户数据'
+				})
+				return
+			}
+			const { code, data } = await getUserInfo({
+				// data.opsBaseDeptId
+				selectedOpsBaseDeptId: cacheUserInfo.baseDeptId
+			})
 			if (code == 200 && !isUndefined(data.userId)) {
 				userPData.setUserInfo(data)
 				uni.setNavigationBarTitle({

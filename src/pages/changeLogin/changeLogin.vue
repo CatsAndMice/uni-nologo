@@ -2,23 +2,13 @@
     <view style="padding: 32px 24px 16px 24px;height: 56px;box-sizing: content-box;">
         <view style="color:  #333;font-size: 18px;font-style: normal;font-weight: 500;line-height: 26px; ">选择你要登录的组织
         </view>
-        <text style="color:#999;font-size: 14px;font-style: normal;font-weight: 400;line-height: 22px; ">以下是你所有组织</text>
+        <text style="color:#999;font-size: 14px;font-style: normal;font-weight: 400;line-height: 22px; ">以下为你所有组织</text>
     </view>
     <view style="max-height: calc(100vh - 104px);overflow-y: auto;">
         <view
             style="margin: 0px 24px 16px;border-radius: 8px;background: rgba(5, 118, 255, 0.10);height: 64px;padding:12px 10px;display: flex;align-items: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <g clip-path="url(#clip0_8308_322)">
-                    <path
-                        d="M12 22C6.477 22 2 17.523 2 12C2 6.477 6.477 2 12 2C17.523 2 22 6.477 22 12C22 17.523 17.523 22 12 22ZM12 20C14.1217 20 16.1566 19.1571 17.6569 17.6569C19.1571 16.1566 20 14.1217 20 12C20 9.87827 19.1571 7.84344 17.6569 6.34315C16.1566 4.84285 14.1217 4 12 4C9.87827 4 7.84344 4.84285 6.34315 6.34315C4.84285 7.84344 4 9.87827 4 12C4 14.1217 4.84285 16.1566 6.34315 17.6569C7.84344 19.1571 9.87827 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z"
-                        fill="#0576FF" />
-                </g>
-                <defs>
-                    <clipPath id="clip0_8308_322">
-                        <rect width="24" height="24" fill="white" />
-                    </clipPath>
-                </defs>
-            </svg>
+            <view style="transform: rotateZ(180deg);"> <uni-icons type="info" size="24" color="#0576FF"></uni-icons>
+            </view>
             <text
                 style="color:#0576FF;font-size: 14px;font-style: normal;font-weight: 400;line-height: 22px;margin-left: 8px;">
                 各组织晶点单独结算不互通，用户随时可在设置中切换组织身份
