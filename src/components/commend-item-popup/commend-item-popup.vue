@@ -4,7 +4,7 @@
 			<view class="foot-pop">
 				<view class="fixed flex-direction">
 
-					<view v-show="!isEmpty(list)" :class="show ? 'animation-slide-bottom' : ''"
+					<!-- <view v-show="!isEmpty(list)" :class="show ? 'animation-slide-bottom' : ''"
 						:style="[{ animationDelay: 2 * 0.1 + 's' }]" class="margin-lr-24 radius-12 bg-q-blue"
 						@tap="onClickDept">
 						<view class="flex justify-between margin-tb w-100">
@@ -60,7 +60,7 @@
 									style="background-image:url('./static/commend/chevron-right@2x.png')"></view>
 							</view>
 						</view>
-					</view>
+					</view> -->
 					<view :class="show ? 'animation-slide-bottom' : ''" :style="[{ animationDelay: 4 * 0.1 + 's' }]"
 						class="margin-lr-24 radius-12 bg-q-yellow" @tap="clickItem(commendPage)">
 						<view class="flex justify-between margin-tb w-100">
