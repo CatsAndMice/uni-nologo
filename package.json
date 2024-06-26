@@ -4,7 +4,8 @@
   "scripts": {
     "dev:mp-dingtalk": "uni -p dev:mp-dingtalk",
     "test:mp-dingtalk": "uni -p test:mp-dingtalk",
-    "build:mp-dingtalk": "uni build -p mp-dingtalk"
+    "build:mp-dingtalk": "uni build -p mp-dingtalk",
+    "build:pre:mp-dingtalk": "uni build -p pre:mp-dingtalk"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-3070920230324001",
@@ -66,6 +67,16 @@
         "env": {
           "UNI_PLATFORM": "mp-alipay",
           "UNI_NODE_ENV": "prod"
+        },
+        "define": {
+          "MP-DINGTALK": true
+        }
+      },
+      "pre:mp-dingtalk": {
+        "title": "钉钉小程序",
+        "env": {
+          "UNI_PLATFORM": "mp-alipay",
+          "UNI_NODE_ENV": "pre"
         },
         "define": {
           "MP-DINGTALK": true

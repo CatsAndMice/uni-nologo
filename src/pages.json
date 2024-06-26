@@ -49,7 +49,8 @@
 		{
 			"path": "pages/changeLogin/changeLogin",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": " ",
+				"navigationBarBackgroundColor": "#FFF"
 			}
 		},
 		{

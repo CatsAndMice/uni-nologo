@@ -5,9 +5,9 @@
 				:style="{ backgroundImage: `url(${noAvatarDefault(avatar)})`, width: avatarSize, height: avatarSize }">
 			</view>
 		</view>
-		<view class="flex flex-direction margin-left-sm justify-center">
+		<view class="flex flex-direction  justify-center" style="margin-left: 24rpx;">
 			<view class="flex">
-				<view class=" text-bold margin-right-xs line1" style="max-width: 320rpx;font-size: 32rpx;">{{ name }}
+				<view class=" text-bold line1" style="max-width: 320rpx;font-size: 32rpx;margin-right: 24rpx">{{ name }}
 				</view>
 				<view class=" margin-auto-tb text-lv">
 					<image :src="picLvImage" style="font-size: 0;width: 26rpx;height: 28rpx;" />
@@ -16,7 +16,8 @@
 			</view>
 			<slot>
 				<view class="margin-top-xs flex flex-direction">
-					<view v-if="(currentLevelTotalExperience - experience) >= 0" class="text-c-msg text-xs ">距下一级还需
+					<view v-if="(currentLevelTotalExperience - experience) >= 0" class="text-c-msg"
+						style="font-size:24rpx;line-height: 40rpx;">距下一级还需
 						{{ currentLevelTotalExperience - experience + 1 }} 点经验 </view>
 					<view v-else class="text-c-msg text-xs">恭喜，你已达到最高等级</view>
 					<view class="cu-progress round margin-top-xs" style="width: 240rpx;height: 6rpx;">

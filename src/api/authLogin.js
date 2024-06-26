@@ -96,7 +96,7 @@ export const dingLogin = (callback) => {
 							isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 						}
 
-						
+
 						if (result.code === 200 && result.data != null) {
 							userData().setUserInfo(result.data)
 							isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
@@ -104,7 +104,7 @@ export const dingLogin = (callback) => {
 							isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 						}
 					} else {
-						uni.reLaunch({
+						uni.navigateTo({
 							url: '/pages/changeLogin/changeLogin'
 						})
 					}
@@ -132,25 +132,25 @@ export const accountLogin = (query, callback) => {
 		} else if (data.code == 200) {
 			//保存token
 			userData().setToken(data.data)
-		
+
 			// 判断是否已选择组织
 			const [error, opts] = await to(getOpt())
 			const selectedOpt = getSelectedOpt(opts)
 			if (selectedOpt) {
 				const [err, result] = await to(getUserInfo(selectedOpt))
-				console.log(result,'200');
+				console.log(result, '200');
 				if (isUndefined(result)) {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
 				if (result.code === 200 && result.data != null) {
-					console.log(result,'111');
+					console.log(result, '111');
 					userData().setUserInfo(result.data)
 					isFunction(callback) && callback(LoginType.LOGIN_SUCCESS)
 				} else {
 					isFunction(callback) && callback(LoginType.LOGIN_FAIL)
 				}
 			} else {
-				uni.reLaunch({
+				uni.navigateTo({
 					url: '/pages/changeLogin/changeLogin'
 				})
 			}

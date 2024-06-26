@@ -124,7 +124,7 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 36rpx;
+    font-size: 32rpx;
     font-weight: 500;
     color: #333;
     text-align: center;
