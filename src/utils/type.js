@@ -58,3 +58,11 @@ export const CollectType = {
     COLLECTION: 1,
     CANCEL_COLLECTION: 0
 }
+
+export const exchangeStatus = {
+  REDEMPTION_LIMIT_REACHED: '兑换次数达上限',
+  OUT_OF_STOCK: '立即兑换',
+  NO_PERMISSION: '无权限兑换',
+  AVAILABLE:'立即兑换',
+  OUT_OF_SCORE:'晶点不足'
+} 

@@ -209,7 +209,28 @@
 			"path": "pages/giftStore/giftStore",
 			"style": {
 				"navigationBarTitleText": "礼品中心",
-				"enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#FFF"
+			}
+		},
+		{
+			"path": "pages/giftDetail/giftDetail",
+			"style": {
+				"navigationBarTitleText": "礼品详情",
+				"navigationBarBackgroundColor": "#FFF"
+			}
+		},
+		{
+			"path": "pages/exchangeGift/exchangeGift",
+			"style": {
+				"navigationBarTitleText": "礼品详情",
+				"navigationBarBackgroundColor": "#FFF"
+			}
+		},
+		{
+			"path": "pages/exchangeDetails/exchangeDetails",
+			"style": {
+				"navigationBarTitleText": "收支兑换记录",
+				"navigationBarBackgroundColor": "#FFF"
 			}
 		}
 	],
