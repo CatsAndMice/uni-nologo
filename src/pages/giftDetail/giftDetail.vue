@@ -1,14 +1,15 @@
 <template>
-    <view class="bg-white" style="width: 100vw;min-height: 100vh;">
+    <view class="bg-white"
+        :style="['width: 100vw;min-height: 100vh;', isIos() ? 'padding-bottom:164rpx;' : 'padding-bottom:148rpx;']">
         <view style="position: relative;">
             <uni-swiper-dot class="uni-swiper-dot-box" :info="obj.imageUrlList" mode="dot" :current="current"
                 :dots-styles="{
-                backgroundColor: '#E5E6EB',
-                border: 0,
-                width: 6,
-                selectedBorder: 0,
-                selectedBackgroundColor: '#F7AF6C'
-            }" field="content">
+            backgroundColor: '#E5E6EB',
+            border: 0,
+            width: 6,
+            selectedBorder: 0,
+            selectedBackgroundColor: '#F7AF6C'
+        }" field="content">
                 <swiper class="swiper-box" @change="change">
                     <swiper-item v-for="imageUrl in obj.imageUrlList " :key="imageUrl">
                         <view class="swiper-item" :class="'swiper-item' + index">
@@ -47,14 +48,20 @@
                 {{ obj.productDescription }}
             </view>
         </view>
-        <view style="padding: 24rpx;border-top: 1px solid var(--color-divider, #EEE);" class="flex bg-white">
+        <view
+            style="padding: 24rpx;border-top: 1px solid var(--color-divider, #EEE);position: fixed;left: 0;bottom: 0;right: 0;"
+            :class="{
+            flex: true,
+            'bg-white': true,
+            ios: isIos()
+        }">
             <button class="round theme-bg-color" @tap="onSubmit" :style="{
-                flexGrow: 1,
-                height: '98rpx',
-                color: '#FFF',
-                backgroundColor: eq(obj.exchangeStatus, 'AVAILABLE') ? '#F7AF6C' : '#FCDFB6'
-            }" :disabled="!eq(obj.exchangeStatus, 'AVAILABLE')">{{
-                exchangeStatus[obj.exchangeStatus] }}</button>
+            flexGrow: 1,
+            height: '98rpx',
+            color: '#FFF',
+            backgroundColor: eq(obj.exchangeStatus, 'AVAILABLE') ? '#F7AF6C' : '#FCDFB6'
+        }" :disabled="!eq(obj.exchangeStatus, 'AVAILABLE')">{{
+            exchangeStatus[obj.exchangeStatus] }}</button>
         </view>
     </view>
     <uni-popup ref="popupRef" type="dialog">
@@ -81,6 +88,8 @@ import { getProductDetail } from '@/api/product'
 import { exchangeStatus } from "@/utils/type.js"
 import eq from "medash/lib/eq"
 import isEmpty from "medash/lib/isEmpty"
+import isIos from "@/tools/isIos"
+
 export default {
     setup() {
         let productId = 0
@@ -125,7 +134,8 @@ export default {
             current,
             change,
             onSubmit,
-            exchangeStatus
+            exchangeStatus,
+            isIos
         }
     },
 }
@@ -148,5 +158,10 @@ export default {
     top: 0;
     bottom: 0;
     background-color: #EEE;
+}
+
+.ios {
+    padding-bottom: 40rpx;
+
 }
 </style>

@@ -3,9 +3,9 @@ import { to } from "await-to-js"
 import isEmpty from "medash/lib/isEmpty"
 import eq from "medash/lib/eq"
 import ajax from 'uni-ajax'
-import {
-    baseURL
-} from '@/config/app'
+import { userData } from '@/stores/userData.js'
+import { baseURL } from '@/config/app'
+
 // 创建请求实例
 const instance = ajax.create({
     // 默认配置 
@@ -15,6 +15,19 @@ const instance = ajax.create({
         'content-type': 'application/json'
     },
 })
+
+// 添加请求拦截器
+instance.interceptors.request.use(
+    config => {
+        // config.data = checkParams(config.data)
+        // config.params = checkParams(config.params)
+        config.header.Authorization = userData().token
+        return config
+    },
+    error => {
+        Promise.reject(error)
+    }
+)
 
 export const getProduct = async (params) => {
     const [err, result] = await to(request.post(`/product/page`, params))
@@ -36,7 +49,14 @@ export const getExchangedList = async (params) => {
 
 export const exchange = async (params) => {
     const [err, result] = await to(instance.post(`/product/exchange`, params))
-    if (result.status == 200) {
+  console.log(err, result);
+    if (err) {
+        return {
+            isSuccess: false,
+            msg: '请求失败,请重新兑换'
+        }
+    }
+    if (result.statusCode == 200) {
         const data = result.data
         if (eq(data.code, 200)) {
             return {

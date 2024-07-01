@@ -8,7 +8,7 @@ font-size: 80rpx;
 font-weight: 700;
 line-height: 96rpx;
 border-bottom: 1px solid #EEE;">
-                    {{ getThousandsChar(accountInfo.totalScore) }}
+                    {{ getThousandsChar(accountInfo.score) }}
                 </view>
                 <view class="flex text-center text-c-msg bg-white" style="height:84rpx;color: #333;">
                     <view class="cu-item flex-sub text-center" @tap="tabSelect(index, item)"
@@ -32,7 +32,6 @@ font-weight: 400;line-height: 64rpx;border-radius: 40rpx;border: 0;display: inli
                 <view v-if="currentIndex" style="margin: 24rpx 24rpx 0;">
                     <exchange-result v-for="l in recordList" :key="l" :exchange-info="l" />
                 </view>
-
                 <view v-else style="padding: 0 24px;margin: 0 24rpx;border-radius: 16rpx;" class="bg-white">
                     <exchange-card v-for="l in recordList" :key="l" :card="l" />
                 </view>
@@ -42,9 +41,6 @@ font-weight: 400;line-height: 64rpx;border-radius: 40rpx;border: 0;display: inli
                     style="height: 120rpx;color: #999;font-size: 26rpx;line-height: 120rpx;text-align: center">
                     已加载至底部
                 </view>
-
-                <!-- <no-data-wrap v-if="!loading && isEmpty(listRef)"/> -->
-
             </template>
         </z-paging>
     </view>
@@ -116,7 +112,6 @@ export default {
                     paging.value.complete(false)
                 }
                 paging.value.complete(result.data)
-
                 return
             }
             params.accountType = 'SCORE'

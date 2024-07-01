@@ -19,7 +19,7 @@
 				</view>
 
 				<view class="margin">
-					<jingdian-wrap :jingdian='noEmpty(accountInfo?.totalScore)'></jingdian-wrap>
+					<jingdian-wrap :jingdian='noEmpty(accountInfo?.score)'></jingdian-wrap>
 				</view>
 				<m-banner img="../../static/home/m_banner.png" :link="dianWord" :showClose="false" :show="true"
 					@close='closeBanner'></m-banner>

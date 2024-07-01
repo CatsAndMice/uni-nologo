@@ -63,7 +63,7 @@ export default {
 
 
         const toExchangeDetails = () => {
-            uni.redirectTo({
+            uni.navigateTo({
                 url: '/pages/exchangeDetails/exchangeDetails'
             })
         }
