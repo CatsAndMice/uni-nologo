@@ -1,7 +1,7 @@
 const baseURLMap = {
 	test: 'http://172.30.64.16:2010',
 	dev: 'http://172.30.64.30:2010',
-	prod: 'https://gateway.ywjasolar.com',
+	prod: 'https://jing.jasolar.com:26000/i',
 	pre: 'https://pre_gateway.ywjasolar.com'
 }
 
