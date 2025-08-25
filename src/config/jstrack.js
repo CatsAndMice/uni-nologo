@@ -1,4 +1,3 @@
-
 const pids = {
 	dev: 'kSGgvLUXuDKaqDeFgUsm',
 	prod: 'qnyhBucgiSmRneobjkFz',
@@ -6,7 +5,7 @@ const pids = {
 }
 
 const YWJATRACK = {
-	uploadUrl: "https://gateway.ywjasolar.com/bp/ja.ico?",
+	uploadUrl: "https://api.jasolar.com:26000/bp/ja.ico?",
 	uploadData: {
 		pid: pids[process.env.UNI_NODE_ENV],//跟后台新增配置晶鱼、晶点小程序 pid
 		sessionId: generateUniqueID(),
