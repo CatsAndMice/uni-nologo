@@ -1,6 +1,6 @@
 <template>
     <view class="downtime">
-        <image src="https://ywja-public-bucket.oss-cn-hangzhou.aliyuncs.com/jingyu/weihu.webp" style="width:600rpx;"></image>
+        <image src="https://jingobj.jasolar.com:26000/ywja-public-bucket/jingyu/weihu.webp" style="width:600rpx;"></image>
     </view>
 </template>
 <style lang="scss" scoped>

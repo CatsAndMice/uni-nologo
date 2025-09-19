@@ -3,7 +3,7 @@
         <view style="margin-top: 410rpx;">
 
             <view v-if="eq(type, 'loading')" class="flex justify-center align-center" style="flex-direction: column;">
-                <image src="https://ywja-public-bucket.oss-cn-hangzhou.aliyuncs.com/jingyu/exchange-loading.png" style="width: 144rpx;
+                <image src="https://jingobj.jasolar.com:26000/ywja-public-bucket/jingyu/exchange-loading.png" style="width: 144rpx;
 height: 144rpx;">
                 </image>
                 <view style="margin: 24rpx 0 16rpx 0;color: #333;font-size: 36rpx;
@@ -15,7 +15,7 @@ line-height: 44rpx;">请不要离开该页面</view>
 
             <view v-else-if="eq(type, 'success')" class="flex justify-center align-center"
                 style="flex-direction: column;">
-                <image src="https://ywja-public-bucket.oss-cn-hangzhou.aliyuncs.com/jingyu/%20exchange-success.png"
+                <image src="https://jingobj.jasolar.com:26000/ywja-public-bucket/jingyu/%20exchange-success.png"
                     style="width: 144rpx;
 height: 144rpx;">
                 </image>
@@ -30,7 +30,7 @@ line-height: 52rpx;">兑换成功</view>
             </view>
 
             <view v-else="eq(type,'fail')" class="flex justify-center align-center" style="flex-direction: column;">
-                <image src="https://ywja-public-bucket.oss-cn-hangzhou.aliyuncs.com/jingyu/exchange-fail.png" style="width: 144rpx;
+                <image src="https://jingobj.jasolar.com:26000/ywja-public-bucket/jingyu/exchange-fail.png" style="width: 144rpx;
 height: 144rpx;">
                 </image>
                 <view style="margin: 24rpx 0 16rpx 0;color: #333;font-size: 36rpx;
