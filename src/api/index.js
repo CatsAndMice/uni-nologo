@@ -32,3 +32,10 @@ export const getPlatform = async () => {
     return eq(result.code, 200) ? result.data : []
 }
 
+
+export const getDetail = async (url) => {
+    const [err, result] = await to(instance.get('/download?url=' + encodeURIComponent(url)))
+    if (isEmpty(result)) return {}
+    return eq(result.code, 200) ? result.data : {}
+}
+

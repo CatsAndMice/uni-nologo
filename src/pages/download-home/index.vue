@@ -6,7 +6,7 @@
                         class="text-sm text-gray-500">（可点击图标测试）</text></text>
             </view>
             <view class="grid grid-cols-4 gap-4 p-4">
-                <view v-for="l in list" :key="l.url" @click="content = l.url"
+                <view v-for="l in list" :key="l.url" @tap="content = l.url"
                     class="flex flex-col items-center justify-center  rounded-lg hover:bg-gray-50 transition-colors">
                     <view
                         class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-2">
@@ -25,13 +25,13 @@
             }" />
 
             <view class="mx-4 mt-2  flex flex-row gap-2">
-                <t-button variant="outline" style="--td-button-border-radius:16rpx"
-                    icon="clear-formatting-filled">清空</t-button>
+                <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="clear-formatting-filled"
+                    @tap="content = ''">清空</t-button>
                 <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="file-copy-filled">
                     粘贴
                 </t-button>
                 <view class="flex-grow">
-                    <t-button theme="primary" block class="!rounded-lg m-0">开始解析</t-button>
+                    <t-button :loading="loading" :disabled="loading" theme="primary" block class="!rounded-lg m-0" @tap="getFileDetail">开始解析</t-button>
                 </view>
             </view>
         </view>
@@ -51,24 +51,41 @@
     </view>
 </template>
 <script>
-import { getPlatform } from '@/api/index.js';
+import { getPlatform, getDetail } from '@/api/index.js';
 import useList from '../../hooks/useList';
+import useObject from '../../hooks/useObject.js';
 import { onBeforeMount, shallowRef } from "vue";
+import { extractUrl } from "../../utils/common.js";
+
 export default {
     setup() {
         const content = shallowRef('');
         const { list, getList } = useList(getPlatform);
+        const { obj, loading, getObject } = useObject(getDetail)
+
+
+        const getFileDetail = () => {
+            if (!content.value) return
+            const url = extractUrl(content.value)
+            if (!url) return
+            getObject(url)
+        }
+
         const goToTutorial = () => {
             uni.navigateTo({
                 url: '/pages/download-tutorial/index'
             })
         }
+        console.log(1212);
 
         onBeforeMount(getList)
+
         return {
             list,
             content,
-            goToTutorial
+            loading,
+            goToTutorial,
+            getFileDetail
         }
     },
 }
