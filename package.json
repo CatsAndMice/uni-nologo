@@ -1,82 +1,38 @@
 {
-  "name": "uni-jingdian",
+  "name": "uni-download",
   "version": "0.0.0",
   "scripts": {
-    "dev:mp-dingtalk": "uni -p dev:mp-dingtalk",
-    "test:mp-dingtalk": "uni -p test:mp-dingtalk",
-    "build:mp-dingtalk": "uni build -p mp-dingtalk",
-    "build:pre:mp-dingtalk": "uni build -p pre:mp-dingtalk"
+    "dev:mp-weixin": "uni -p dev:mp-weixin",
+    "build:mp-weixin": "uni build -p mp-weixin",
+    "postinstall": "weapp-tw patch"
   },
   "dependencies": {
     "@dcloudio/uni-app": "3.0.0-3070920230324001",
     "@dcloudio/uni-app-plus": "3.0.0-3070920230324001",
     "@dcloudio/uni-components": "3.0.0-3070920230324001",
-    "@dcloudio/uni-h5": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-alipay": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-baidu": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-jd": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-kuaishou": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-lark": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-qq": "3.0.0-3070920230324001",
-    "@dcloudio/uni-mp-toutiao": "3.0.0-3070920230324001",
     "@dcloudio/uni-mp-weixin": "3.0.0-3070920230324001",
-    "@dcloudio/uni-quickapp-webview": "3.0.0-3070920230324001",
-    "@dcloudio/uni-ui": "^1.4.26",
-    "await-to-js": "^3.0.0",
-    "dingtalk-jsapi": "^3.0.28",
-    "medash": "^3.3.0",
     "pinia": "^2.0.34",
-    "uni-ajax": "^2.5.1",
-    "vue": "^3.2.45",
-    "vue-i18n": "^9.1.9"
+    "tdesign-miniprogram": "^1.10.1",
+    "vue": "^3.2.45"
   },
   "devDependencies": {
     "@dcloudio/types": "^3.3.2",
-    "@dcloudio/uni-automator": "3.0.0-3070920230324001",
-    "@dcloudio/uni-cli-shared": "3.0.0-3070920230324001",
     "@dcloudio/uni-stacktracey": "3.0.0-3070920230324001",
     "@dcloudio/vite-plugin-uni": "3.0.0-3070920230324001",
-    "vite": "4.1.4",
+    "@tailwindcss/postcss": "^4.1.14",
     "sass": "^1.45.1",
-    "sass-loader": "^10.3.1"
+    "sass-loader": "^10.3.1",
+    "tailwindcss": "^4.1.14",
+    "vite": "4.1.4",
+    "weapp-tailwindcss": "^4.3.3"
   },
   "uni-app": {
     "scripts": {
-      "dev:mp-dingtalk": {
-        "title": "钉钉小程序-dev",
+      "dev:mp-weixin": {
+        "title": "微信小程序-dev",
         "env": {
-          "UNI_PLATFORM": "mp-alipay",
+          "UNI_PLATFORM": "mp-weixin",
           "UNI_NODE_ENV": "dev"
-        },
-        "define": {
-          "MP-DINGTALK": true
-        }
-      },
-      "test:mp-dingtalk": {
-        "title": "钉钉小程序-test",
-        "env": {
-          "UNI_PLATFORM": "mp-alipay",
-          "UNI_NODE_ENV": "test"
-        },
-        "define": {
-          "MP-DINGTALK": true
-        }
-      },
-      "mp-dingtalk": {
-        "title": "钉钉小程序",
-        "env": {
-          "UNI_PLATFORM": "mp-alipay",
-          "UNI_NODE_ENV": "prod"
-        },
-        "define": {
-          "MP-DINGTALK": true
-        }
-      },
-      "pre:mp-dingtalk": {
-        "title": "钉钉小程序",
-        "env": {
-          "UNI_PLATFORM": "mp-alipay",
-          "UNI_NODE_ENV": "pre"
         },
         "define": {
           "MP-DINGTALK": true
