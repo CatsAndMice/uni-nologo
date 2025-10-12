@@ -65,6 +65,10 @@ export default {
         };
 
         const downloadImage = (url) => {
+            uni.showLoading({
+                title: '下载中...',
+                mask: true
+            });
             uni.downloadFile({
                 url: url,
                 success: (res) => {
@@ -72,6 +76,7 @@ export default {
                         uni.saveImageToPhotosAlbum({
                             filePath: res.tempFilePath,
                             success: () => {
+                                uni.hideLoading()
                                 uni.showToast({
                                     title: '保存成功',
                                     icon: 'success',
@@ -79,6 +84,7 @@ export default {
                                 });
                             },
                             fail: () => {
+                                uni.hideLoading()
                                 uni.showToast({
                                     title: '保存失败',
                                     icon: 'none',
@@ -89,6 +95,7 @@ export default {
                     }
                 },
                 fail: () => {
+                    uni.hideLoading();
                     uni.showToast({
                         title: '下载失败',
                         icon: 'none',
@@ -100,6 +107,10 @@ export default {
 
 
         const downloadVideo = (url) => {
+            uni.showLoading({
+                title: '下载中...',
+                mask: true
+            });
             uni.downloadFile({
                 url: url,
                 success: (res) => {
@@ -107,6 +118,7 @@ export default {
                         uni.saveVideoToPhotosAlbum({
                             filePath: res.tempFilePath,
                             success: () => {
+                                uni.hideLoading();
                                 uni.showToast({
                                     title: '保存成功',
                                     icon: 'success',
@@ -114,6 +126,7 @@ export default {
                                 });
                             },
                             fail: () => {
+                                uni.hideLoading();
                                 uni.showToast({
                                     title: '保存失败',
                                     icon: 'none',
@@ -124,6 +137,7 @@ export default {
                     }
                 },
                 fail: () => {
+                    uni.hideLoading();
                     uni.showToast({
                         title: '下载失败',
                         icon: 'none',
