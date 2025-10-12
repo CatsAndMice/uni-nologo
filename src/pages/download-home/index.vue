@@ -5,7 +5,35 @@
                 <text class="text-lg font-medium text-gray-800">支持平台<text
                         class="text-sm text-gray-500">（可点击图标测试）</text></text>
             </view>
-            <view class="grid grid-cols-4 gap-4 p-4">
+            <!-- -->
+            <t-skeleton v-if="listLoading" animation="gradient" class="p-4" :row-col="[
+                [
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                ],
+                [
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                ],
+                [
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                    { width: '80rpx', height: '80rpx', borderRadius: '12rpx' },
+                ],
+                [
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                    { width: '80rpx', height: '32rpx', borderRadius: '6rpx' },
+                ],
+            ]" :loading="true"></t-skeleton>
+
+            <view v-else class="grid grid-cols-4 gap-4 p-4">
                 <view v-for="l in list" :key="l.url" @tap="content = l.url"
                     class="flex flex-col items-center justify-center  rounded-lg hover:bg-gray-50 transition-colors">
                     <view
@@ -61,7 +89,7 @@ import useDownloadDetail from "../../store/useDownloadDetail.js"
 export default {
     setup() {
         const content = shallowRef('');
-        const { list, getList } = useList(getPlatform);
+        const { list, loading: listLoading, getList } = useList(getPlatform);
         const { loading, getDownloadDetail } = useDownloadDetail();
         const getFileDetail = async () => {
             if (!content.value) return
@@ -87,6 +115,7 @@ export default {
             list,
             content,
             loading,
+            listLoading,
             goToTutorial,
             getFileDetail
         }

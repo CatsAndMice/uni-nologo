@@ -17,6 +17,22 @@
                     </view>
                 </view>
             </template>
+            <template v-else-if="eq(obj.type, 'video')">
+                <view class="p-4">
+                    <view class="relative rounded-lg overflow-hidden bg-black">
+                        <video :src="obj.url" controls class="w-full h-auto aspect-video" playsinline webkit-playsinline
+                            x5-playsinline></video>
+                    </view>
+                    <view class="flex justify-between items-center mt-4">
+                        <t-button variant="outline" icon="link" shape="round" @tap="copyUrl(obj.url)">
+                            复制链接
+                        </t-button>
+                        <t-button variant="outline" icon="download" shape="round" @tap="downloadVideo(obj.url)">
+                            下载视频
+                        </t-button>
+                    </view>
+                </view>
+            </template>
         </view>
     </view>
 </template>
@@ -82,12 +98,48 @@ export default {
             });
         };
 
+
+        const downloadVideo = (url) => {
+            uni.downloadFile({
+                url: url,
+                success: (res) => {
+                    if (res.statusCode === 200) {
+                        uni.saveVideoToPhotosAlbum({
+                            filePath: res.tempFilePath,
+                            success: () => {
+                                uni.showToast({
+                                    title: '保存成功',
+                                    icon: 'success',
+                                    duration: 1500
+                                });
+                            },
+                            fail: () => {
+                                uni.showToast({
+                                    title: '保存失败',
+                                    icon: 'none',
+                                    duration: 1500
+                                });
+                            }
+                        });
+                    }
+                },
+                fail: () => {
+                    uni.showToast({
+                        title: '下载失败',
+                        icon: 'none',
+                        duration: 1500
+                    });
+                }
+            });
+        };
+
         return {
             obj,
             eq,
             previewImage,
             copyUrl,
-            downloadImage
+            downloadImage,
+            downloadVideo
         }
     },
 }
