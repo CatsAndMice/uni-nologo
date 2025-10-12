@@ -18,7 +18,9 @@
 			"t-button": "wxcomponents/tdesign/button/button",
 			"t-textarea": "wxcomponents/tdesign/textarea/textarea",
 			"t-icon": "wxcomponents/tdesign/icon/icon",
-			"t-skeleton": "wxcomponents/tdesign/skeleton/skeleton"
+			"t-skeleton": "wxcomponents/tdesign/skeleton/skeleton",
+			"t-message": "wxcomponents/tdesign/message/message",
+			"t-dialog": "wxcomponents/tdesign/dialog/dialog"
 		}
 	}
 }
