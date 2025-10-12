@@ -31,7 +31,8 @@
                     粘贴
                 </t-button>
                 <view class="flex-grow">
-                    <t-button :loading="loading" :disabled="loading" theme="primary" block class="!rounded-lg m-0" @tap="getFileDetail">开始解析</t-button>
+                    <t-button :loading="loading" :disabled="loading" theme="primary" block class="!rounded-lg m-0"
+                        @tap="getFileDetail">开始解析</t-button>
                 </view>
             </view>
         </view>
@@ -51,24 +52,27 @@
     </view>
 </template>
 <script>
-import { getPlatform, getDetail } from '@/api/index.js';
+import { getPlatform } from '@/api/index.js';
 import useList from '../../hooks/useList';
-import useObject from '../../hooks/useObject.js';
 import { onBeforeMount, shallowRef } from "vue";
 import { extractUrl } from "../../utils/common.js";
+import useDownloadDetail from "../../store/useDownloadDetail.js"
 
 export default {
     setup() {
         const content = shallowRef('');
         const { list, getList } = useList(getPlatform);
-        const { obj, loading, getObject } = useObject(getDetail)
-
-
-        const getFileDetail = () => {
+        const { loading, getDownloadDetail } = useDownloadDetail();
+        const getFileDetail = async () => {
             if (!content.value) return
             const url = extractUrl(content.value)
             if (!url) return
-            getObject(url)
+            const data = await getDownloadDetail(url)
+            if (data) {
+                uni.navigateTo({
+                    url: '/pages/download-detail/index'
+                })
+            }
         }
 
         const goToTutorial = () => {
@@ -76,7 +80,6 @@ export default {
                 url: '/pages/download-tutorial/index'
             })
         }
-        console.log(1212);
 
         onBeforeMount(getList)
 
