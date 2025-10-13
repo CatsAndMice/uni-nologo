@@ -4,7 +4,8 @@ import { isEmpty, eq } from 'lodash-es'
 
 const instance = ajax.create({
     // 默认配置 
-    baseURL: process.env.UNI_NODE_ENV == 'dev' ? 'http://localhost:3000/api' : 'http://download.linglan01.cn/api',
+    // process.env.UNI_NODE_ENV == 'dev' ? 'http://localhost:3000/api' : 
+    baseURL: 'http://download.linglan01.cn/api',
     timeout: 30000,
     header: {
         'content-type': 'application/json'

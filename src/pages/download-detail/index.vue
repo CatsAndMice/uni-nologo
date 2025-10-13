@@ -1,4 +1,6 @@
 <template>
+    <t-dialog :visible="showConfirm" content="因小程序下载网络慢，下载时间久。请优先复制链接到浏览器打开下载，" :confirm-btn="{ content: '确认下载' }"
+        cancel-btn="复制链接" @confirm="onConfirm" @cancel="onCancel" />
     <view class="min-h-screen bg-slate-100 py-4">
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <template v-if="eq(obj.type, 'img')">
@@ -11,7 +13,7 @@
                                 @tap.stop="copyUrl(url)" size="small">
                             </t-button>
                             <t-button variant="outline" icon="download" class="shrink-0" shape="round"
-                                @tap.stop="downloadImage(url)" size="small">
+                                @tap.stop="openDialog(url, obj.type)" size="small">
                             </t-button>
                         </view>
                     </view>
@@ -27,7 +29,7 @@
                         <t-button variant="outline" icon="link" shape="round" @tap="copyUrl(obj.url)">
                             复制链接
                         </t-button>
-                        <t-button variant="outline" icon="download" shape="round" @tap="downloadVideo(obj.url)">
+                        <t-button variant="outline" icon="download" shape="round" @tap="openDialog(obj.url, obj.type)">
                             下载视频
                         </t-button>
                     </view>
@@ -39,7 +41,8 @@
 <script>
 import useDownloadDetail from "../../store/useDownloadDetail.js";
 import { eq } from "lodash-es";
-import { unref } from "vue"
+import { unref, shallowRef } from "vue"
+import useDialog from "./js/useDialog.js"
 export default {
     setup() {
         const { obj } = useDownloadDetail();
@@ -70,7 +73,7 @@ export default {
                 mask: true
             });
             uni.downloadFile({
-                url: url,
+                url: `https://videoapi.funjs.top/api/parseUrl/downLoadPics?url=${encodeURIComponent(url)}`,
                 success: (res) => {
                     if (res.statusCode === 200) {
                         uni.saveImageToPhotosAlbum({
@@ -112,7 +115,7 @@ export default {
                 mask: true
             });
             uni.downloadFile({
-                url: url,
+                url: `https://videoapi.funjs.top/api/parseUrl/downLoadVideo?url=${encodeURIComponent(url)}`,
                 success: (res) => {
                     if (res.statusCode === 200) {
                         uni.saveVideoToPhotosAlbum({
@@ -147,13 +150,20 @@ export default {
             });
         };
 
+
+        const { showConfirm, onConfirm, onCancel, openDialog } = useDialog({ downloadImage, downloadVideo, copyUrl })
+
         return {
             obj,
             eq,
+            showConfirm,
             previewImage,
             copyUrl,
             downloadImage,
-            downloadVideo
+            downloadVideo,
+            onConfirm,
+            onCancel,
+            openDialog
         }
     },
 }
