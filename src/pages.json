@@ -20,7 +20,8 @@
 			"t-icon": "wxcomponents/tdesign/icon/icon",
 			"t-skeleton": "wxcomponents/tdesign/skeleton/skeleton",
 			"t-message": "wxcomponents/tdesign/message/message",
-			"t-dialog": "wxcomponents/tdesign/dialog/dialog"
+			"t-dialog": "wxcomponents/tdesign/dialog/dialog",
+			"t-image": "wxcomponents/tdesign/image/image"
 		}
 	}
 }

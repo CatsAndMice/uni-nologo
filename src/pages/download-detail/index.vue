@@ -5,10 +5,14 @@
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <template v-if="eq(obj.type, 'img')">
                 <view class="grid grid-cols-3 gap-3 p-4">
-                    <view v-for="url in obj.urls" :key="url" @tap="previewImage(index)"
+                    <view v-for="(url, index) in obj.urls" :key="url" @tap="previewImage(index)"
                         class="flex flex-col items-center ">
-                        <image :src="url" mode="aspectFill" class="w-25 h-25 object-cover rounded-lg"></image>
-                        <view class="flex justify-between items-center mt-2 w-full ">
+                        <t-image :src="url" width="100" lazy height="100" error="slot" shape="round">
+                            <template #error>
+                                <text style=" font-size: 20rpx;font-weight: 400;">加载失败</text>
+                            </template>
+                        </t-image>
+                        <view v-show="url" class="flex justify-between items-center mt-2 w-full ">
                             <t-button variant="outline" class="shrink-0" icon="link" shape="round"
                                 @tap.stop="copyUrl(url)" size="small">
                             </t-button>
