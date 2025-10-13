@@ -41,7 +41,7 @@
             </view>
         </view>
 
-        <!-- <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow" @click="goToTutorial">
+        <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow" @click="goToTutorial">
             <view class="flex items-center justify-between">
                 <view class="flex items-center">
                     <text class="text-lg font-medium">使用教程</text>
@@ -52,7 +52,7 @@
             <view class="mt-2 text-sm text-gray-600">
                 <text>查看详细使用说明和常见问题解答</text>
             </view>
-        </view> -->
+        </view>
     </view>
 </template>
 <script>
