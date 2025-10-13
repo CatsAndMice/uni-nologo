@@ -31,7 +31,7 @@
             <view class="mx-4 mt-2  flex flex-row gap-2">
                 <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="clear-formatting-filled"
                     @tap="content = ''">清空</t-button>
-                <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="file-copy-filled">
+                <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="file-copy-filled" @tap="handlePaste">
                     粘贴
                 </t-button>
                 <view class="flex-grow">
@@ -134,6 +134,35 @@ export default {
             })
         }
 
+        // 新增粘贴功能
+        const handlePaste = () => {
+            uni.getClipboardData({
+                success: (res) => {
+                    if (res.data) {
+                        content.value = res.data;
+                        uni.showToast({
+                            title: '粘贴成功',
+                            icon: 'success',
+                            duration: 1500
+                        });
+                    } else {
+                        uni.showToast({
+                            title: '剪贴板为空',
+                            icon: 'none',
+                            duration: 1500
+                        });
+                    }
+                },
+                fail: () => {
+                    uni.showToast({
+                        title: '粘贴失败',
+                        icon: 'none',
+                        duration: 1500
+                    });
+                }
+            });
+        }
+
         onBeforeMount(getList)
 
         return {
@@ -146,7 +175,8 @@ export default {
             listLoading,
             goToTutorial,
             getFileDetail,
-            skeletonRowCol
+            skeletonRowCol,
+            handlePaste
         }
     },
 }

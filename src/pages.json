@@ -4,10 +4,16 @@
 			"path": "pages/download-home/index"
 		},
 		{
-			"path": "pages/download-detail/index"
+			"path": "pages/download-detail/index",
+			"style": {
+				"navigationBarTitleText": "图集、视频详情"
+			}
 		},
 		{
-			"path": "pages/download-tutorial/index"
+			"path": "pages/download-tutorial/index",
+			"style": {
+				"navigationBarTitleText": "使用教程"
+			}
 		}
 	],
 	"globalStyle": {

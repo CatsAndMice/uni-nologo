@@ -2,7 +2,7 @@
   "name": "uni-download",
   "version": "0.0.0",
   "scripts": {
-    "dev:mp-weixin": "uni -p dev:mp-weixin",
+    "dev:mp-weixin": " uni -p dev:mp-weixin",
     "build:mp-weixin": "uni build -p mp-weixin",
     "postinstall": "weapp-tw patch"
   },
@@ -36,6 +36,16 @@
         "env": {
           "UNI_PLATFORM": "mp-weixin",
           "UNI_NODE_ENV": "dev"
+        },
+        "define": {
+          "MP-DINGTALK": true
+        }
+      },
+      "mp-weixin": {
+        "title": "微信小程序-prod",
+        "env": {
+          "UNI_PLATFORM": "mp-weixin",
+          "UNI_NODE_ENV": "prod"
         },
         "define": {
           "MP-DINGTALK": true

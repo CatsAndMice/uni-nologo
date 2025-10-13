@@ -1,11 +1,13 @@
 import ajax from 'uni-ajax';
 import { to } from "await-to-js";
 import { isEmpty, eq } from 'lodash-es'
-
+const urls = {
+    dev: 'http://localhost:3000/api',
+    prod: 'https://download.linglan01.cn/api'
+}
 const instance = ajax.create({
     // 默认配置 
-    // process.env.UNI_NODE_ENV == 'dev' ? 'http://localhost:3000/api' : 
-    baseURL: 'http://download.linglan01.cn/api',
+    baseURL: urls[process.env.UNI_NODE_ENV],
     timeout: 30000,
     header: {
         'content-type': 'application/json'

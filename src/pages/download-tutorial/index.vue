@@ -14,10 +14,8 @@
             </view>
 
             <view class="my-3 flex justify-center">
-                <!-- 占位图，实际开发中应替换为真实图片 -->
-                <view class="bg-gray-200 border-2 border-dashed rounded-xl w-64 h-48 flex items-center justify-center">
-                    <text class="text-gray-500">示意图1</text>
-                </view>
+                <t-image class="w-full" mode="widthFix"
+                    src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/1280X1280.PNG" />
             </view>
         </view>
 
@@ -35,10 +33,8 @@
 
 
             <view class="my-3 flex justify-center">
-                <!-- 占位图，实际开发中应替换为真实图片 -->
-                <view class="bg-gray-200 border-2 border-dashed rounded-xl w-64 h-48 flex items-center justify-center">
-                    <text class="text-gray-500">示意图2</text>
-                </view>
+                <t-image class="w-full" mode="widthFix"
+                    src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/22.JPEG" />
             </view>
 
             <view class="mt-3 p-3 bg-blue-50 rounded-lg">
@@ -59,12 +55,9 @@
                 <text class="text-gray-600">链接复制到我们小程序的解析框中;</text>
             </view>
 
-
             <view class="my-3 flex justify-center">
-                <!-- 占位图，实际开发中应替换为真实图片 -->
-                <view class="bg-gray-200 border-2 border-dashed rounded-xl w-64 h-48 flex items-center justify-center">
-                    <text class="text-gray-500">示意图2</text>
-                </view>
+                <t-image class="w-full" mode="widthFix"
+                    src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/33.png" />
             </view>
         </view>
 
@@ -83,10 +76,8 @@
 
 
             <view class="my-3 flex justify-center">
-                <!-- 占位图，实际开发中应替换为真实图片 -->
-                <view class="bg-gray-200 border-2 border-dashed rounded-xl w-64 h-48 flex items-center justify-center">
-                    <text class="text-gray-500">示意图2</text>
-                </view>
+                <t-image class="w-full" mode="widthFix"
+                    src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/44.png" />
             </view>
         </view>
     </view>
