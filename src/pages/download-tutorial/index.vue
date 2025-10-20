@@ -84,7 +84,9 @@
 </template>
 
 <script>
+import { shareConfig } from "../../utils/common.js";
 export default {
+    ...shareConfig,
     setup() {
         return {}
     },

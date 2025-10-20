@@ -6,7 +6,7 @@
 		{
 			"path": "pages/download-detail/index",
 			"style": {
-				"navigationBarTitleText": "图集、视频详情"
+				"navigationBarTitleText": "解析详情"
 			}
 		},
 		{
@@ -18,7 +18,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "鸭鸭去水印",
+		"navigationBarTitleText": "嗨去水印",
 		"navigationBarBackgroundColor": "#FFF",
 		"usingComponents": {
 			"t-button": "wxcomponents/tdesign/button/button",
@@ -27,7 +27,9 @@
 			"t-skeleton": "wxcomponents/tdesign/skeleton/skeleton",
 			"t-message": "wxcomponents/tdesign/message/message",
 			"t-dialog": "wxcomponents/tdesign/dialog/dialog",
-			"t-image": "wxcomponents/tdesign/image/image"
+			"t-image": "wxcomponents/tdesign/image/image",
+			"t-collapse": "wxcomponents/tdesign/collapse/collapse",
+			"t-collapse-panel": "wxcomponents/tdesign/collapse-panel/collapse-panel"
 		}
 	}
 }

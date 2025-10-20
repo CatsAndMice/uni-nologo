@@ -29,9 +29,10 @@
             }" />
 
             <view class="mx-4 mt-2  flex flex-row gap-2">
-                <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="clear-formatting-filled"
-                    @tap="content = ''">清空</t-button>
-                <t-button variant="outline" style="--td-button-border-radius:16rpx" icon="file-copy-filled" @tap="handlePaste">
+                <t-button variant="outline" :disabled="loading" style="--td-button-border-radius:16rpx"
+                    icon="clear-formatting-filled" @tap="content = ''">清空</t-button>
+                <t-button variant="outline" :disabled="loading" style="--td-button-border-radius:16rpx"
+                    icon="file-copy-filled" @tap="handlePaste">
                     粘贴
                 </t-button>
                 <view class="flex-grow">
@@ -59,13 +60,15 @@
 import { getPlatform } from '@/api/index.js';
 import useList from '../../hooks/useList';
 import { onBeforeMount, shallowRef, unref } from "vue";
-import { extractUrl } from "../../utils/common.js";
+import { extractUrl, shareConfig } from "../../utils/common.js";
 import useDownloadDetail from "../../store/useDownloadDetail.js";
 import { skeletonRowCol } from './js/const';
-import { isArray } from "lodash-es"
-const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，您可以微信添加 linglan008 向我们反馈！感谢您的理解与耐心。',
-    tip2 = '程序运行出现异常，请稍后重试或微信添加 linglan008 向我们反馈！感谢您的理解与耐心。';
+import { isArray } from "lodash-es";
+
+const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，感谢您的理解与耐心。',
+    tip2 = '程序运行出现异常，请稍后重试，感谢您的理解与耐心。';
 export default {
+    ...shareConfig,
     setup() {
         const content = shallowRef('');
         const showDialog = shallowRef(false);
@@ -162,6 +165,7 @@ export default {
                 }
             });
         }
+
 
         onBeforeMount(getList)
 

@@ -6,3 +6,19 @@ export const extractUrl = (input) => {
 
     return urlMatch ? urlMatch[0] : '';
 };
+
+export const shareConfig = {
+    // 全局分享配置
+    onShareAppMessage() {
+        return {
+            title: '抖音、小红书等平台视频图片无水印下载',
+            path: '/pages/download-home/index'
+        }
+    },
+    onShareTimeline() {
+        return {
+            title: '抖音、小红书等平台视频图片无水印下载',
+            query: '/pages/download-home/index'
+        }
+    },
+}

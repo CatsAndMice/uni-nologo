@@ -1,4 +1,5 @@
 <template>
+
     <t-dialog :visible="showConfirm" content="因小程序下载网络慢，下载时间久。请优先复制链接到浏览器打开下载，" :confirm-btn="{ content: '确认下载' }"
         cancel-btn="复制链接" @confirm="onConfirm" @cancel="onCancel" />
     <view class="min-h-screen bg-slate-100 py-4">
@@ -40,14 +41,47 @@
                 </view>
             </template>
         </view>
+        <!-- 常见问题部分 - 使用折叠面板 -->
+        <view class="mt-4 mx-4 bg-white rounded-lg shadow overflow-hidden">
+            <view class="p-4 border-b border-gray-200">
+                <view class="text-lg font-bold">常见问题</view>
+            </view>
+            <t-collapse default-value="1" expandMutex expandIcon>
+                <t-collapse-panel header="Q: 为什么下载速度很慢？" value="1" class="border-b border-gray-200">
+                    <view class="text-gray-600 text-sm py-2">
+                        A: 由于小程序平台限制，下载速度可能较慢。建议复制链接到浏览器下载以获得更好的体验。
+                    </view>
+                </t-collapse-panel>
+                <t-collapse-panel header="Q: 下载失败怎么办？" value="2" class="border-b border-gray-200">
+                    <view class="text-gray-600 text-sm py-2">
+                        A: 可以尝试以下方法：
+                        <view class="mt-1">1. 检查网络连接是否稳定</view>
+                        <view class="mt-1">2. 复制链接到手机浏览器下载</view>
+                        <view class="mt-1">3. 稍后再试</view>
+                    </view>
+                </t-collapse-panel>
+                <t-collapse-panel header="Q: 无法保存到相册？" value="3" class="border-b border-gray-200">
+                    <view class="text-gray-600 text-sm py-2">
+                        A: 请检查是否已授权相册访问权限。在设置中找到本应用，确保相册权限已开启。
+                    </view>
+                </t-collapse-panel>
+                <t-collapse-panel header="Q: 为什么还存在水印" value="4">
+                    <view class="text-gray-600 text-sm py-2">
+                        A: 水印为视频、图片本身自带的水印，本工具仅做解析和下载，无法去除原始内容中的水印。
+                    </view>
+                </t-collapse-panel>
+            </t-collapse>
+        </view>
     </view>
 </template>
 <script>
 import useDownloadDetail from "../../store/useDownloadDetail.js";
 import { eq } from "lodash-es";
-import { unref, shallowRef } from "vue"
-import useDialog from "./js/useDialog.js"
+import { unref } from "vue";
+import useDialog from "./js/useDialog.js";
+import {shareConfig} from "../../utils/common.js";
 export default {
+    ...shareConfig,
     setup() {
         const { obj } = useDownloadDetail();
         const previewImage = (index) => {
