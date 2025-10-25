@@ -7,7 +7,7 @@
             </template>
 
             <template #operation>
-                <t-link theme="primary" class="ml-2" content="查看指引" />
+                <t-link theme="primary" style="margin-left: 16rpx;" content="查看指引" />
             </template>
         </t-notice-bar>
 
@@ -39,7 +39,8 @@
                             <text class="whitespace-nowrap text-gray-700">"添加到我的小程序"</text>
                         </view>
                     </view>
-                    <t-button theme="primary" block class="!rounded-lg mt-4 m-0" @tap="closeGuide">知道啦</t-button>
+                    <t-button theme="primary" block class="!rounded-lg !mt-6 m-0" style="margin-top: 48rpx;"
+                        @tap="closeGuide">知道啦</t-button>
                 </view>
             </view>
         </t-popup>
