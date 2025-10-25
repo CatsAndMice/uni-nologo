@@ -1,2 +1,6 @@
 @import "weapp-tailwindcss/css";
 @source not "dist";
+
+page {
+    background-color: rgb(241, 245, 249);
+}

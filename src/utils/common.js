@@ -12,7 +12,7 @@ export const shareConfig = {
     onShareAppMessage() {
         return {
             title: '抖音、小红书等平台视频图片无水印下载',
-            path: '/pages/download-home/index'
+            path: '/pages/download-home/index',
         }
     },
     onShareTimeline() {
