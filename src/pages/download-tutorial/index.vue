@@ -1,6 +1,14 @@
 <template>
     <view class="min-h-screen bg-slate-100 py-4">
-        <view class="mx-4 mb-4  text-2xl font-bold text-gray-800">使用教程</view>
+        <t-dialog :visible="showConfirm" content="链接已复制，请使用浏览器访问。" :confirm-btn="{ content: '知道啦' }"
+            @confirm="showConfirm = false" />
+        <view class="mx-4 mb-4  flex items-end text-2xl font-bold text-gray-800">
+            使用教程
+            <view class="ml-2 inline-block" @tap="copyUrl"> <t-link theme="primary" content="详细使用教程"
+                    suffixIcon="jump" />
+            </view>
+        </view>
+
 
         <view class="mx-4 bg-white rounded-lg shadow p-4 mb-4">
             <view class="relative flex items-center py-2">
@@ -85,10 +93,26 @@
 
 <script>
 import { shareConfig } from "../../utils/common.js";
+import { shallowRef } from "vue"
+const link = 'https://zwf4g5rfwiy.feishu.cn/wiki/JGjpwZ1Feiw8Zxks4Hoc8vI9nle'
 export default {
     ...shareConfig,
     setup() {
-        return {}
+        const showConfirm = shallowRef(false)
+        const copyUrl = () => {
+            wx.setClipboardData({
+                data: link,
+                showToast: false,
+                success: () => {
+                    showConfirm.value = true
+                    wx.hideToast()
+                }
+            });
+        };
+        return {
+            copyUrl,
+            showConfirm
+        }
     },
 }
 </script>
