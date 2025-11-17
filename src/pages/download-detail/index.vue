@@ -3,7 +3,20 @@
     <t-dialog :visible="showConfirm" content="因小程序下载网络慢，下载时间久。请优先复制链接到浏览器打开下载，" :confirm-btn="{ content: '确认下载' }"
         cancel-btn="复制链接" @confirm="onConfirm" @cancel="onCancel" />
     <view class="min-h-screen bg-slate-100 py-4 pb-24">
+
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
+            <view class="px-4 py-2 bg-gray-50" v-show="obj.title || obj.desc">
+                <view class="flex items-start flex-grow break-all whitespace-pre-wrap ">
+                    <text
+                        class="line-clamp-2 overflow-hidden text-ellipsis break-all whitespace-normal flex-grow inline-block font-medium"
+                        style="display: -webkit-box; -webkit-line-clamp: 2;line-height: 56rpx; -webkit-box-orient: vertical;">
+                        {{
+                            obj.title || obj.desc }}</text>
+                    <t-button icon="copy" theme="light" class="ml-2 inline-block shrink-0"
+                        style="--td-button-medium-height:54rpx" shape="square" aria-label="复制标题"
+                        @tap.stop="copyTitle(obj.title || obj.desc)"></t-button>
+                </view>
+            </view>
             <template v-if="eq(obj.type, 'img')">
                 <view class="grid grid-cols-3 gap-3 p-4">
                     <view v-for="(url, index) in obj.urls" :key="url" @tap="previewImage(index)"
@@ -31,8 +44,8 @@
                             x5-playsinline></video>
                     </view>
                     <view class="flex justify-end items-center mt-4">
-                        <t-button variant="outline" icon="download" class="!rounded-lg mr-3 m-0"
-                            @tap="openDialog(obj.url, obj.type)">
+                        <t-button variant="outline" icon="download" class=" mr-3 m-0"
+                            style="--td-button-border-radius:16rpx" @tap="openDialog(obj.url, obj.type)">
                             下载视频
                         </t-button>
                         <t-button theme="primary" icon="link" class="!rounded-lg m-0" @tap="copyUrl(obj.url)">
@@ -85,7 +98,7 @@ import useDialog from "./js/useDialog.js";
 import { shareConfig } from "../../utils/common.js";
 import NologoFooter from '../../components/nologo-footer.vue';
 export default {
-    components:{
+    components: {
         NologoFooter
     },
     ...shareConfig,
@@ -105,6 +118,20 @@ export default {
                 success: () => {
                     uni.showToast({
                         title: '链接已复制',
+                        icon: 'success',
+                        duration: 1500
+                    });
+                }
+            });
+        };
+
+
+        const copyTitle = (title) => {
+            uni.setClipboardData({
+                data: title,
+                success: () => {
+                    uni.showToast({
+                        title: '已复制',
                         icon: 'success',
                         duration: 1500
                     });
@@ -204,6 +231,7 @@ export default {
             showConfirm,
             previewImage,
             copyUrl,
+            copyTitle,
             downloadImage,
             downloadVideo,
             onConfirm,
