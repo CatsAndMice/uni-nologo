@@ -2,7 +2,7 @@
     <top-notice />
     <t-dialog :visible="showDialog" :content="tip" title="错误提示" :confirm-btn="{ content: '知道了', variant: 'base' }"
         @confirm="showDialog = false" />
-    <view class="bg-slate-100 pt-4">
+    <view class="bg-slate-100 pt-4 pb-24" >
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <view class="p-4 border-b border-gray-100 flex items-center">
                 <text class="text-lg font-medium text-gray-800">支持平台<text
@@ -56,6 +56,7 @@
             </view>
         </view>
     </view>
+    <nologo-footer />
 </template>
 <script>
 import { getPlatform } from '@/api/index.js';
@@ -65,13 +66,15 @@ import { extractUrl, shareConfig } from "../../utils/common.js";
 import useDownloadDetail from "../../store/useDownloadDetail.js";
 import { skeletonRowCol } from './js/const';
 import TopNotice from '../../components/top-notice.vue';
+import NologoFooter from '../../components/nologo-footer.vue';
 import { isArray } from "lodash-es";
 
 const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，感谢您的理解与耐心。',
     tip2 = '程序运行出现异常，请稍后重试，感谢您的理解与耐心。';
 export default {
     components: {
-        TopNotice
+        TopNotice,
+        NologoFooter
     },
     ...shareConfig,
     setup() {

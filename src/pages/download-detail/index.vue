@@ -2,7 +2,7 @@
 
     <t-dialog :visible="showConfirm" content="因小程序下载网络慢，下载时间久。请优先复制链接到浏览器打开下载，" :confirm-btn="{ content: '确认下载' }"
         cancel-btn="复制链接" @confirm="onConfirm" @cancel="onCancel" />
-    <view class="min-h-screen bg-slate-100 py-4">
+    <view class="min-h-screen bg-slate-100 py-4 pb-24">
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <template v-if="eq(obj.type, 'img')">
                 <view class="grid grid-cols-3 gap-3 p-4">
@@ -30,13 +30,15 @@
                         <video :src="obj.url" controls class="w-full h-auto aspect-video" playsinline webkit-playsinline
                             x5-playsinline></video>
                     </view>
-                    <view class="flex justify-between items-center mt-4">
-                        <t-button variant="outline" icon="link" shape="round" @tap="copyUrl(obj.url)">
-                            复制链接
-                        </t-button>
-                        <t-button variant="outline" icon="download" shape="round" @tap="openDialog(obj.url, obj.type)">
+                    <view class="flex justify-end items-center mt-4">
+                        <t-button variant="outline" icon="download" class="!rounded-lg mr-3 m-0"
+                            @tap="openDialog(obj.url, obj.type)">
                             下载视频
                         </t-button>
+                        <t-button theme="primary" icon="link" class="!rounded-lg m-0" @tap="copyUrl(obj.url)">
+                            复制链接
+                        </t-button>
+
                     </view>
                 </view>
             </template>
@@ -73,14 +75,19 @@
             </t-collapse>
         </view>
     </view>
+    <nologo-footer />
 </template>
 <script>
 import useDownloadDetail from "../../store/useDownloadDetail.js";
 import { eq } from "lodash-es";
 import { unref } from "vue";
 import useDialog from "./js/useDialog.js";
-import {shareConfig} from "../../utils/common.js";
+import { shareConfig } from "../../utils/common.js";
+import NologoFooter from '../../components/nologo-footer.vue';
 export default {
+    components:{
+        NologoFooter
+    },
     ...shareConfig,
     setup() {
         const { obj } = useDownloadDetail();

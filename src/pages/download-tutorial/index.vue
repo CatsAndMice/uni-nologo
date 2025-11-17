@@ -1,7 +1,6 @@
 <template>
-    <view class="min-h-screen bg-slate-100 py-4">
-        <t-dialog :visible="showConfirm" content="链接已复制，请使用浏览器访问。" :confirm-btn="{ content: '知道啦' }"
-            @confirm="showConfirm = false" />
+    <view class="min-h-screen bg-slate-100 py-4 pb-20">
+
         <view class="mx-4 mb-4  flex items-end text-2xl font-bold text-gray-800">
             使用教程
             <view class="ml-2 inline-block" @tap="copyUrl"> <t-link theme="primary" content="详细使用教程"
@@ -89,29 +88,33 @@
             </view>
         </view>
     </view>
+    <nologo-footer />
 </template>
 
 <script>
 import { shareConfig } from "../../utils/common.js";
-import { shallowRef } from "vue"
+import NologoFooter from '../../components/nologo-footer.vue';
 const link = 'https://zwf4g5rfwiy.feishu.cn/wiki/JGjpwZ1Feiw8Zxks4Hoc8vI9nle'
 export default {
+    components: {
+        NologoFooter
+    },
     ...shareConfig,
     setup() {
-        const showConfirm = shallowRef(false)
         const copyUrl = () => {
             wx.setClipboardData({
                 data: link,
                 showToast: false,
                 success: () => {
-                    showConfirm.value = true
-                    wx.hideToast()
+                    wx.showToast({
+                        title: '复制链接成功，请浏览器访问',
+                        icon:'none'
+                    })
                 }
             });
         };
         return {
-            copyUrl,
-            showConfirm
+            copyUrl
         }
     },
 }

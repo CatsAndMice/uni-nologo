@@ -16,6 +16,12 @@ export default {
 			path: '/pages/download-home/index'
 		}
 	},
+	onShareTimeline() {
+		return {
+			title: '抖音、小红书等平台视频图片无水印下载',
+			query: '/pages/download-home/index'
+		}
+	}
 }
 </script>
 

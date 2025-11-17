@@ -25,14 +25,15 @@
 			"t-textarea": "wxcomponents/tdesign/textarea/textarea",
 			"t-icon": "wxcomponents/tdesign/icon/icon",
 			"t-skeleton": "wxcomponents/tdesign/skeleton/skeleton",
-			"t-message": "wxcomponents/tdesign/message/message",
 			"t-dialog": "wxcomponents/tdesign/dialog/dialog",
 			"t-image": "wxcomponents/tdesign/image/image",
 			"t-collapse": "wxcomponents/tdesign/collapse/collapse",
 			"t-collapse-panel": "wxcomponents/tdesign/collapse-panel/collapse-panel",
 			"t-popup": "wxcomponents/tdesign/popup/popup",
 			"t-notice-bar": "wxcomponents/tdesign/notice-bar/notice-bar",
-			"t-link": "wxcomponents/tdesign/link/link"
+			"t-link": "wxcomponents/tdesign/link/link",
+			"t-footer": "wxcomponents/tdesign/footer/footer",
+			"t-divider": "wxcomponents/tdesign/divider/divider"
 		}
 	}
 }
