@@ -14,8 +14,10 @@
                         class="absolute inset-0 opacity-0 w-full h-full" @tap.stop />
                 </view>
             </view>
-            <!-- 文案部分 -->
-            <text class="text-sm text-gray-500">嗨去水印工具 © 2025</text>
+            <view class="flex items-center justify-center space-x-2">
+                <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png" class="w-5 h-5 rounded-full" alt="Logo" />
+                <text class="text-sm text-gray-500 ml-2">嗨去水印工具 © 2025</text>
+            </view>
         </view>
     </view>
 </template>

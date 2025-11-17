@@ -40,7 +40,7 @@
             <template v-else-if="eq(obj.type, 'video')">
                 <view class="p-4">
                     <view class="relative rounded-lg overflow-hidden bg-black">
-                        <video :src="obj.url" controls class="w-full h-auto aspect-video" playsinline webkit-playsinline
+                        <video :src="obj.url" controls class="w-full  rounded-lg overflow-hidden h-auto aspect-video" playsinline webkit-playsinline
                             x5-playsinline></video>
                     </view>
                     <view class="flex justify-end items-center mt-4">
