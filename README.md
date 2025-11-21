@@ -1,46 +1,6 @@
+介绍&&体验
+去水印下载鸭工具,支持解析抖音、小红书、快手等平台无水印视频、图片，提取出来的视频无水印,可以免费、快速、方便地将视频图片去水印保存到手机相册、电脑本地。
 
-```
-uniapp-base
-├─ .gitignore
-├─ .hbuilderx
-│  └─ launch.json
-├─ README.md
-├─ index.html
-├─ jsconfig.json
-├─ package-lock.json
-├─ package.json
-├─ src
-│  ├─ App.vue
-│  ├─ api
-│  │  └─ app.js
-│  ├─ components
-│  ├─ config
-│  │  └─ app.js
-│  ├─ main.js
-│  ├─ manifest.json
-│  ├─ pages
-│  │  └─ index
-│  │     └─ index.vue
-│  ├─ pages.json
-│  ├─ shime-uni.d.ts
-│  ├─ static
-│  │  ├─ colorui
-│  │  │  ├─ animation.css
-│  │  │  ├─ components
-│  │  │  │  └─ cu-custom.vue
-│  │  │  ├─ icon.css
-│  │  │  └─ main.css
-│  │  └─ logo.png
-│  ├─ stores
-│  │  └─ counter.js
-│  ├─ tools
-│  │  ├─ tool.js
-│  │  └─ uni-tools.js
-│  ├─ uni.scss
-│  └─ utils
-│     ├─ cache.js
-│     ├─ request.js
-│     └─ type.js
-└─ vite.config.js
+Web端访问：https://nologo.code24.top
+小程序：(ee) ['https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/wx.jpg']
 
-```

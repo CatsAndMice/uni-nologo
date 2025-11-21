@@ -145,7 +145,7 @@ export default {
                 mask: true
             });
             uni.downloadFile({
-                url: `https://videoapi.funjs.top/api/parseUrl/downLoadPics?url=${encodeURIComponent(url)}`,
+                url: `${process.env.VUE_APP_DOWNLOAD_PICS_API}?url=${encodeURIComponent(url)}`,
                 success: (res) => {
                     if (res.statusCode === 200) {
                         uni.saveImageToPhotosAlbum({
@@ -187,7 +187,7 @@ export default {
                 mask: true
             });
             uni.downloadFile({
-                url: `https://videoapi.funjs.top/api/parseUrl/downLoadVideo?url=${encodeURIComponent(url)}`,
+                url: `${process.env.VUE_APP_DOWNLOAD_VIDEO_API}?url=${encodeURIComponent(url)}`,
                 success: (res) => {
                     if (res.statusCode === 200) {
                         uni.saveVideoToPhotosAlbum({
