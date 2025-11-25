@@ -7,7 +7,7 @@
                     <t-link theme="primary" @tap.stop content="访问 Web 端"
                         class="text-sm pointer-events-none font-medium text-blue-600 " />
                 </view>
-                <t-divider layout="vertical" />
+                <t-divider layout="vertical" style="--td-divider-border-width:4rpx;" />
                 <view class="relative inline-block" @tap.stop>
                     <text class="text-sm font-medium text-blue-600">分享给其他人</text>
                     <button open-type="share" :hover-stop-propagation="true"
@@ -15,7 +15,8 @@
                 </view>
             </view>
             <view class="flex items-center justify-center space-x-2">
-                <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png" class="w-5 h-5 rounded-full" alt="Logo" />
+                <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png"
+                    class="w-5 h-5 rounded-full" alt="Logo" />
                 <text class="text-sm text-gray-500 ml-2">嗨去水印工具 © 2025</text>
             </view>
         </view>
