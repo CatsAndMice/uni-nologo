@@ -14,6 +14,12 @@
 			"style": {
 				"navigationBarTitleText": "使用教程"
 			}
+		},
+		{
+			"path": "pages/download-code/index",
+			"style": {
+				"navigationBarTitleText": "激活码"
+			}
 		}
 	],
 	"globalStyle": {

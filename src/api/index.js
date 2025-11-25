@@ -42,3 +42,9 @@ export const getDetail = async (url) => {
     return eq(result.code, 200) ? result.data : {}
 }
 
+export const getActivationCode = async () => {
+    const [err, result] = await to(instance.get('/activation-code'))
+    if (isEmpty(result)) return ''
+    return eq(result.code, 200) ? result.data : ''
+}
+
