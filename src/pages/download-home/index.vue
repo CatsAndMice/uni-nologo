@@ -2,7 +2,16 @@
     <top-notice />
     <t-dialog :visible="showDialog" :content="tip" title="错误提示" :confirm-btn="{ content: '知道了', variant: 'base' }"
         @confirm="showDialog = false" />
-    <view class="bg-slate-100 pt-4 pb-24" >
+    <t-dialog :visible="showShareDialog" style="--td-spacer-4:48rpx" content="您今日使用次数已用完，分享后可解锁无限次使用" title="分享解锁无限次使用">
+        <template #confirm-btn>
+            <view class="px-6 pb-6 w-full">
+                <t-button variant="base" block theme="primary" open-type="share"
+                    @tap.stop="onExceedLimit(); showShareDialog = false">立即分享</t-button>
+            </view>
+        </template>
+
+    </t-dialog>
+    <view class="bg-slate-100 pt-4 pb-24">
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <view class="p-4 border-b border-gray-100 flex items-center">
                 <text class="text-lg font-medium text-gray-800">支持平台<text
@@ -11,7 +20,7 @@
             <t-skeleton v-if="listLoading" animation="gradient" class="p-4" :row-col="skeletonRowCol"
                 :loading="true"></t-skeleton>
             <view v-else class="grid grid-cols-4 gap-4 p-4">
-                <view v-for="l in list" :key="l.url" @tap="content = l.url"
+                <view v-for="l in list" :key="l.url" @tap.stop="content = l.url"
                     class="flex flex-col items-center justify-center  rounded-lg hover:bg-gray-50 transition-colors">
                     <view
                         class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-2">
@@ -68,7 +77,7 @@ import { skeletonRowCol } from './js/const';
 import TopNotice from '../../components/top-notice.vue';
 import NologoFooter from '../../components/nologo-footer.vue';
 import { isArray } from "lodash-es";
-
+import { useCallLimit } from "../../hooks/useCallLimit.js";
 const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，感谢您的理解与耐心。',
     tip2 = '程序运行出现异常，请稍后重试，感谢您的理解与耐心。';
 export default {
@@ -80,9 +89,13 @@ export default {
     setup() {
         const content = shallowRef('');
         const showDialog = shallowRef(false);
+        const showShareDialog = shallowRef(false);
         const { list, loading: listLoading, getList } = useList(getPlatform);
         const { loading, getDownloadDetail } = useDownloadDetail();
         const tip = shallowRef('');
+        const { checkCallLimit, onExceedLimit } = useCallLimit({
+            maxCalls: 4
+        })
 
         const onChange = (e) => {
             content.value = e.detail.value;
@@ -126,7 +139,12 @@ export default {
                 showDialog.value = true
                 return;
             }
-
+            const isCallLimit = checkCallLimit()
+            if (isCallLimit) {
+                // triggerShare()
+                showShareDialog.value = true
+                return;
+            }
 
             const data = await getDownloadDetail(url)
             if (data) {
@@ -184,11 +202,13 @@ export default {
             content,
             loading,
             showDialog,
+            showShareDialog,
             listLoading,
             goToTutorial,
             getFileDetail,
             skeletonRowCol,
-            handlePaste
+            handlePaste,
+            onExceedLimit
         }
     },
 }
