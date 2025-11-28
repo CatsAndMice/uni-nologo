@@ -40,8 +40,8 @@
             <template v-else-if="eq(obj.type, 'video')">
                 <view class="p-4">
                     <view class="relative rounded-lg overflow-hidden bg-black">
-                        <video :src="obj.url" controls class="w-full  rounded-lg overflow-hidden h-auto aspect-video" playsinline webkit-playsinline
-                            x5-playsinline></video>
+                        <video :src="obj.url" controls class="w-full  rounded-lg overflow-hidden h-auto aspect-video"
+                            playsinline webkit-playsinline x5-playsinline></video>
                     </view>
                     <view class="flex justify-end items-center mt-4">
                         <t-button variant="outline" icon="download" class=" mr-3 m-0"
@@ -97,6 +97,7 @@ import { unref } from "vue";
 import useDialog from "./js/useDialog.js";
 import { shareConfig } from "../../utils/common.js";
 import NologoFooter from '../../components/nologo-footer.vue';
+import { downloadImage, downloadVideo } from "./js/downloader.js"
 export default {
     components: {
         NologoFooter
@@ -138,90 +139,6 @@ export default {
                 }
             });
         };
-
-        const downloadImage = (url) => {
-            uni.showLoading({
-                title: '下载中...',
-                mask: true
-            });
-            uni.downloadFile({
-                url: `${process.env.VUE_APP_DOWNLOAD_PICS_API}?url=${encodeURIComponent(url)}`,
-                success: (res) => {
-                    if (res.statusCode === 200) {
-                        uni.saveImageToPhotosAlbum({
-                            filePath: res.tempFilePath,
-                            success: () => {
-                                uni.hideLoading()
-                                uni.showToast({
-                                    title: '保存成功',
-                                    icon: 'success',
-                                    duration: 1500
-                                });
-                            },
-                            fail: () => {
-                                uni.hideLoading()
-                                uni.showToast({
-                                    title: '保存失败',
-                                    icon: 'none',
-                                    duration: 1500
-                                });
-                            }
-                        });
-                    }
-                },
-                fail: () => {
-                    uni.hideLoading();
-                    uni.showToast({
-                        title: '下载失败',
-                        icon: 'none',
-                        duration: 1500
-                    });
-                }
-            });
-        };
-
-
-        const downloadVideo = (url) => {
-            uni.showLoading({
-                title: '下载中...',
-                mask: true
-            });
-            uni.downloadFile({
-                url: `${process.env.VUE_APP_DOWNLOAD_VIDEO_API}?url=${encodeURIComponent(url)}`,
-                success: (res) => {
-                    if (res.statusCode === 200) {
-                        uni.saveVideoToPhotosAlbum({
-                            filePath: res.tempFilePath,
-                            success: () => {
-                                uni.hideLoading();
-                                uni.showToast({
-                                    title: '保存成功',
-                                    icon: 'success',
-                                    duration: 1500
-                                });
-                            },
-                            fail: () => {
-                                uni.hideLoading();
-                                uni.showToast({
-                                    title: '保存失败',
-                                    icon: 'none',
-                                    duration: 1500
-                                });
-                            }
-                        });
-                    }
-                },
-                fail: () => {
-                    uni.hideLoading();
-                    uni.showToast({
-                        title: '下载失败',
-                        icon: 'none',
-                        duration: 1500
-                    });
-                }
-            });
-        };
-
 
         const { showConfirm, onConfirm, onCancel, openDialog } = useDialog({ downloadImage, downloadVideo, copyUrl })
 
