@@ -65,7 +65,17 @@
             </view>
         </view>
     </view>
-    <nologo-footer />
+    <!-- <nologo-footer /> -->
+
+
+    <!-- <t-tab-bar :split="true" value="label1" default-value="label1">
+        <t-tab-bar-item value="label1" icon="app" @tap="handleTabClick('label1')">
+            去水印
+        </t-tab-bar-item>
+        <t-tab-bar-item value="label2" icon="user" @tap="handleTabClick('label2')">
+            我的
+        </t-tab-bar-item>
+    </t-tab-bar> -->
 </template>
 <script>
 import { getPlatform } from '@/api/index.js';
@@ -78,6 +88,7 @@ import TopNotice from '../../components/top-notice.vue';
 import NologoFooter from '../../components/nologo-footer.vue';
 import { isArray } from "lodash-es";
 import { useCallLimit } from "../../hooks/useCallLimit.js";
+import usePage from '../../hooks/usePage';
 const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，感谢您的理解与耐心。',
     tip2 = '程序运行出现异常，请稍后重试，感谢您的理解与耐心。';
 export default {
@@ -90,6 +101,7 @@ export default {
         const content = shallowRef('');
         const showDialog = shallowRef(false);
         const showShareDialog = shallowRef(false);
+        const {handleTabClick} = usePage()
         const { list, loading: listLoading, getList } = useList(getPlatform);
         const { loading, getDownloadDetail } = useDownloadDetail();
         const tip = shallowRef('');
@@ -208,7 +220,8 @@ export default {
             getFileDetail,
             skeletonRowCol,
             handlePaste,
-            onExceedLimit
+            onExceedLimit,
+            handleTabClick
         }
     },
 }

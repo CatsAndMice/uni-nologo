@@ -1,3 +1,15 @@
+<template>
+	<view>
+
+		<!-- 页面内容占位 -->
+		<router-view></router-view>
+
+		<!-- 全局底部菜单 -->
+		<view class="global-footer">
+			<text>全局底部菜单</text>
+		</view>
+	</view>
+</template>
 <script>
 export default {
 	onLaunch: function (e) {

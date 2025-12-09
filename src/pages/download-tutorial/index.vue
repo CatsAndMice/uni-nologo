@@ -88,7 +88,6 @@
             </view>
         </view>
     </view>
-    <nologo-footer />
 </template>
 
 <script>
