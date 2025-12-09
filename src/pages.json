@@ -4,7 +4,10 @@
 			"path": "pages/download-home/index"
 		},
 		{
-			"path": "pages/user-center/index"
+			"path": "pages/user-center/index",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
 		},
 		{
 			"path": "pages/download-detail/index",

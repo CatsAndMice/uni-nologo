@@ -1,5 +1,5 @@
 <template>
-    <view class="min-h-screen bg-slate-100 py-4 pb-20">
+    <view class="min-h-screen bg-slate-100 py-4 pb-5">
 
         <view class="mx-4 mb-4  flex items-end text-2xl font-bold text-gray-800">
             使用教程
