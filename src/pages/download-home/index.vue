@@ -2,16 +2,17 @@
     <top-notice />
     <t-dialog :visible="showDialog" :content="tip" title="错误提示" :confirm-btn="{ content: '知道了', variant: 'base' }"
         @confirm="showDialog = false" />
-    <t-dialog :visible="showShareDialog" style="--td-spacer-4:48rpx" content="您今日使用次数已用完，分享后可解锁无限次使用" title="分享解锁无限次使用">
+    <t-dialog :visible="showShareDialog" style="--td-spacer-4:48rpx" content='您今日去水印次数已用完，请到"我的"页面完成任务获取更多去水印次数'
+        title="完成任务即可解锁">
         <template #confirm-btn>
             <view class="px-6 pb-6 w-full">
-                <t-button variant="base" block theme="primary" open-type="share"
-                    @tap.stop="onExceedLimit(); showShareDialog = false">立即分享</t-button>
+                <t-button variant="base" block theme="primary" 
+                    @tap.stop="showShareDialog = false">知道了</t-button>
             </view>
         </template>
 
     </t-dialog>
-    <view class="bg-slate-100 pt-4 pb-24">
+    <view class="bg-slate-100 pt-4 pb-5">
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <view class="p-4 border-b border-gray-100 flex items-center">
                 <text class="text-lg font-medium text-gray-800">支持平台<text
@@ -65,17 +66,6 @@
             </view>
         </view>
     </view>
-    <!-- <nologo-footer /> -->
-
-
-    <!-- <t-tab-bar :split="true" value="label1" default-value="label1">
-        <t-tab-bar-item value="label1" icon="app" @tap="handleTabClick('label1')">
-            去水印
-        </t-tab-bar-item>
-        <t-tab-bar-item value="label2" icon="user" @tap="handleTabClick('label2')">
-            我的
-        </t-tab-bar-item>
-    </t-tab-bar> -->
 </template>
 <script>
 import { getPlatform } from '@/api/index.js';
@@ -101,13 +91,11 @@ export default {
         const content = shallowRef('');
         const showDialog = shallowRef(false);
         const showShareDialog = shallowRef(false);
-        const {handleTabClick} = usePage()
+        const { handleTabClick } = usePage()
         const { list, loading: listLoading, getList } = useList(getPlatform);
         const { loading, getDownloadDetail } = useDownloadDetail();
         const tip = shallowRef('');
-        const { checkCallLimit, onExceedLimit } = useCallLimit({
-            maxCalls: 4
-        })
+        const { checkCallLimit } = useCallLimit()
 
         const onChange = (e) => {
             content.value = e.detail.value;
@@ -153,7 +141,6 @@ export default {
             }
             const isCallLimit = checkCallLimit()
             if (isCallLimit) {
-                // triggerShare()
                 showShareDialog.value = true
                 return;
             }
@@ -220,7 +207,6 @@ export default {
             getFileDetail,
             skeletonRowCol,
             handlePaste,
-            onExceedLimit,
             handleTabClick
         }
     },
