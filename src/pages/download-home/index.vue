@@ -2,7 +2,7 @@
     <top-notice />
     <t-dialog :visible="showDialog" :content="tip" title="错误提示" :confirm-btn="{ content: '知道了', variant: 'base' }"
         @confirm="showDialog = false" />
-    <t-dialog :visible="showShareDialog" style="--td-spacer-4:48rpx" content='您今日去水印次数已用完，请到"我的"页面完成任务获取更多去水印次数'
+    <t-dialog :visible="showShareDialog" style="--td-spacer-4:48rpx" content='您今日去水印次数已用完，请切换到"我的"页面完成任务获取更多去水印次数'
         title="完成任务即可解锁">
         <template #confirm-btn>
             <view class="px-6 pb-6 w-full">
@@ -53,7 +53,7 @@
             </view>
         </view>
 
-        <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg shadow" @click="goToTutorial">
+        <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg shadow" @click="goToTutorial">
             <view class="flex items-center justify-between">
                 <view class="flex items-center">
                     <text class="text-lg font-medium">使用教程</text>

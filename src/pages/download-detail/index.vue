@@ -2,7 +2,7 @@
 
     <t-dialog :visible="showConfirm" content="因小程序下载网络慢，下载时间久。请优先复制链接到浏览器打开下载，" :confirm-btn="{ content: '确认下载' }"
         cancel-btn="复制链接" @confirm="onConfirm" @cancel="onCancel" />
-    <view class="min-h-screen bg-slate-100 py-4 pb-24">
+    <view class="min-h-screen bg-slate-100 py-4 pb-5">
 
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
             <view class="px-4 py-2 bg-gray-50" v-show="obj.title || obj.desc">
@@ -88,7 +88,7 @@
             </t-collapse>
         </view>
     </view>
-    <nologo-footer />
+    <!-- <nologo-footer /> -->
 </template>
 <script>
 import useDownloadDetail from "../../store/useDownloadDetail.js";
@@ -96,11 +96,11 @@ import { eq } from "lodash-es";
 import { unref } from "vue";
 import useDialog from "./js/useDialog.js";
 import { shareConfig } from "../../utils/common.js";
-import NologoFooter from '../../components/nologo-footer.vue';
+// import NologoFooter from '../../components/nologo-footer.vue';
 import { downloadImage, downloadVideo } from "./js/downloader.js"
 export default {
     components: {
-        NologoFooter
+        // NologoFooter
     },
     ...shareConfig,
     setup() {

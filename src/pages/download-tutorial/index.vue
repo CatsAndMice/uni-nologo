@@ -92,11 +92,11 @@
 
 <script>
 import { shareConfig } from "../../utils/common.js";
-import NologoFooter from '../../components/nologo-footer.vue';
+// import NologoFooter from '../../components/nologo-footer.vue';
 const link = 'https://zwf4g5rfwiy.feishu.cn/wiki/JGjpwZ1Feiw8Zxks4Hoc8vI9nle'
 export default {
     components: {
-        NologoFooter
+        // NologoFooter
     },
     ...shareConfig,
     setup() {
