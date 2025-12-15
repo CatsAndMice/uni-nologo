@@ -6,11 +6,9 @@
         title="完成任务即可解锁">
         <template #confirm-btn>
             <view class="px-6 pb-6 w-full">
-                <t-button variant="base" block theme="primary" 
-                    @tap.stop="showShareDialog = false">知道了</t-button>
+                <t-button variant="base" block theme="primary" @tap.stop="showShareDialog = false">知道了</t-button>
             </view>
         </template>
-
     </t-dialog>
     <view class="bg-slate-100 pt-4 pb-5">
         <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
@@ -53,7 +51,8 @@
             </view>
         </view>
 
-        <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg shadow" @click="goToTutorial">
+        <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg shadow"
+            @click="goToTutorial">
             <view class="flex items-center justify-between">
                 <view class="flex items-center">
                     <text class="text-lg font-medium">使用教程</text>
@@ -79,6 +78,9 @@ import NologoFooter from '../../components/nologo-footer.vue';
 import { isArray } from "lodash-es";
 import { useCallLimit } from "../../hooks/useCallLimit.js";
 import usePage from '../../hooks/usePage';
+import { onShow } from "@dcloudio/uni-app";
+
+
 const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，感谢您的理解与耐心。',
     tip2 = '程序运行出现异常，请稍后重试，感谢您的理解与耐心。';
 export default {
@@ -95,7 +97,7 @@ export default {
         const { list, loading: listLoading, getList } = useList(getPlatform);
         const { loading, getDownloadDetail } = useDownloadDetail();
         const tip = shallowRef('');
-        const { checkCallLimit } = useCallLimit()
+        const { initLoadCall, checkCallLimit } = useCallLimit()
 
         const onChange = (e) => {
             content.value = e.detail.value;
@@ -191,6 +193,7 @@ export default {
             });
         }
 
+        onShow(initLoadCall)
 
         onBeforeMount(getList)
 

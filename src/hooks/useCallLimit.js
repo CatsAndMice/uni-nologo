@@ -1,7 +1,7 @@
 // src/hooks/useCallLimit.js
 import { ref, unref } from "vue";
 
-const maxCalls = 4,
+const maxCalls = 5,
     storageKey = 'callLimitRecord';
 export function useCallLimit() {
     const callRecord = ref(getCallRecord())
@@ -42,7 +42,12 @@ export function useCallLimit() {
         uni.setStorageSync(storageKey, unref(callRecord));
     };
 
+
+    const initLoadCall = () => {
+        callRecord.value = getCallRecord()
+    }
     return {
+        initLoadCall,
         callRecord,
         checkCallLimit,
         onExceedLimit,

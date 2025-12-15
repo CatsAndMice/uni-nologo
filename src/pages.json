@@ -65,7 +65,8 @@
 			"t-notice-bar": "wxcomponents/tdesign/notice-bar/notice-bar",
 			"t-link": "wxcomponents/tdesign/link/link",
 			"t-footer": "wxcomponents/tdesign/footer/footer",
-			"t-divider": "wxcomponents/tdesign/divider/divider"
+			"t-divider": "wxcomponents/tdesign/divider/divider",
+			"t-cell": "wxcomponents/tdesign/cell/cell"
 		}
 	}
 }
