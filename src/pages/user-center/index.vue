@@ -58,12 +58,6 @@
             <t-button open-type="contact"
                 style="position: absolute;top:0;left: 0;right: 0;bottom: 0;opacity: 0;height: 100%;">联系客服</t-button>
         </view>
-
-        <view class="relative">
-            <t-cell title="意见反馈" leftIcon="assignment" arrow />
-            <t-button open-type="feedback"
-                style="position: absolute;top:0;left: 0;right: 0;bottom: 0;opacity: 0;height: 100%;">意见反馈</t-button>
-        </view>
     </view>
 
     <t-dialog :visible="showDialog" style="--td-spacer-4:48rpx" title="请长按扫码添加开发者">

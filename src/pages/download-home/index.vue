@@ -82,7 +82,7 @@ import { onShow } from "@dcloudio/uni-app";
 
 
 const tip1 = '暂不支持您所解析的平台，更多平台正在开发中，感谢您的理解与耐心。',
-    tip2 = '程序运行出现异常，请稍后重试，感谢您的理解与耐心。';
+    tip2 = '解析失败，请稍后重试。';
 export default {
     components: {
         TopNotice,
@@ -146,16 +146,18 @@ export default {
                 showShareDialog.value = true
                 return;
             }
-
-            const data = await getDownloadDetail(url)
-            if (data) {
-                uni.navigateTo({
-                    url: '/pages/download-detail/index'
-                })
-                return
+            try {
+                const data = await getDownloadDetail(url)
+                if (data) {
+                    uni.navigateTo({
+                        url: '/pages/download-detail/index'
+                    })
+                    return
+                }
+            } catch (error) {
+                tip.value = tip2
+                showDialog.value = true
             }
-            tip.value = tip2
-            showDialog.value = true
         }
 
         const goToTutorial = () => {

@@ -9,7 +9,7 @@ export default function useDownloadDetail(url, name) {
         return new Promise((resolve, reject) => {
             getObject(url, (result) => {
                 if (isEmpty(result)) {
-                    reject()
+                    reject(null)
                     return
                 }
                 resolve(result)
