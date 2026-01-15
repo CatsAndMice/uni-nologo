@@ -1,7 +1,7 @@
 // src/hooks/useCallLimit.js
 import { ref, unref } from "vue";
 
-const maxCalls = 5,
+const maxCalls = 3,
     storageKey = 'callLimitRecord';
 export function useCallLimit() {
     const callRecord = ref(getCallRecord())

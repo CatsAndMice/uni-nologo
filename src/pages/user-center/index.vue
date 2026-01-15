@@ -23,11 +23,11 @@
                 <t-icon name="check-circle" size="48rpx" />
                 <view class="ml-4">
                     <text class="text-base">签到</text>
-                    <text class="text-xm text-gray-500 mt-1 block">+5</text>
+                    <text class="text-xm text-gray-500 mt-1 block">+3</text>
                 </view>
             </view>
             <t-button :disabled="callRecord.isChecked" theme="primary" class="!rounded-lg m-0"
-                @tap="onExceedLimit({ ...callRecord, count: 5, isChecked: true })">{{ callRecord.isChecked ? '已签到' :
+                @tap="onExceedLimit({ ...callRecord, count: 3, isChecked: true })">{{ callRecord.isChecked ? '已签到' :
                     '签到'
                 }}</t-button>
         </view>
@@ -36,14 +36,11 @@
             <view class="flex items-center">
                 <t-icon name="share" size="48rpx" />
                 <view class="ml-4">
-                    <text class="text-base">分享给他人</text>
+                    <text class="text-base">观看广告</text>
                     <text class="text-xm text-gray-500 mt-1 block">+10</text>
                 </view>
             </view>
-            <t-button :disabled="callRecord.isShared" theme="primary" open-type="share" class="!rounded-lg m-0"
-                @tap="onExceedLimit({ ...callRecord, count: 10, isShared: true })">{{ callRecord.isShared ? '已分享' :
-                    '分享'
-                }}</t-button>
+            <t-button theme="primary" class="!rounded-lg m-0" @tap="handleWatchAd">看广告</t-button>
         </view>
     </view>
 
@@ -96,13 +93,28 @@
     </t-dialog>
 </template>
 <script>
-import { onShow } from "@dcloudio/uni-app";
+import { onShow, onLoad } from "@dcloudio/uni-app";
 import { useCallLimit } from "../../hooks/useCallLimit";
-import { shallowRef } from "vue";
+import { shallowRef, unref } from "vue";
+import createRewardedVideoAd from '../../utils/rewardedVideoAd';
 export default {
     setup() {
         const showDialog = shallowRef(false);
+
         const { callRecord, initLoadCall, onExceedLimit } = useCallLimit();
+
+
+        const { initRewardedVideoAd, showRewardedVideoAd } = createRewardedVideoAd(() => {
+            // 用户完整观看，可调用 onExceedLimit 增加次数
+            onExceedLimit({ ...unref(callRecord), count: 10 });
+            uni.showToast({ title: '奖励已发放 +10 次', icon: 'success' });
+        },
+            (err) => {
+                console.warn('广告未完成或失败:', err?.message);
+                uni.showToast({ title: err?.message || '未获取奖励', icon: 'none' });
+            }
+        )
+
         const jumpToMiniProgram = (appId) => {
             uni.navigateToMiniProgram({
                 appId,
@@ -115,10 +127,21 @@ export default {
                 }
             });
         };
+
+        const handleWatchAd = () => {
+            showRewardedVideoAd();
+        };
+
+
+
         onShow(initLoadCall)
+        onLoad(() => {
+            initRewardedVideoAd('adunit-0f6a2ca6cd6af968');
+        })
         return {
             showDialog,
             callRecord,
+            handleWatchAd,
             onExceedLimit,
             jumpToMiniProgram
         };
