@@ -48,7 +48,6 @@
     </view>
 
     <view class="mx-4 bg-white rounded-lg shadow overflow-hidden mt-4">
-
         <view class="relative">
             <t-cell title="搭建同款小程序" leftIcon="chat-bubble-smile" arrow @click="showDialog = true" />
         </view>
@@ -60,10 +59,36 @@
         </view>
     </view>
 
+
+    <view class="px-4 mt-4 ">
+        <view class="rounded-lg overflow-hidden shadow bg-white p-4">
+            <view class="text-base flex items-center  text-gray-800 mb-3">
+                <t-icon name="app" size="24px" color="#2554d2" class="mr-2" />
+                <text class="text-base text-gray-800">推荐工具</text>
+            </view>
+
+            <!-- 推荐项 1 -->
+            <view class="flex items-center mb-3 last:mb-0" @tap="jumpToMiniProgram('wxdc301136f090bdce')">
+                <!-- <t-image width="60rpx" height="60rpx" radius="8rpx"
+                    src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png"
+                    fit="cover" /> -->
+                <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/WechatIMG15507.jpeg"
+                    style="width: 60rpx;height: 60rpx;border-radius: 8rpx;" mode="cover" />
+                <view class="ml-3 flex-1">
+                    <view class="text-sm text-gray-900">小易拼豆</view>
+                    <view class="text-xs text-gray-500 mt-1">拼豆图纸生成器</view>
+                </view>
+                <t-icon name="chevron-right" size="48rpx" color="#999" />
+            </view>
+        </view>
+    </view>
+
+
+
     <t-dialog :visible="showDialog" style="--td-spacer-4:48rpx" title="请长按扫码添加开发者">
         <template #content>
             <view class="flex justify-center mt-4">
-                <image src="../../static//weixin.png" mode="aspectFit" 	:show-menu-by-longpress="true" alt="微信二维码" />
+                <image src="../../static//weixin.png" mode="aspectFit" :show-menu-by-longpress="true" alt="微信二维码" />
             </view>
         </template>
         <template #confirm-btn>
@@ -81,11 +106,24 @@ export default {
     setup() {
         const showDialog = shallowRef(false);
         const { callRecord, initLoadCall, onExceedLimit } = useCallLimit();
+        const jumpToMiniProgram = (appId) => {
+            uni.navigateToMiniProgram({
+                appId,
+                success: () => {
+                    console.log('跳转成功');
+                },
+                fail: (err) => {
+                    console.error('跳转失败:', err);
+                    uni.showToast({ title: '跳转失败', icon: 'none' });
+                }
+            });
+        };
         onShow(initLoadCall)
         return {
             showDialog,
             callRecord,
-            onExceedLimit
+            onExceedLimit,
+            jumpToMiniProgram
         };
     },
 };
