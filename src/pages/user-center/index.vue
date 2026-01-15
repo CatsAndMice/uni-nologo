@@ -69,9 +69,6 @@
 
             <!-- 推荐项 1 -->
             <view class="flex items-center mb-3 last:mb-0" @tap="jumpToMiniProgram('wxdc301136f090bdce')">
-                <!-- <t-image width="60rpx" height="60rpx" radius="8rpx"
-                    src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png"
-                    fit="cover" /> -->
                 <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/WechatIMG15507.jpeg"
                     style="width: 60rpx;height: 60rpx;border-radius: 8rpx;" mode="cover" />
                 <view class="ml-3 flex-1">
