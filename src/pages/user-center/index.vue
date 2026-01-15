@@ -34,7 +34,7 @@
 
         <view class="flex items-center justify-between p-4 border-b border-gray-100">
             <view class="flex items-center">
-                <t-icon name="share" size="48rpx" />
+                <t-icon name="video" size="48rpx" />
                 <view class="ml-4">
                     <text class="text-base">观看广告</text>
                     <text class="text-xm text-gray-500 mt-1 block">+10</text>

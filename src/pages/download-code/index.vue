@@ -9,7 +9,7 @@
                     <view class="gap-2 flex items-center justify-center" @tap="copyActivationCode">
                         <view v-for="(code, index) in activationCode" :key="index"
                             class="bg-gray-100 text-indigo-600 font-bold text-lg px-4 py-2 rounded-md border border-gray-300 cursor-not-allowed select-none">
-                            {{ code }}
+                            {{ isLooked ? code : '*' }}
                         </view>
                     </view>
                 </template>
@@ -19,13 +19,24 @@
                 温馨提示：点击激活码可复制
             </view>
         </view>
+
+        <view class="mt-4 px-4">
+            <t-button variant="base" :disabled="!activationCode" @tap="showRewardedVideoAd" block theme="primary">观看广告展示完整激活码</t-button>
+        </view>
+
+        <view class=" m-4 ">
+            <ad-custom unit-id="adunit-71e06c83a6e274ef"></ad-custom>
+        </view>
     </view>
 </template>
 <script>
 import { getActivationCode } from '@/api/index.js';
-import { ref, onBeforeMount ,unref} from 'vue';
+import { ref, onBeforeMount, unref } from 'vue';
+import createRewardedVideoAd from '../../utils/rewardedVideoAd';
+import { onLoad } from "@dcloudio/uni-app";
 export default {
     setup() {
+        const isLooked = ref(false);
         // 定义激活码
         const activationCode = ref("");
         // 获取激活码的方法
@@ -45,6 +56,10 @@ export default {
 
         // 复制激活码到剪贴板
         const copyActivationCode = () => {
+            if (!unref(isLooked)) {
+                uni.showToast({ title: '请观看完整广告解锁', icon: 'none' });
+                return
+            }
             uni.setClipboardData({
                 data: unref(activationCode),
                 success: () => {
@@ -64,11 +79,26 @@ export default {
             });
         };
 
+
+        const { initRewardedVideoAd, showRewardedVideoAd } = createRewardedVideoAd(() => {
+            isLooked.value = true
+        },
+            (err) => {
+                console.warn('广告未完成或失败:', err?.message);
+                uni.showToast({ title: err?.message || '请观看完整广告解锁', icon: 'none' });
+            }
+        )
+
+        onLoad(() => {
+            initRewardedVideoAd('adunit-0f6a2ca6cd6af968');
+        })
         onBeforeMount(fetchActivationCode)
 
         return {
+            isLooked,
             activationCode,
             copyActivationCode,
+            showRewardedVideoAd,
         };
     },
 };
