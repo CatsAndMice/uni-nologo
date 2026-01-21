@@ -2,12 +2,22 @@
     <view class="min-h-screen bg-slate-100 py-4 pb-5">
 
         <view class="mx-4 mb-4  flex items-end text-2xl font-bold text-gray-800">
-            使用教程
-            <view class="ml-2 inline-block" @tap="copyUrl"> <t-link theme="primary" content="详细使用教程"
-                    suffixIcon="jump" />
-            </view>
+            使用教程（以抖音为例）
         </view>
 
+
+        <view class="mx-4 mt-2 mb-4">
+            <view
+                class="flex flex-col items-center justify-center px-4 py-3 bg-blue-50 rounded-xl border border-blue-100"
+                @tap="copyUrl">
+                <text class="text-blue-700 font-medium text-sm flex items-center">
+                    📖 查看其他平台详细教程
+                </text>
+                <text class="text-gray-500 text-xs mt-1 text-center">
+                    点击复制链接，粘贴到手机/电脑浏览器中打开
+                </text>
+            </view>
+        </view>
 
         <view class="mx-4 bg-white rounded-lg shadow p-4 mb-4">
             <view class="relative flex items-center py-2">
@@ -107,7 +117,7 @@ export default {
                 success: () => {
                     wx.showToast({
                         title: '复制链接成功，请浏览器访问',
-                        icon:'none'
+                        icon: 'none'
                     })
                 }
             });
