@@ -29,21 +29,7 @@ export const downloadImage = (url, options = {}) => {
                 if (options && options.type === 'share') {
                     uni.hideLoading()
                     wx.showShareImageMenu({
-                        path: res.tempFilePath,
-                        success: () => {
-                            uni.showToast({
-                                title: '分享成功',
-                                icon: 'success',
-                                duration: 1500
-                            });
-                        },
-                        fail: () => {
-                            uni.showToast({
-                                title: '分享失败',
-                                icon: 'none',
-                                duration: 1500
-                            });
-                        }
+                        path: res.tempFilePath
                     })
                     return
                 }
