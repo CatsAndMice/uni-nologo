@@ -106,7 +106,6 @@ export default {
     components: {
         // NologoFooter
     },
-    ...shareConfig,
     setup() {
         const { obj } = useDownloadDetail();
         const previewImage = (index) => {

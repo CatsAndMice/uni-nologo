@@ -14,7 +14,6 @@ function fakeProgress(duration = 8000) {          // 8s 内从 0→90
             clearInterval(progressTimer)
             return
         }
-
     }, duration / 45)
 }
 
@@ -29,7 +28,8 @@ export const downloadImage = (url, options = {}) => {
                 if (options && options.type === 'share') {
                     uni.hideLoading()
                     wx.showShareImageMenu({
-                        path: res.tempFilePath
+                        path: res.tempFilePath,
+                        entrancePath: '/pages/download-home/index'
                     })
                     return
                 }
