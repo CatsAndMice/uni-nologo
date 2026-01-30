@@ -18,10 +18,10 @@
                 </view>
             </view>
             <template v-if="eq(obj.type, 'img')">
-                <view class="grid grid-cols-3 gap-3 p-4">
+                <view class="grid grid-cols-2 gap-2 p-4">
                     <view v-for="(url, index) in obj.urls" :key="url" @tap="previewImage(index)"
-                        class="flex flex-col items-center ">
-                        <t-image :src="url" width="100" lazy height="100" error="slot" shape="round">
+                        class="flex flex-col items-center justify-center ">
+                        <t-image :src="url" width="150" lazy height="150" error="slot" shape="round">
                             <template #error>
                                 <text style=" font-size: 20rpx;font-weight: 400;">加载失败</text>
                             </template>
@@ -30,6 +30,10 @@
                             <t-button variant="outline" class="shrink-0" icon="link" shape="round"
                                 @tap.stop="copyUrl(url)" size="small">
                             </t-button>
+                            <t-button variant="outline" class="shrink-0" icon="share" shape="round"
+                                @tap.stop="onShare(url)" size="small">
+                            </t-button>
+
                             <t-button variant="outline" icon="download" class="shrink-0" shape="round"
                                 @tap.stop="openDialog(url, obj.type)" size="small">
                             </t-button>
@@ -126,6 +130,11 @@ export default {
             });
         };
 
+        const onShare = (url) => {
+            downloadImage(url, {
+                type: 'share'
+            })
+        };
 
         const copyTitle = (title) => {
             uni.setClipboardData({
@@ -145,6 +154,7 @@ export default {
         return {
             obj,
             eq,
+            onShare,
             showConfirm,
             previewImage,
             copyUrl,

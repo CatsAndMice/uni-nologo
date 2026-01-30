@@ -18,7 +18,7 @@ function fakeProgress(duration = 8000) {          // 8s 内从 0→90
     }, duration / 45)
 }
 
-export const downloadImage = (url) => {
+export const downloadImage = (url, options = {}) => {
     fakeProgress()
     uni.downloadFile({
         url: `${import.meta.env.VITE_DOWNLOAD_PICS_API}?url=${encodeURIComponent(url)}`,
@@ -26,6 +26,28 @@ export const downloadImage = (url) => {
             clearInterval(progressTimer)
             if (res.statusCode === 200) {
                 uni.showLoading({ title: '保存中 95%', mask: true })
+                if (options && options.type === 'share') {
+                    uni.hideLoading()
+                    wx.showShareImageMenu({
+                        path: res.tempFilePath,
+                        success: () => {
+                            uni.showToast({
+                                title: '分享成功',
+                                icon: 'success',
+                                duration: 1500
+                            });
+                        },
+                        fail: () => {
+                            uni.showToast({
+                                title: '分享失败',
+                                icon: 'none',
+                                duration: 1500
+                            });
+                        }
+                    })
+                    return
+                }
+
                 uni.saveImageToPhotosAlbum({
                     filePath: res.tempFilePath,
                     success: () => {
