@@ -10,58 +10,63 @@
             </view>
         </template>
     </t-dialog>
-    <view class="bg-slate-100 pt-4 pb-5">
-        <view class="mx-4 bg-white rounded-lg shadow overflow-hidden">
-            <view class="p-4 border-b border-gray-100 flex items-center">
-                <text class="text-lg font-medium text-gray-800">支持平台<text
-                        class="text-sm text-gray-500">（可点击图标测试）</text></text>
-            </view>
-            <t-skeleton v-if="listLoading" animation="gradient" class="p-4" :row-col="skeletonRowCol"
-                :loading="true"></t-skeleton>
-            <view v-else class="grid grid-cols-4 gap-4 p-4">
-                <view v-for="l in list" :key="l.url" @tap.stop="content = l.url"
-                    class="flex flex-col items-center justify-center  rounded-lg hover:bg-gray-50 transition-colors">
-                    <view
-                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center mb-2">
-                        <t-icon v-if="l.icon" :name="l.icon" size="30" color="#4f46e5" />
-                        <text v-else class="text-indigo-600 font-medium text-sm">{{ l.appName.substring(0, 1) }}</text>
+    <view class="bg-[#F5F5F5] min-h-screen">
+        <view class="px-4 pt-5 pb-6">
+            <view class="bg-white rounded-lg overflow-hidden">
+                <view class="px-4 py-3 border-b border-[#EEEEEE]">
+                    <text class="text-base font-medium text-[#333333]">支持平台</text>
+                </view>
+                <t-skeleton v-if="listLoading" animation="gradient" class="p-5" :row-col="skeletonRowCol"
+                    :loading="true"></t-skeleton>
+                <view v-else class="grid grid-cols-4 gap-3 p-4">
+                    <view v-for="l in list" :key="l.url" @tap.stop="content = l.url"
+                        class="flex flex-col items-center justify-center py-2">
+                        <view
+                            class="w-11 h-11 rounded-lg bg-[#F0F0F0] flex items-center justify-center mb-2">
+                            <t-icon v-if="l.icon" :name="l.icon" size="24" color="#333333" />
+                            <text v-else class="text-[#666666] font-medium text-sm">{{ l.appName.substring(0, 1) }}</text>
+                        </view>
+                        <text class="text-xs text-[#666666] text-center">{{ l.appName }}</text>
                     </view>
-                    <text class="text-xs text-gray-700 text-center">{{ l.appName }}</text>
                 </view>
             </view>
-        </view>
 
-        <view class="mx-4 mt-4 bg-white pb-4 rounded-lg shadow overflow-hidden">
-            <t-textarea v-model:value="content" @change="onChange" placeholder="请粘贴视频或图集链接～" :autosize="{
+            <view class="mt-3 bg-white rounded-lg overflow-hidden pb-4">
+                <view class="px-4 pt-4 pb-2">
+                    <t-textarea v-model:value="content" @change="onChange" placeholder="请粘贴视频或图集链接～" :autosize="{
                 minHeight: 100,
                 maxHeight: 200
             }" />
+                </view>
 
-            <view class="mx-4 mt-2  flex flex-row gap-2">
-                <t-button variant="outline" :disabled="loading" style="--td-button-border-radius:16rpx"
-                    icon="clear-formatting-filled" @tap="content = ''">清空</t-button>
-                <t-button variant="outline" :disabled="loading" style="--td-button-border-radius:16rpx"
-                    icon="file-copy-filled" @tap="handlePaste">
-                    粘贴
-                </t-button>
-                <view class="flex-grow">
-                    <t-button :loading="loading" :disabled="loading" theme="primary" block class="!rounded-lg m-0"
-                        @tap="getFileDetail">开始解析</t-button>
+                <view class="px-4 flex flex-row gap-2">
+                    <t-button variant="outline" :disabled="loading" style="--td-button-border-radius:16rpx"
+                        size="small" icon="clear-formatting-filled" @tap="content = ''">清空</t-button>
+                    <t-button variant="outline" :disabled="loading" style="--td-button-border-radius:16rpx"
+                        size="small" icon="file-copy-filled" @tap="handlePaste">
+                        粘贴
+                    </t-button>
+                    <view class="flex-grow">
+                        <t-button :loading="loading" :disabled="loading" theme="primary" block class="!rounded-lg h-10 text-sm"
+                            @tap="getFileDetail">开始解析</t-button>
+                    </view>
                 </view>
             </view>
-        </view>
 
-        <view class="mx-4 mt-4 p-4 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg shadow"
-            @click="goToTutorial">
-            <view class="flex items-center justify-between">
-                <view class="flex items-center">
-                    <text class="text-lg font-medium">使用教程</text>
-                    <text class="ml-2 text-sm text-gray-500">新手必看</text>
+            <view class="mt-3 p-4 bg-[#4A90D9] rounded-lg"
+                @click="goToTutorial">
+                <view class="flex items-center justify-between">
+                    <view class="flex items-center">
+                        <view class="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center mr-3">
+                            <t-icon name="help-circle-outline" size="18" color="#fff" />
+                        </view>
+                        <view>
+                            <text class="text-sm font-medium text-white block">使用教程</text>
+                            <text class="text-xs text-white/70">新手必看</text>
+                        </view>
+                    </view>
+                    <t-icon name="chevron-right" size="16" color="#fff" />
                 </view>
-                <t-icon name="chevron-right" size="16" color="#999" />
-            </view>
-            <view class="mt-2 text-sm text-gray-600">
-                <text>查看详细使用说明和常见问题解答</text>
             </view>
         </view>
     </view>

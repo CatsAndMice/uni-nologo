@@ -1,83 +1,92 @@
 <template>
-    <view class="mt-4 pb-4">
-        <view class="mx-4 bg-blue-100 rounded-lg shadow p-6 mb-4 ">
+    <view class="pb-5">
+        <view class="mx-4 mt-4 bg-[#4A90D9] rounded-lg p-5 mb-4">
             <view class="flex items-center justify-between">
                 <view class="flex items-center">
-                    <text class="text-base font-medium text-gray-700">今日剩余去水印次数</text>
+                    <text class="text-sm text-white/90">今日剩余去水印次数</text>
                 </view>
-                <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png"
-                    class="w-6 h-6 rounded-full" />
+                <view class="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center">
+                    <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/%E5%8F%AF%E8%BE%BE%E9%B8%AD.png"
+                        class="w-6 h-6 rounded-full" />
+                </view>
             </view>
-            <text class="text-3xl font-bold text-blue-600 mt-2">{{ callRecord.count }}</text>
+            <text class="text-4xl font-bold text-white mt-2 block">{{ callRecord.count }}</text>
+            <view class="mt-3 flex items-center text-white/70 text-xs">
+                <t-icon name="info-circle" size="12" />
+                <text class="ml-1">每日0点重置</text>
+            </view>
         </view>
 
 
-        <view class="mx-4 bg-white rounded-lg shadow overflow-hidden mt-4">
-            <view class="p-4 border-b border-gray-100 flex items-center">
-                <text class="text-lg font-medium text-gray-800">每日任务
-                    <text class="text-sm text-gray-500">（完成任务可获更多去水印次数）</text>
+        <view class="mx-4 bg-white rounded-lg overflow-hidden mt-3">
+            <view class="px-4 py-3 border-b border-[#EEEEEE]">
+                <text class="text-base font-medium text-[#333333]">每日任务
+                    <text class="text-xs text-[#999999] ml-1">（完成任务可获更多去水印次数）</text>
                 </text>
             </view>
-            <view class="flex items-center justify-between p-4 border-b border-gray-100">
+            <view class="flex items-center justify-between px-4 py-3 border-b border-[#EEEEEE]">
                 <view class="flex items-center">
-                    <t-icon name="check-circle" size="48rpx" />
-                    <view class="ml-4">
-                        <text class="text-base">签到</text>
-                        <text class="text-xm text-gray-500 mt-1 block">+3</text>
+                    <view class="w-9 h-9 bg-[#E8F5E9] rounded-lg flex items-center justify-center">
+                        <t-icon name="check-circle" size="18" color="#4CAF50" />
+                    </view>
+                    <view class="ml-3">
+                        <text class="text-sm text-[#333333]">签到</text>
+                        <text class="text-xs text-[#999999] ml-1">+3</text>
                     </view>
                 </view>
-                <t-button :disabled="callRecord.isChecked" theme="primary" class="!rounded-lg m-0"
+                <t-button :disabled="callRecord.isChecked" theme="primary" class="!rounded-lg !h-8 px-3"
                     @tap="onExceedLimit({ ...callRecord, count: 3, isChecked: true })">{{ callRecord.isChecked ? '已签到' :
                         '签到'
                     }}</t-button>
             </view>
 
-            <view class="flex items-center justify-between p-4 border-b border-gray-100">
+            <view class="flex items-center justify-between px-4 py-3">
                 <view class="flex items-center">
-                    <t-icon name="video" size="48rpx" />
-                    <view class="ml-4">
-                        <text class="text-base">观看广告</text>
-                        <text class="text-xm text-gray-500 mt-1 block">+10</text>
+                    <view class="w-9 h-9 bg-[#FFF8E1] rounded-lg flex items-center justify-center">
+                        <t-icon name="video" size="18" color="#FFA000" />
+                    </view>
+                    <view class="ml-3">
+                        <text class="text-sm text-[#333333]">观看广告</text>
+                        <text class="text-xs text-[#999999] ml-1">+10</text>
                     </view>
                 </view>
-                <t-button theme="primary" class="!rounded-lg m-0" @tap="handleWatchAd">看广告</t-button>
+                <t-button theme="primary" class="!rounded-lg !h-8 px-3" @tap="handleWatchAd">看广告</t-button>
             </view>
         </view>
 
-        <view class="mx-4 bg-white rounded-lg shadow overflow-hidden mt-4">
+        <view class="mx-4 bg-white rounded-lg overflow-hidden mt-3">
+            <view class="px-4 py-3 border-b border-[#EEEEEE]">
+                <text class="text-base font-medium text-[#333333]">更多功能</text>
+            </view>
             <view class="relative">
                 <t-cell title="搭建同款小程序" leftIcon="chat-bubble-smile" arrow @click="showDialog = true" />
             </view>
 
             <view class="relative">
                 <t-cell title="联系客服" leftIcon="service" arrow />
-                <t-button open-type="contact"
-                    style="position: absolute;top:0;left: 0;right: 0;bottom: 0;opacity: 0;height: 100%;">联系客服</t-button>
+                <button open-type="contact"
+                    style="position: absolute;top:0;left: 0;right: 0;bottom:0;opacity: 0;height: 100%;">联系客服</button>
             </view>
             <view class="relative">
                 <t-cell title="分享给好友" leftIcon="share-1" arrow />
-                <t-button open-type="share"
-                    style="position: absolute;top:0;left: 0;right: 0;bottom: 0;opacity: 0;height: 100%;">联系客服</t-button>
+                <button open-type="share"
+                    style="position: absolute;top:0;left: 0;right: 0;bottom:0;opacity: 0;height: 100%;">分享</button>
             </view>
         </view>
 
 
         <view class="px-4 mt-4">
-            <view class="rounded-lg overflow-hidden shadow bg-white p-4">
-                <view class="text-base flex items-center  text-gray-800 mb-3">
-                    <t-icon name="app" size="24px" color="#2554d2" class="mr-2" />
-                    <text class="text-base text-gray-800">推荐工具</text>
-                </view>
+            <view class="rounded-lg overflow-hidden bg-white p-4">
+                <text class="text-base font-medium text-[#333333] mb-3 block">推荐工具</text>
 
-                <!-- 推荐项 1 -->
-                <view class="flex items-center mb-3 last:mb-0" @tap="jumpToMiniProgram('wxdc301136f090bdce')">
+                <view class="flex items-center py-2" @tap="jumpToMiniProgram('wxdc301136f090bdce')">
                     <image src="https://linglan008-blog.oss-cn-hangzhou.aliyuncs.com/WechatIMG15507.jpeg"
-                        style="width: 60rpx;height: 60rpx;border-radius: 8rpx;" mode="cover" />
+                        style="width: 40px;height: 40px;border-radius: 8px;" mode="cover" />
                     <view class="ml-3 flex-1">
-                        <view class="text-sm text-gray-900">小易拼豆</view>
-                        <view class="text-xs text-gray-500 mt-1">拼豆图纸生成器</view>
+                        <view class="text-sm text-[#333333]">小易拼豆</view>
+                        <view class="text-xs text-[#999999] mt-0.5">拼豆图纸生成器</view>
                     </view>
-                    <t-icon name="chevron-right" size="48rpx" color="#999" />
+                    <t-icon name="chevron-right" size="16" color="#999999" />
                 </view>
             </view>
         </view>
@@ -89,12 +98,14 @@
     <t-dialog :visible="showDialog" style="--td-spacer-4:48rpx" title="请长按扫码添加开发者">
         <template #content>
             <view class="flex justify-center mt-4">
-                <image src="../../static//weixin.png" mode="aspectFit" :show-menu-by-longpress="true" alt="微信二维码" />
+                <image src="../../static//weixin.png" mode="aspectFit" :show-menu-by-longpress="true" alt="微信二维码"
+                    class="w-48 h-48" />
             </view>
         </template>
         <template #confirm-btn>
             <view class="px-6 pb-6 w-full">
-                <t-button variant="base" block theme="primary" @tap.stop="showDialog = false">关闭</t-button>
+                <t-button variant="base" block theme="primary" class="!rounded-lg"
+                    @tap.stop="showDialog = false">关闭</t-button>
             </view>
         </template>
     </t-dialog>

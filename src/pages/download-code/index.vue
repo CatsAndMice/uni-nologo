@@ -1,30 +1,38 @@
 <template>
-    <view class="min-h-screen bg-slate-100 py-4">
-        <!-- 激活码展示区域 -->
-        <view class="bg-white rounded-lg shadow text-center mx-4 py-8">
-            <text class="text-2xl font-medium text-gray-800">您的激活码</text>
-            <view class="mt-4 flex items-center justify-center">
-                <!-- 验证码样式 -->
+    <view class="min-h-screen bg-[#F5F5F5] py-4">
+        <view class="bg-white rounded-lg text-center mx-4 py-8 px-5">
+            <view class="inline-flex items-center justify-center w-14 h-14 bg-[#4A90D9] rounded-xl mb-4">
+                <t-icon name="lock-on" size="28" color="#fff" />
+            </view>
+            <text class="text-lg font-medium text-[#333333] block mb-1">您的激活码</text>
+            <text class="text-xs text-[#999999]">点击激活码即可复制</text>
+            <view class="mt-5 flex items-center justify-center">
                 <template v-if="activationCode">
-                    <view class="gap-2 flex items-center justify-center" @tap="copyActivationCode">
+                    <view class="gap-2 flex flex-wrap justify-center" @tap="copyActivationCode">
                         <view v-for="(code, index) in activationCode" :key="index"
-                            class="bg-gray-100 text-indigo-600 font-bold text-lg px-4 py-2 rounded-md border border-gray-300 cursor-not-allowed select-none">
+                            class="bg-[#F0F0F0] text-[#333333] font-medium text-base px-3 py-2 rounded-lg select-none min-w-[40px] text-center">
                             {{ isLooked ? code : '*' }}
                         </view>
                     </view>
                 </template>
-                <view v-else>加载中...</view>
+                <view v-else class="text-[#999999]">加载中...</view>
             </view>
-            <view class="mt-4 text-sm text-gray-500  select-none">
+            <view class="mt-4 text-xs text-[#999999] select-none flex items-center justify-center">
+                <t-icon name="info-circle" size="12" class="mr-1" />
                 温馨提示：点击激活码可复制
             </view>
         </view>
 
         <view class="mt-4 px-4">
-            <t-button variant="base" :disabled="!activationCode" @tap="showRewardedVideoAd" block theme="primary">观看广告展示完整激活码</t-button>
+            <t-button variant="base" :disabled="!activationCode" @tap="showRewardedVideoAd" block theme="primary" class="!rounded-lg !h-10 text-sm">
+                <template #icon>
+                    <t-icon name="play-circle" size="18" class="mr-1" />
+                </template>
+                观看广告展示完整激活码
+            </t-button>
         </view>
 
-        <view class=" m-4 ">
+        <view class="mx-4 mt-4">
             <ad-custom unit-id="adunit-71e06c83a6e274ef"></ad-custom>
         </view>
     </view>
