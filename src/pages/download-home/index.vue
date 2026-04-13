@@ -58,7 +58,7 @@
                 <view class="flex items-center justify-between">
                     <view class="flex items-center">
                         <view class="w-9 h-9 bg-white/20 rounded-lg flex items-center justify-center mr-3">
-                            <t-icon name="help-circle-outline" size="18" color="#fff" />
+                            <t-icon name="help-circle" size="18" color="#fff" />
                         </view>
                         <view>
                             <text class="text-sm font-medium text-white block">使用教程</text>

@@ -34,7 +34,7 @@
                         <text class="text-xs text-[#999999] ml-1">+3</text>
                     </view>
                 </view>
-                <t-button :disabled="callRecord.isChecked" theme="primary" class="!rounded-lg !h-8 px-3"
+                <t-button :disabled="callRecord.isChecked" theme="primary" class="!rounded-lg  !h-8 px-3 m-0"
                     @tap="onExceedLimit({ ...callRecord, count: 3, isChecked: true })">{{ callRecord.isChecked ? '已签到' :
                         '签到'
                     }}</t-button>
@@ -50,7 +50,7 @@
                         <text class="text-xs text-[#999999] ml-1">+10</text>
                     </view>
                 </view>
-                <t-button theme="primary" class="!rounded-lg !h-8 px-3" @tap="handleWatchAd">看广告</t-button>
+                <t-button theme="primary" class="!rounded-lg !h-8 px-3 m-0" @tap="handleWatchAd">看广告</t-button>
             </view>
         </view>
 
