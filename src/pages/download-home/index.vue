@@ -77,6 +77,7 @@ import useList from '../../hooks/useList';
 import { onBeforeMount, shallowRef, unref } from "vue";
 import { extractUrl, shareConfig } from "../../utils/common.js";
 import useDownloadDetail from "../../store/useDownloadDetail.js";
+import useHistory from "../../store/useHistory.js";
 import { skeletonRowCol } from './js/const';
 import TopNotice from '../../components/top-notice.vue';
 import NologoFooter from '../../components/nologo-footer.vue';
@@ -100,9 +101,10 @@ export default {
         const showShareDialog = shallowRef(false);
         const { handleTabClick } = usePage()
         const { list, loading: listLoading, getList } = useList(getPlatform);
-        const { loading, getDownloadDetail } = useDownloadDetail();
+        const { loading, getDownloadDetail, obj } = useDownloadDetail();
         const tip = shallowRef('');
         const { initLoadCall, checkCallLimit } = useCallLimit()
+        const { saveHistory } = useHistory();
 
         const onChange = (e) => {
             content.value = e.detail.value;
@@ -141,7 +143,8 @@ export default {
                 return;
             }
 
-            if (!isSupportPlatform(url)) {
+            const platform = isSupportPlatform(url);
+            if (!platform) {
                 tip.value = tip1
                 showDialog.value = true
                 return;
@@ -154,6 +157,14 @@ export default {
             try {
                 const data = await getDownloadDetail(url)
                 if (data) {
+                    console.log(platform);
+                    
+                    saveHistory({
+                        url: content.value,
+                        title: data.title || data.desc || '',
+                        platform: platform.appName || '',
+                        type: data.type || 'video'
+                    });
                     uni.navigateTo({
                         url: '/pages/download-detail/index'
                     })

@@ -4,6 +4,12 @@
 			"path": "pages/download-home/index"
 		},
 		{
+			"path": "pages/download-history/index",
+			"style": {
+				"navigationBarTitleText": "历史记录"
+			}
+		},
+		{
 			"path": "pages/user-center/index",
 			"style": {
 				"navigationBarTitleText": "我的"
@@ -39,6 +45,12 @@
 				"text": "去水印",
 				"iconPath": "static/icons/app.png",
 				"selectedIconPath": "static/icons/app-active.png"
+			},
+			{
+				"pagePath": "pages/download-history/index",
+				"text": "历史记录",
+				"iconPath": "static/icons/history.png",
+				"selectedIconPath": "static/icons/history-active.png"
 			},
 			{
 				"pagePath": "pages/user-center/index",
