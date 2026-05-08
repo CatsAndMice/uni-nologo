@@ -200,6 +200,19 @@ export default {
             });
         }
 
+        const copyLink = () => {
+            uni.setClipboardData({
+                data: 'https://nologo.code24.top',
+                success: () => {
+                    uni.showToast({
+                        title: '链接已复制',
+                        icon: 'success',
+                        duration: 1500
+                    });
+                }
+            });
+        }
+
         onShow(initLoadCall)
 
         onBeforeMount(getList)
@@ -217,6 +230,7 @@ export default {
             getFileDetail,
             skeletonRowCol,
             handlePaste,
+            copyLink,
             handleTabClick
         }
     },

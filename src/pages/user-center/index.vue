@@ -72,6 +72,10 @@
                 <button open-type="share"
                     style="position: absolute;top:0;left: 0;right: 0;bottom:0;opacity: 0;height: 100%;">分享</button>
             </view>
+
+            <view class="relative" @click="copyLink">
+                <t-cell title="PC网页端" leftIcon="link" arrow />
+            </view>
         </view>
 
 
@@ -150,6 +154,19 @@ export default {
             showRewardedVideoAd();
         };
 
+        const copyLink = () => {
+            uni.setClipboardData({
+                data: 'https://nologo.code24.top',
+                success: () => {
+                    uni.showToast({
+                        title: '链接已复制',
+                        icon: 'success',
+                        duration: 1500
+                    });
+                }
+            });
+        };
+
 
 
         onShow(initLoadCall)
@@ -161,7 +178,8 @@ export default {
             callRecord,
             handleWatchAd,
             onExceedLimit,
-            jumpToMiniProgram
+            jumpToMiniProgram,
+            copyLink
         };
     },
 };
